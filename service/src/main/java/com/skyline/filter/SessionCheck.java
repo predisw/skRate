@@ -66,6 +66,9 @@ public class SessionCheck implements Filter{
 
 		logger.debug("from user [{}],the session id of requestUrl [{}] is [{}]",thread_user,reqUrl,ssId);
 
+		String threadName=thread_user+"-"+request.getRequestURI()+"-"+Thread.currentThread().getId();
+		Thread.currentThread().setName(threadName);
+		
 		chain.doFilter(request, response);
 	//	chain.doFilter(req, res);
 
