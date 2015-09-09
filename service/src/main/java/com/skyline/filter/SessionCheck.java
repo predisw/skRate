@@ -49,7 +49,7 @@ public class SessionCheck implements Filter{
 		String ssId=request.getSession().getId();
 
 		//		打印cookie 的详细信息
-	/*	Cookie[] cookies=request.getCookies();
+		Cookie[] cookies=request.getCookies();
 		Cookie cookie=null;
 		if(cookies!=null){
 			for(int i=0;i<cookies.length;i++){
@@ -61,14 +61,14 @@ public class SessionCheck implements Filter{
 			}
 		}else{
 			logger.debug("cookies is null");
-		}*/
+		}
 
 
 		logger.debug("from user [{}],the session id of requestUrl [{}] is [{}]",thread_user,reqUrl,ssId);
 
 		String threadName=thread_user+"-"+request.getRequestURI()+"-"+Thread.currentThread().getId();
 		Thread.currentThread().setName(threadName);
-		
+
 		chain.doFilter(request, response);
 	//	chain.doFilter(req, res);
 

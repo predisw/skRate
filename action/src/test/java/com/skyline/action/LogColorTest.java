@@ -19,6 +19,6 @@ public class LogColorTest {
 			System.setOut(new PrintStream(new BufferedOutputStream(out)));
 			System.out.println((char)27 + "[34;43mBlue text with yellow background");
 			System.out.flush();*/
-			logger.debug((char)27 + "[34;43mBlue text with yellow background");
+//			logger.debug((char)27 + "[34;43mBlue text with yellow background");
 		}
 }
