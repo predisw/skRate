@@ -1,0 +1,51 @@
+.mc_body{
+	width:80%;
+	margin:10px auto;
+/* 	float:left; */
+
+/* 	 border: solid 1px blue;   */
+}
+.mc_body div{
+	margin:20px auto;
+	
+/* 	border-bottom: solid 1px black; */
+}
+
+
+.mc_body div form{
+	margin:10px auto;
+}
+
+.leftfloat {
+width:25%;
+height:500px; 
+text-align:left; /*文字左对齐*/
+ float:left; /*浮动居左*/
+/*  clear:left; 不允许左侧存在浮动 */
+ overflow:auto; /*超出宽度部分隐藏*/
+ border:1px solid blue;
+ margin:10px;
+ }
+
+.formM{
+	height:90%;
+	margin:0px;;
+	padding:0px;
+	overflow:auto; /*超出宽度部分隐藏*/
+}
+
+.selectM{
+	width:100%;
+	height:95%;
+	overflow:auto; /*超出宽度部分隐藏*/
+}
+
+.modify_part{
+
+	height:500px; 
+ 	float:left; 
+	margin-left:30%;
+	padding-left: 20px;
+/* 	border:1px solid blue; */
+}
+

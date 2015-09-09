@@ -1,0 +1,12 @@
+@CHARSET "UTF-8";
+
+.index_title{
+	margin:10px auto;
+}
+.index_body{
+	width:20%;
+	margin:10px auto;
+	float:left;
+/* 	border: solid 1px blue;   */
+
+}

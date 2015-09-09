@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-8-18 15:32:47 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.skyline.pojo.Log" table="log" catalog="tyh_rate" optimistic-lock="version">
+        <id name="LId" type="java.lang.Integer">
+            <column name="l_id" />
+            <generator class="identity" />
+        </id>
+        <property name="ENum" type="string">
+            <column name="e_num" length="25" />
+        </property>
+        <property name="LType" type="string">
+            <column name="l_type" length="20" />
+        </property>
+        <property name="LObject" type="string">
+            <column name="l_object" length="50" />
+        </property>
+        <property name="LTime" type="timestamp">
+            <column name="l_time" length="19" />
+        </property>
+        <property name="loContent" type="string">
+            <column name="lo_content" />
+        </property>
+        <property name="lnContent" type="string">
+            <column name="ln_content" />
+        </property>
+    </class>
+</hibernate-mapping>

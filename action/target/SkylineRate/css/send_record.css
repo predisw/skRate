@@ -1,0 +1,27 @@
+@CHARSET "UTF-8";
+.record_body {
+	width:90%;
+	margin:10px auto;
+/* 	float:left; */
+	border: 1px solid blue; 
+}
+.record_body div{
+	margin:20px auto;
+/*   	border:1px solid blue;  */
+}
+
+ .record_body div table {
+	margin:10px auto;
+	border-collapse: collapse;
+}
+
+.record_body div  table, th, td{
+    border:1px solid black;
+    
+  } 
+  
+ .record_body div form{
+	width:65%;
+	margin:10px auto;
+/*   	border:1px solid blue;   */
+}

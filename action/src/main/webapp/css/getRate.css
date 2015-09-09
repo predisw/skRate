@@ -1,0 +1,30 @@
+@CHARSET "UTF-8";
+
+.rate_body{
+	width:80%;
+	margin:10px auto;
+/* 	float:left; */
+/* 	border: 1px solid red;  */
+}
+
+.rate_body div {
+
+	margin:20px auto;
+ 	border: 1px solid black;
+}
+
+
+.rate_body div table {
+	margin:10px auto;
+	border-collapse: collapse;
+}
+
+ .rate_body div table th{
+	width:150px;
+  } 
+  
+ .rate_body div table, th, td{
+    border:1px solid black;
+  } 
+
+  

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
+
+
+
+<!-- 启动注释自动扫描配置,扫描com.skyline.的所有层的注解,而 如果填 com.skyline.*.* 怎会报错,因为找不到注解 -->
+<context:component-scan base-package="com.skyline.*"></context:component-scan>
+
+<bean id="sessionFactory"
+    class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+    <property name="configLocation" value="classpath:hibernate.cfg.xml" />
+</bean>
+ 
+ <!-- Spring对hibernate的事务管理，不论是注解方式还是配置文件方式统一改为： -->
+<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager" >  
+<property name="sessionFactory"><ref bean="sessionFactory"/>
+</property> 
+</bean>
+ 
+ <!-- 设置事务 -->
+  <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <!-- 事务执行方式
+                REQUIRED：指定当前方法必需在事务环境中运行，
+                如果当前有事务环境就加入当前正在执行的事务环境，
+                如果当前没有事务，就新建一个事务。
+                这是默认值。 
+             -->
+            <tx:method name="create*" propagation="REQUIRED" />
+             <tx:method name="set*" propagation="REQUIRED" />
+            <tx:method name="save*" propagation="REQUIRED" />
+            <tx:method name="add*" propagation="REQUIRED" />
+            <tx:method name="up*" propagation="REQUIRED" />
+            <tx:method name="remove*" propagation="REQUIRED" />
+            <tx:method name="del*" propagation="REQUIRED" />
+            <tx:method name="import*" propagation="REQUIRED" />
+            <tx:method name="reSend*" propagation="REQUIRED" /><!-- 发邮件-->
+            <tx:method name="send*" propagation="REQUIRED" />
+            <!-- 
+              "NOT_SUPPORTED"  指定当前方法以非事务方式执行操作，如果当前存在事务，就把当前事务挂起，等我以非事务的状态运行完，再继续原来的事务。 
+                read-only="true"  表示只读
+                "SUPPORTS" 支持当前事务，如果当前没有事务，就以非事务方式执行.
+             -->
+            <tx:method name="*"  propagation="SUPPORTS"  read-only="true"  />
+        </tx:attributes>
+    </tx:advice>
+
+    <!-- 定义切面，在 * com.skyline.ServiceImpl.*(..) 中执行有关的hibernate session的事务操作 -->
+    <aop:config>
+        <aop:pointcut id="serviceOperation" expression="execution(* com.skyline.service.*.*(..))" />
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" />
+    </aop:config>
+
+<!-- 因为service 接口用了extends dao层接口的原因,所以调用service 层上继承的方法实际上是直接调用了dao 层方法,所以也要加事务 -->
+     <aop:config>
+        <aop:pointcut id="daoOperation" expression="execution(* com.skyline.dao.*.*(..))" />
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="daoOperation" />
+    </aop:config>
+
+
+<!-- 对service 层进行aop 日志检测-->
+<aop:config proxy-target-class="true"  >
+ <aop:aspect ref="logAop"  id="serviceLogAop" >
+ 
+ <aop:pointcut expression="execution(* com.skyline.dao.*+.*(..))"      id="log_service"/>
+<aop:before pointcut-ref="log_service" method="doBefore"/>
+<!-- 	 这个returning 就是 切入点的方法返回的对象 -->
+<aop:after-returning pointcut-ref="log_service"  returning="returnObj" method="doAfterReturn"/>
+ <aop:after pointcut-ref="log_service" method="doAfter"/>
+ 
+
+<!--   <aop:pointcut expression="execution(* com.skyline.service.*.set*(..)) || execution(* com.skyline.service.*.update*(..)) 
+  || execution(* com.skyline.service.*.del*(..)) "  id="log_update"/> 
+ <aop:after-returning  pointcut-ref="log_update" method="updateAfterReturn"/> -->
+   </aop:aspect>
+ </aop:config> 
+
+
+
+
+
+</beans>

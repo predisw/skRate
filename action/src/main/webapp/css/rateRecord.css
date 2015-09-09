@@ -1,0 +1,53 @@
+@CHARSET "UTF-8";
+.rr_body{
+
+	width:100%;
+	margin:10px auto;
+/* 	float:left; */
+
+/* 		 border: solid 1px blue;   */
+}
+
+.c_head{
+	text-align: center;
+	 border:none;
+	 color:blue;
+	 font-weight: bolder;
+	margin-bottom: 3px;
+	margin-top: 10px;
+	 
+}
+
+.search {
+	margin:20px auto;
+	width:900px;
+	border-bottom: solid 1px black;
+}
+
+.content{
+	width:70%;
+	background-color: #d4eef7
+}
+.rr_body div  {
+	margin:0 auto;
+}
+
+.rr_body div table {
+	margin:0 auto;
+	background-color:#e7e7e7;
+	border-collapse: collapse;
+}
+
+ .rr_body div table th{
+	background-color:#b4babd;
+	width:150px;
+  } 
+  
+ .rr_body div table, th, td{
+    border:1px solid black;
+  }
+  
+ .rr_body div table  tr td input, select{
+   background-color: #e7e7e7;
+   border-style:none;
+  }

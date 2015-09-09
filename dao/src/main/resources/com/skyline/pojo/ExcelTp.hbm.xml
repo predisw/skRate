@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-8-11 10:01:02 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.skyline.pojo.ExcelTp" table="excel_tp" catalog="tyh_rate" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="name" type="string">
+            <column name="name" length="100" />
+        </property>
+        <property name="filePathName" type="string">
+            <column name="file_path_name" />
+        </property>
+        <property name="downloadPath" type="string">
+            <column name="download_path" length="125" />
+        </property>
+    </class>
+</hibernate-mapping>

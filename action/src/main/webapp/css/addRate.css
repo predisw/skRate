@@ -1,0 +1,164 @@
+.pagebody {
+ width:80%; /*设定宽度*/
+/*  position:absolute; */
+/*  float:left;  */
+  margin:8px auto;  /*居中*/
+/*  border:1px solid red; */
+}
+
+.leftfloat {
+width:25%;
+height:500px; 
+text-align:left; /*文字左对齐*/
+ float:left; /*浮动居左*/
+/*  clear:left; 不允许左侧存在浮动 */
+ overflow:auto; /*超出宽度部分隐藏*/
+ border:1px solid blue;
+ margin:10px;
+ 
+}
+
+.testposition{
+width:25%;
+height:500px; 
+text-align:left; /*文字左对齐*/
+/*  float:left; 浮动居左 */
+/*  clear:left; 不允许左侧存在浮动 */
+ overflow:auto; /*超出宽度部分隐藏*/
+ border:1px solid blue;
+ margin:10px;
+ position: relative;
+ left: 2%;
+}
+
+
+
+.div{
+	margin-top: 10px;
+	border: 1px solid black;
+}
+
+.formM{
+	height:95%;
+	margin:0px;;
+	padding:0px;
+	overflow:auto; /*超出宽度部分隐藏*/
+}
+
+.selectM{
+	width:100%;
+	height:90%;
+	overflow:auto; /*超出宽度部分隐藏*/
+	
+	
+}
+
+.selectS{
+	width:100%;
+	height:85%;
+	overflow:auto; /*超出宽度部分隐藏*/
+	
+	
+}
+
+.div1{
+	clear:left;
+	width:80%;
+ 	/* position:absolute; 
+ 	top:550px;  */
+	margin-top:20px;
+	border:1px solid yellow;
+}
+
+
+
+
+
+.midbody{
+ 	position:absolute;
+	left:5%;right:5%; 
+	width:90%;
+	margin-top:30px;
+	border:1px solid green;
+}
+
+.midbody form{
+	margin:10px;
+	width:100%;
+}
+.form_submit_div{
+	width:55px;
+	position:absolute;
+	margin-left:10px;
+	margin-top:-80px;
+
+}
+
+.form_submit{
+	width:55px;
+	height:30px;
+	margin-bottom: 10px;
+}
+
+
+.input{
+	width:80px;
+	height:20px;
+	border-style:none;
+/* 	color:blue; */
+}
+
+.num_input{
+	width:60px;
+	height:20px;
+	border-style:none;
+/* 	color:blue; */
+}
+
+.mail_subject{
+	width:70%;
+	height:20px;
+	margin:10px auto;
+	outline-color: blue; /* 点击input 时,input 边框变颜色 */
+}
+
+.mail_attach{
+	width:50%;
+	height:20px;
+	outline-color: blue; /* 点击input 时,input 边框变颜色 */
+}
+.mail_content{
+	width:100%;
+	margin-top: 10px;
+
+}
+.mail_content_title{
+	width:10%;
+	float:left;
+	margin-top: 10px;
+		
+}
+
+.mail_content_text{
+	width:80%;
+	float:left;
+	margin-top: 10px;
+	margin-left: 5px;
+}
+
+ .textarea{
+	width:100%;
+	height:200px;
+} 
+
+.mainbody {
+ width:80%;
+margin: 0 auto;
+ text-align:center;
+ float:right; /*浮动居右*/
+ clear:right; /*不允许右侧存在浮动*/
+ overflow:hidden; /*超出宽度部分隐藏*/
+ border:1px solid red;
+
+}
+

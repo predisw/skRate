@@ -1,0 +1,24 @@
+@CHARSET "UTF-8";
+.prop_body{
+	width:80%;
+	margin:10px auto;
+/* 	float:left; */
+
+/*  	 border: solid 1px blue;    */
+}
+
+.prop_body div{
+	margin:15px auto;
+/*   	border: solid 1px black;   */
+}
+
+.prop div form{
+	margin:10px auto;
+}
+
+.del_props{
+	float:right;
+	width:49%;
+
+/* border:solid red 1px; */
+}
