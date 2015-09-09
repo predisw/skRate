@@ -22,7 +22,7 @@ public class SessionCheck implements Filter{
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
-		
+		logger.debug("************************important!!,we are getting shutdown****************************************");
 	}
 
 	@Override
@@ -63,12 +63,13 @@ public class SessionCheck implements Filter{
 			logger.debug("cookies is null");
 		}*/
 
-		
+
 		logger.debug("from user [{}],the session id of requestUrl [{}] is [{}]",thread_user,reqUrl,ssId);
 
 		chain.doFilter(request, response);
 	//	chain.doFilter(req, res);
-		
+
+
 		logger.debug("耗时:[{}]ms",System.currentTimeMillis()-start_time);
 	}
 
