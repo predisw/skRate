@@ -63,6 +63,7 @@
 			<li><a href="#">系统</a>
 				<ul>
 					<li><a href="${pageContext.request.contextPath}/sys/getVerInfo.do">About Us</a></li>
+					<li><a href="${pageContext.request.contextPath}/sys/toSysOperation.do">系统操作</a></li>
 				</ul>
 			</li>
 			<li><a href="${pageContext.request.contextPath}/user/logout.do" onclick="return confirm('确定退出?');">Logout</a></li>

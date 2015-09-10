@@ -10,9 +10,13 @@
 </head>
 <body>
 <div class="main_body">
-	
+
 	<div>
 	<h2>SkylineRate System</h2> 
+2015-9-10 version 1.1 <br />
+
+	
+<hr />
 2015-8-21<br />	
 添加了 附件名自定义.<br />
 添加了 单个客户默认显示上次发送邮件的附件,内容,主题的内容.<br />

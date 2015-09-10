@@ -12,7 +12,7 @@
 <body>
 <div class="main_body">
 	<div >
-		日志等级:            <!-- 错误提示:-->   <span style="color:red;display:inline-block;margin-left:5%;">${Message}</span> 
+		日志等级:    <!-- 错误提示:-->   <span style="color:red;display:inline-block;margin-left:5%;">修改了日志等级需要重启应用才会生效!</span> 
 		<form action="${pageContext.request.contextPath}/log/updateLogSetting.do"  method="POST">
 			操作:
 			<select name="logParams['com.skyline']" >
@@ -47,7 +47,7 @@
 	</div>
 
 	<div>
-	日志文件:
+	日志文件:  <!-- 错误提示:-->   <span style="color:red;display:inline-block;margin-left:5%;">${Message}</span> 
 		<table>
 			<c:forEach items="${logsSet}" var="log" begin="10">
 				<tr>

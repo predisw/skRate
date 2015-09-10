@@ -104,6 +104,7 @@ public class LogAop {
 		}
 		
 		HttpServletRequest req = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+		
 		User user =(User)req.getSession().getAttribute("user");
 		Date time=new Date();
 		Object[] params=jp.getArgs();

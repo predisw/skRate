@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.skyline.pojo.Customer;
 import com.skyline.pojo.Partner;
 import com.skyline.service.BaseService;
+import com.skyline.service.JavaMailService;
 
 
 @Transactional
@@ -29,13 +30,10 @@ import com.skyline.service.BaseService;
 public class CustomerTest {
 @Autowired
 private BaseService baseService;
+
 	@Test
 	public void test() {
 	
 		}
-
-		
-
-
 
 }

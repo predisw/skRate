@@ -77,6 +77,7 @@ public class LogAction {
 		String fileName=req.getServletContext().getRealPath("/WEB-INF/classes")+File.separator+"logback.xml";
 		try{
 			logService.modifyXml(Params.getLogParams(), fileName);
+			red.addFlashAttribute("Message", "success");
 		}catch( Exception e){
 			e.printStackTrace();
 			red.addFlashAttribute("Message", e.getMessage()+" cause:"+e.getCause());

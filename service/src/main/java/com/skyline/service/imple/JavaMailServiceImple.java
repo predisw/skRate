@@ -13,10 +13,13 @@ import java.util.Properties;
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
 import javax.imageio.ImageIO;
+import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
 import javax.mail.Part;
 import javax.mail.Session;
+import javax.mail.Store;
 import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
@@ -34,7 +37,7 @@ import com.skyline.pojo.Email;
 import com.skyline.service.JavaMailService;
 import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
-@Service
+@Service("javaMailService")
 public class JavaMailServiceImple implements JavaMailService {
 	@Autowired
 	private BaseDao baseDao;
@@ -61,8 +64,8 @@ public class JavaMailServiceImple implements JavaMailService {
 				//读取部分非默认属性
 				String host =props.getProperty("mail.smtp.host");
 				String port =props.getProperty("mail.smtp.port");
-				String user=props.getProperty("mail.sender.username");
-				String password=props.getProperty("mail.sender.password");
+				String user=props.getProperty("mail.username");
+				String password=props.getProperty("mail.password");
 				String debug=props.getProperty("debug");
 				
 
@@ -71,7 +74,7 @@ public class JavaMailServiceImple implements JavaMailService {
 				session.setDebug(Boolean.parseBoolean(debug));  //设置调试信息
 				
 				//------------创建消息体------
-				String from=props.getProperty("mail.sender.username");
+				String from=props.getProperty("mail.username");
 			//	String subject="Rate Change";
 			//	String content="Hello,here is ChinaSkyline.I am sorry to tell you that the Rate is changed again ,Please notice that carefully";
 				InternetAddress[] to=InternetAddress.parse(email.getAddrList()); // 是以","逗号分割的邮件地址字符串,或者单个邮箱地址
@@ -223,6 +226,40 @@ public class JavaMailServiceImple implements JavaMailService {
 	    FileOutputStream imgOut=new FileOutputStream(destImgName);
 	    JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(imgOut); //编码
 	    encoder.encode(result); //将想要的图片模板写出到文件中
+	}
+
+
+
+
+	@Override
+	public void receiveEmail() throws IOException, MessagingException {
+		// TODO Auto-generated method stub
+		InputStream in = this.getClass().getResourceAsStream("/javaMail.properties");
+		Properties props = new Properties();
+		props.load(in);
+		String user=props.getProperty("mail.username");
+		String password=props.getProperty("mail.password");
+		String debug=props.getProperty("debug");
+		
+		String host=props.getProperty("mail.pop3.host");
+		String protocol=props.getProperty("mail.store.protocol");
+		
+		//创建发送邮件的session
+		Session session = Session.getInstance(props);
+		session.setDebug(Boolean.parseBoolean(debug));  //设置调试信息
+		
+		Store store =session.getStore(protocol);
+		store.connect(host, user, password);
+		Folder folder =store.getFolder("inbox");
+		folder.open(Folder.READ_WRITE);
+		Message[] messages=folder.getMessages();
+		
+		for(int i=messages.length-1;i>0;i--){
+			Message message =messages[i];
+			System.out.println(message.getSubject()+"-----"+message.getSentDate());
+		}
+		
+		
 	}
 
 }
