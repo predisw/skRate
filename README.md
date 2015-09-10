@@ -1,4 +1,2 @@
 # skRate
-for SkylineRate project
-test the github 
-good,switch to next line 
+for SkylineRate project,start from 2015-09-09
