@@ -17,8 +17,8 @@
         <property name="how" type="string">
             <column name="how" length="50" />
         </property>
-        <property name="when" type="timestamp">
-            <column name="when" length="19" />
+        <property name="time" type="timestamp">
+            <column name="time" length="19" />
         </property>
         <property name="content" type="string">
             <column name="content" />

@@ -155,11 +155,11 @@ public class LogAop {
 		}
 
 		Log log = new Log();
-		log.setENum(user.getUName());
-		log.setLObject(entry);
-		log.setLTime(time);
-		log.setLnContent(content.toString());
-		log.setLType(methodName);
+		log.setWho(user.getUName());
+		log.setWhat(entry);
+		log.setTime(time);
+		log.setContent(content.toString());
+		log.setHow(methodName);
 		baseDao.save(log);
 
 

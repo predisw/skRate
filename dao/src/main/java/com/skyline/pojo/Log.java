@@ -13,7 +13,7 @@ public class Log implements java.io.Serializable {
 	private String who;
 	private String how;  //操作
 	private String what; //对象
-	private Date when;
+	private Date time;
 	private String content; //修改的内容
 
 
@@ -72,20 +72,6 @@ public class Log implements java.io.Serializable {
 	}
 
 
-	/**
-	 * @return the when
-	 */
-	public Date getWhen() {
-		return when;
-	}
-
-
-	/**
-	 * @param when the when to set
-	 */
-	public void setWhen(Date when) {
-		this.when = when;
-	}
 
 
 	/**
@@ -117,6 +103,22 @@ public class Log implements java.io.Serializable {
 	 */
 	public void setHow(String how) {
 		this.how = how;
+	}
+
+
+	/**
+	 * @return the time
+	 */
+	public Date getTime() {
+		return time;
+	}
+
+
+	/**
+	 * @param time the time to set
+	 */
+	public void setTime(Date time) {
+		this.time = time;
 	}
 
 	

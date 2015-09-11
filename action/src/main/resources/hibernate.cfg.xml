@@ -33,7 +33,7 @@
    <!-- create 是可以创建表，update 是可以更新表的结构，不会丢失数据；可以先用create 创建，再改为update-->
 <!-- create 的时候,执行任意一条sql 语句的代码,就会根据这里的映射文件和pojo .java 中的对象创建mysql 数据表-->	
 <!--    <property name="hbm2ddl.auto">create</property>  -->
-<!--   <property name="hbm2ddl.auto">update</property> -->
+ <property name="hbm2ddl.auto">update</property>
   <property name="hibernate.show_sql">false</property> <!-- logback 中设置 -->
   <property name="hibernate.format_sql">true</property>
 <!--   <property name="hibernate.use_sql_comments">true</property> -->  <!-- 显示执行的hql 注释 -->
