@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
@@ -35,18 +36,15 @@ import com.skyline.pojo.User;
 import com.skyline.service.BaseService;
 
 @Controller
-@Aspect
 public class LogAop {
 	Logger logger =LoggerFactory.getLogger(LogAop.class);
 	
 	@Autowired
 	private BaseDao baseDao;
 	
-	@Pointcut("execution(* com.skyline.dao.*+.*(..))" )
-	public void pointCut(){}
+
 	
-	
-	@Before("pointCut()")
+
 	public void doBefore(JoinPoint jp)  { //不能在参数中直接添加 HttpServletRequest req
 
 		Object[] params=jp.getArgs();  //在方法的参数中params[i] 有可能是request 对象.可以通过这里的getClass 获取HttpServletRequest 对象,再获取session
@@ -70,7 +68,7 @@ public class LogAop {
 	}
 	
 	//传入切入点和 切入点处方法的返回结果对象returnObj
-	@AfterReturning(pointcut="pointCut()",returning="returnObj")
+
 	public void doAfterReturn(JoinPoint jp,Object returnObj ){
 		if(returnObj!=null){
 			if(returnObj.getClass().getName().contains("List")){
@@ -84,7 +82,7 @@ public class LogAop {
 		
 	}
 	
-	@After("pointCut()")
+
 	public void doAfter(JoinPoint jp){
 		String class_method=jp.getTarget().getClass().getName()+"."+jp.getSignature().getName();
 		logger.debug(class_method+"结束");
@@ -98,10 +96,78 @@ public class LogAop {
 	}
 	
 
+
+	public void logAfterReturn(JoinPoint jp) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
+		//先看方法上有没有描述注解,如果有则保存到数据库中,如果没有则不再执行
+		logger.debug("abccccccccccccccccccccccccccccccc");
+		Class[] parameterTypes = ((MethodSignature)jp.getSignature()).getMethod().getParameterTypes();
+		Method method=jp.getTarget().getClass().getMethod(jp.getSignature().getName(), parameterTypes);
+		String methodName="";
+
 	
-	
-	
-	
+		if(method.isAnnotationPresent(Description.class)){
+			methodName=method.getAnnotation(Description.class).name();
+		}
+
+		//不再往下执行
+		if("".equals(methodName)){
+			return;
+		}
+		
+		HttpServletRequest req = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+		
+		User user =(User)req.getSession().getAttribute("user");
+		Date time=new Date();
+		Object[] params=jp.getArgs();
+		String entry="";
+		StringBuffer content=new StringBuffer();
+
+		//将所有参数放到一个字段中
+		for(Object par:params){
+			//----------
+			if(par instanceof Collection<?>){ //参数为pojo 的实体类的集合
+				Iterator<?> ite =((Collection) par).iterator();
+				while(ite.hasNext()){
+					Object obj = ite.next();
+					if(obj.getClass().isAnnotationPresent(Description.class)){
+						if("".equals(entry)){ //适用于只有一个实体类为参数的方法.
+							entry=obj.getClass().getAnnotation(Description.class).name(); 
+						}
+						content.append(obj.getClass().getMethod("forLog").invoke(obj));
+					}
+					if(ite.hasNext()){
+						content.append(",");
+					}
+				}
+			}
+			//--------------------
+			else if(par.getClass().isAnnotationPresent(Description.class) ){  //参数为pojo 实体类
+				if("".equals(entry)){ //适用于只有一个实体类为参数的方法.
+						entry=par.getClass().getAnnotation(Description.class).name(); 
+				}
+					content.append(par.getClass().getMethod("forLog").invoke(par));
+			}else if(par instanceof HttpServletRequest || par instanceof HttpServletResponse){
+				//如果参数是request 或response ,则什么都不做
+			}
+			else{  //---------参数为普通类型
+					content.append(String.valueOf(par));
+			}
+
+			if(params.length>1){
+				content.append(",");
+			}
+		}
+
+		Log log = new Log();
+		log.setWho(user.getUName());
+		log.setWhat(entry);
+		log.setTime(time);
+		log.setContent(content.toString());
+		log.setHow(methodName);
+		baseDao.save(log);
+
+
+	}
 	
 	
 

@@ -50,8 +50,8 @@ public class RateDaoImple implements RateDao {
 		
 	}
 	
-	@Description(name="移除报价code")
 	@Override
+	@Description(name="移除报价code")
 	public void setIsAvailable(String vosid, String code, boolean is_available) {
 		// TODO Auto-generated method stub
 		Session ss=sf.getCurrentSession();

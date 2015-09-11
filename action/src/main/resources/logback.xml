@@ -38,16 +38,16 @@
   </appender>  
   <!-- 凡是org 开头的日志都是info 级别 -->  
   <!-- <logger name="org" level="INFO" /> -->  
-  <logger name="com.skyline" level="DEBUG"/>  
+  <logger name="com.skyline" level="debug"/>  
   <!-- 管理spring 的日志-->  
-  <logger name="org.springframework" level="WARN"/>  
+  <logger name="org.springframework" level="warn"/>  
   <logger name="org.hibernate" level="INFO"/>  
 <!-- 将sql 也输出到日志文件 -->
  <logger name="org.hibernate.SQL" level="DEBUG"/>  
-  <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE"/>  <!-- 显示绑定的参数 -->
+  <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="debug"/>  <!-- 显示绑定的参数 -->
 <!--   <logger name="org.hibernate.engine" level="ALL"></logger> -->
   <!--  aop 日志-->  
-  <logger name="org.aspectj" level="INFO"/>  
+  <logger name="org.aspectj" level="warn"/>  
   <!--  开启到debug 可以查看数据库连接池连接的情况-->  
   <logger name="com.zaxxer" level="INFO"/>  
   <!-- 如果没有设置log 等级，就用默认试用这个root 的等级 -->  
