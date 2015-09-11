@@ -175,7 +175,7 @@ EasyUI 设计页面
  1.导入countryCode 如果code 重复就覆盖掉.
  2.共同的业务使用baseService. action 层和service层的共同业务都可以调用baseService. 各类独立的dao 和service 层实现独有的业务.
  
- 
+ 3. 用ajax 改写删掉客户的报价code 这个功能
  
  
  <input type="date" id="effect_time" />

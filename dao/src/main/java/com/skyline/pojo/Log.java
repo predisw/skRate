@@ -9,81 +9,115 @@ import java.util.Date;
  */
 public class Log implements java.io.Serializable {
 
-	private Integer LId;
-	private String ENum;
-	private String LType;
-	private String LObject;
-	private Date LTime;
-	private String loContent;
-	private String lnContent;
+	private Integer id;
+	private String who;
+	private String how;  //操作
+	private String what; //对象
+	private Date when;
+	private String content; //修改的内容
+
 
 	public Log() {
 	}
 
-	public Log(String ENum, String LType, String LObject, Date LTime,
-			String loContent, String lnContent) {
-		this.ENum = ENum;
-		this.LType = LType;
-		this.LObject = LObject;
-		this.LTime = LTime;
-		this.loContent = loContent;
-		this.lnContent = lnContent;
+
+	/**
+	 * @return the id
+	 */
+	public Integer getId() {
+		return id;
 	}
 
-	public Integer getLId() {
-		return this.LId;
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public void setLId(Integer LId) {
-		this.LId = LId;
+
+	/**
+	 * @return the who
+	 */
+	public String getWho() {
+		return who;
 	}
 
-	public String getENum() {
-		return this.ENum;
+
+	/**
+	 * @param who the who to set
+	 */
+	public void setWho(String who) {
+		this.who = who;
 	}
 
-	public void setENum(String ENum) {
-		this.ENum = ENum;
+
+
+
+
+	/**
+	 * @return the what
+	 */
+	public String getWhat() {
+		return what;
 	}
 
-	public String getLType() {
-		return this.LType;
+
+	/**
+	 * @param what the what to set
+	 */
+	public void setWhat(String what) {
+		this.what = what;
 	}
 
-	public void setLType(String LType) {
-		this.LType = LType;
+
+	/**
+	 * @return the when
+	 */
+	public Date getWhen() {
+		return when;
 	}
 
-	public String getLObject() {
-		return this.LObject;
+
+	/**
+	 * @param when the when to set
+	 */
+	public void setWhen(Date when) {
+		this.when = when;
 	}
 
-	public void setLObject(String LObject) {
-		this.LObject = LObject;
+
+	/**
+	 * @return the content
+	 */
+	public String getContent() {
+		return content;
 	}
 
-	public Date getLTime() {
-		return this.LTime;
+
+	/**
+	 * @param content the content to set
+	 */
+	public void setContent(String content) {
+		this.content = content;
 	}
 
-	public void setLTime(Date LTime) {
-		this.LTime = LTime;
+
+	/**
+	 * @return the how
+	 */
+	public String getHow() {
+		return how;
 	}
 
-	public String getLoContent() {
-		return this.loContent;
+
+	/**
+	 * @param how the how to set
+	 */
+	public void setHow(String how) {
+		this.how = how;
 	}
 
-	public void setLoContent(String loContent) {
-		this.loContent = loContent;
-	}
-
-	public String getLnContent() {
-		return this.lnContent;
-	}
-
-	public void setLnContent(String lnContent) {
-		this.lnContent = lnContent;
-	}
-
+	
 }

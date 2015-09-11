@@ -164,4 +164,8 @@ public class SendRecord implements java.io.Serializable ,Cloneable  {
 		// TODO Auto-generated method stub
 		return super.clone();
 	}
+	
+	public String forLog(){
+		return "报价记录ID"+this.id;
+	}
 }

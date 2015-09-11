@@ -82,12 +82,7 @@ public class CRateAction {
 	public void delCusRate(HttpServletRequest req,HttpServletResponse res) throws ServletException, IOException{
 		String[] ids=req.getParameterValues("rateId");
 		String vosId=req.getParameter("cus_vosid");
-		if(ids!=null){
-			for(int i=0;i<ids.length;i++){
-				Rate rate=(Rate)baseService.getById(Rate.class,Integer.parseInt(ids[i]));
-				rateService.setIsAvailable(rate.getVosId(), rate.getCode(), false);
-			}
-		}
+		rateService.delCusRates(ids);
 	
 		 //传递到下一个action ,用于删除后回到相同的界面和数据
 		req.getRequestDispatcher("getRateListOfEmp.do?cus_vosid="+vosId).forward(req, res);

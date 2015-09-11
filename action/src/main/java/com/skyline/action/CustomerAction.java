@@ -202,7 +202,7 @@ public class CustomerAction{
 		JSONArray cusArr=new JSONArray(cusList.toArray());
 		res.setCharacterEncoding("UTF-8");
 		PrintWriter out = res.getWriter();
-		System.out.println(cusArr);
+//		System.out.println(cusArr);
 		out.print(cusArr);
 
 	}

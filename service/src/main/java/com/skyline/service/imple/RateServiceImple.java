@@ -3,7 +3,6 @@ package com.skyline.service.imple;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-
 import java.util.Date;
 import java.util.List;
 
@@ -120,7 +119,7 @@ public class RateServiceImple  extends RateDaoImple implements RateService{
 
 	
 	@Override
-	@Description(name="设置错误")
+	@Description(name="设置报价错误")
 	public void setMailInCorrect(List<SendRecord> srList) {
 
 		for(SendRecord sr:srList){
@@ -142,9 +141,17 @@ public class RateServiceImple  extends RateDaoImple implements RateService{
 	}
 
 
+	@Override
+	public void delCusRates(String[] rIdArr) {
+		// TODO Auto-generated method stub
+		if(rIdArr!=null){
+			for(int i=0;i<rIdArr.length;i++){
+				Rate rate=(Rate)baseDao.getById(Rate.class,Integer.parseInt(rIdArr[i]));
+				super.setIsAvailable(rate.getVosId(), rate.getCode(), false);
+			}
+		}
 
-	
-
+	}
 
 
 }

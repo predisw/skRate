@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.predisw.annotation.Description;
 import com.skyline.pojo.Log;
 import com.skyline.pojo.User;
 import com.skyline.service.BaseService;
@@ -36,6 +37,7 @@ public class SysAction {
 		req.getRequestDispatcher("/WEB-INF/jsp/sys/sysOperation.jsp").forward(req, res);
 	}
 	
+	@Description(name="重启应用服务")
 	@RequestMapping("reload.do")
 	public String reload(HttpServletRequest req,HttpServletResponse res) throws IOException{
 		String cmd="curl --user predisw:admin http://localhost:8080/manager/text/reload?path=/SkylineRate";
@@ -55,14 +57,14 @@ public class SysAction {
 			}
 		}
 		
-		//记录操作日志
+/*		//记录操作日志
 		User user=(User)req.getSession(false).getAttribute("user");
 		Log log = new Log();
 		log.setENum(user.getUName());
 		log.setLType("重启");
 		log.setLTime(new Date());
 		baseService.save(log);
-		
+		*/
 		return "forward:toSysOperation.do";
 	}
 }

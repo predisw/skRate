@@ -87,8 +87,17 @@ public class LogAop {
 		*/
 	}
 	
+
+	
+	
+	
+	
+	
+	
+	
+	
 	//用于记录修改的action 的日志到数据库中
-	public void updateAfterReturn(JoinPoint jp) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
+	public void logAfterReturn(JoinPoint jp) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
 		//先看方法上有没有描述注解,如果有则保存到数据库中,如果没有则不再执行
 		Class[] parameterTypes = ((MethodSignature)jp.getSignature()).getMethod().getParameterTypes();
 		Method method=jp.getTarget().getClass().getMethod(jp.getSignature().getName(), parameterTypes);
@@ -111,6 +120,7 @@ public class LogAop {
 		String entry="";
 		StringBuffer content=new StringBuffer();
 
+		//将所有参数放到一个字段中
 		for(Object par:params){
 			//----------
 			if(par instanceof Collection<?>){ //参数为pojo 的实体类的集合
@@ -121,7 +131,7 @@ public class LogAop {
 						if("".equals(entry)){ //适用于只有一个实体类为参数的方法.
 							entry=obj.getClass().getAnnotation(Description.class).name(); 
 						}
-						content.append(obj.getClass().getMethod("getNameForLog").invoke(obj));
+						content.append(obj.getClass().getMethod("forLog").invoke(obj));
 					}
 					if(ite.hasNext()){
 						content.append(",");
@@ -129,21 +139,21 @@ public class LogAop {
 				}
 			}
 			//--------------------
-			else{ //参数为pojo 实体类
-					if(par.getClass().isAnnotationPresent(Description.class) ){
-					if("".equals(entry)){ //适用于只有一个实体类为参数的方法.
+			else if(par.getClass().isAnnotationPresent(Description.class) ){  //参数为pojo 实体类
+				if("".equals(entry)){ //适用于只有一个实体类为参数的方法.
 						entry=par.getClass().getAnnotation(Description.class).name(); 
-					}
-					content.append(par.getClass().getMethod("getNameForLog").invoke(par));
-				}else{  //---------参数为普通类型
-					content.append(String.valueOf(par));
 				}
+					content.append(par.getClass().getMethod("getNameForLog").invoke(par));
 			}
+			else{  //---------参数为普通类型
+					content.append(String.valueOf(par));
+			}
+
 			if(params.length>1){
 				content.append(",");
 			}
 		}
-		
+
 		Log log = new Log();
 		log.setENum(user.getUName());
 		log.setLObject(entry);

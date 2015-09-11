@@ -18,6 +18,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.predisw.annotation.Description;
 import com.skyline.dao.RateDao;
 import com.skyline.pojo.RRate;
 import com.skyline.pojo.Rate;
@@ -48,6 +49,8 @@ public class RateDaoImple implements RateDao {
 		query.executeUpdate();
 		
 	}
+	
+	@Description(name="移除报价code")
 	@Override
 	public void setIsAvailable(String vosid, String code, boolean is_available) {
 		// TODO Auto-generated method stub

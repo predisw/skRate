@@ -15,8 +15,6 @@ import com.skyline.util.PageInfo;
 
 public interface RateService  extends RateDao{
 
-
-
 	//检查多个客户的rate 的level ,billing_type 是否一致,并返回一个Rate 对象,用于设置共同的默认值如level ,billing_unit 之类,
 		//如果为空null则说明这些customer之前没有发送过报价.
 	Rate doBeforeGetRate(List<Customer> cusList) throws NotSameException;
@@ -27,5 +25,8 @@ public interface RateService  extends RateDao{
 	
 	//设置某个报价不正确,则同时会将同一个vosId 的,比这个报价迟的已存在报价都设置为无效
 	void setMailInCorrect(List<SendRecord> srList);
+	
+	//删掉客户发送报价的code
+	public void delCusRates(String[] rIdArr);
 
 }

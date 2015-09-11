@@ -34,8 +34,9 @@
 <!-- create 的时候,执行任意一条sql 语句的代码,就会根据这里的映射文件和pojo .java 中的对象创建mysql 数据表-->	
 <!--    <property name="hbm2ddl.auto">create</property>  -->
 <!--   <property name="hbm2ddl.auto">update</property> -->
-  <property name="hibernate.show_sql">true</property>
+  <property name="hibernate.show_sql">false</property> <!-- logback 中设置 -->
   <property name="hibernate.format_sql">true</property>
+<!--   <property name="hibernate.use_sql_comments">true</property> -->  <!-- 显示执行的hql 注释 -->
   
   <!--  thread 表示 由hibernate 自己管理事务,并且是session 和线程绑定,为线程安全的-->
 <!--   <property name="hibernate.current_session_context_class">thread</property>  -->
