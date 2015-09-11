@@ -23,13 +23,12 @@ import com.skyline.service.BaseService;
 import com.skyline.service.JavaMailService;
 
 
-@Transactional
+/*@Transactional
 @TransactionConfiguration(defaultRollback=true)
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath*:applicationContext.xml"})
+@ContextConfiguration(locations={"classpath*:applicationContext.xml"})*/
 public class CustomerTest {
-@Autowired
-private BaseService baseService;
+
 
 	@Test
 	public void test() {

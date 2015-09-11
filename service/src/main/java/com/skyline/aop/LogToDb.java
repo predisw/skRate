@@ -32,7 +32,7 @@ public class LogToDb {
 	private BaseDao baseDao;
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	@Pointcut("execution(* com.skyline..*(..) )")
+	@Pointcut("execution(* com.skyline..*(..))  ")
 	public void pointCut(){}
 	
 	

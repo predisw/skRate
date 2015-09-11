@@ -12,11 +12,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.skyline.service.JavaMailService;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath*:applicationContext.xml"})
+/*@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations={"classpath*:applicationContext.xml"})*/
 public class ReceiveEmailTest {
-	@Autowired
-	private JavaMailService jmService;
+
 	
 	@Test
 	public void test() throws IOException, MessagingException{

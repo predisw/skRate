@@ -12,21 +12,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.skyline.pojo.RRate;
 import com.skyline.service.BaseService;
-@Transactional
+/*@Transactional
 @TransactionConfiguration(defaultRollback = true)
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath*:applicationContext.xml"})
+@ContextConfiguration(locations={"classpath*:applicationContext.xml"})*/
 public class RRateTest {
-	@Autowired
-	private BaseService baseService;
+
 	@Test
 	public void TestAddRRate(){
 		
 		RRate rRate=new RRate();
 		rRate.setSendTime(new Date());
 
-		
-		baseService.save(rRate);
+
 		
 	}
 	
