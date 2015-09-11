@@ -40,6 +40,7 @@ public class SysAction {
 	@Description(name="重启应用服务")
 	@RequestMapping("reload.do")
 	public String reload(HttpServletRequest req,HttpServletResponse res) throws IOException{
+		/*
 		String cmd="curl --user predisw:admin http://localhost:8080/manager/text/reload?path=/SkylineRate";
 		Process process=Runtime.getRuntime().exec(cmd);
 		 java.util.Scanner in= new java.util.Scanner(process.getInputStream());
@@ -55,7 +56,7 @@ public class SysAction {
 				req.setAttribute("Message", "Reload Failed !!");
 
 			}
-		}
+		}*/
 		
 /*		//记录操作日志
 		User user=(User)req.getSession(false).getAttribute("user");

@@ -31,11 +31,11 @@
 			</tr>
 			<c:forEach items="${page.data }" var="log">
 				<tr>
-					<td>${log.ENum }</td>
-					<td>${log.LType }</td>
-					<td>${log.LObject }</td>
-					<td>${log.lnContent }</td>
-					<td>${log.LTime }</td>
+					<td>${log.who }</td>
+					<td>${log.how }</td>
+					<td>${log.what }</td>
+					<td>${log.content }</td>
+					<td>${log.time }</td>
 				</tr>
 			</c:forEach>
 		</table>

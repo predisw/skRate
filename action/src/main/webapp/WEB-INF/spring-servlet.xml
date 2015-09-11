@@ -17,10 +17,11 @@
 	<!-- scan the package and the sub package -->
  	<context:component-scan base-package="com.skyline.action"></context:component-scan> 
  
+
+ 
 <!--如果要对spring mvc 的action 层使用aop ,那么必须把这个放到这里来,而且要使用cglib,也就是 proxy-target-class="true"   -->
  <!--  这个pointcut的所有方法都会,被logAop(com.skyline.aop.LogAop) 中的方法,根据下面的配置来执行-->
- 
-<aop:config proxy-target-class="true" >
+ <aop:config proxy-target-class="true" >
  <aop:aspect ref="logAop"  id="actionLogAop" >
  <aop:pointcut expression="execution(* com.skyline.action.*.*(..))"  id="log_action"/> 
 <aop:before pointcut-ref="log_action" method="doBefore"/>

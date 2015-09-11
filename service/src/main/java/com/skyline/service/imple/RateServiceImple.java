@@ -132,8 +132,7 @@ public class RateServiceImple  extends RateDaoImple implements RateService{
 					old_rate.setExpireTime(null);
 					baseDao.update(old_rate);
 				}
-				
-				
+
 			}
 			sr.setIsCorrect(false);
 			baseDao.update(sr);
