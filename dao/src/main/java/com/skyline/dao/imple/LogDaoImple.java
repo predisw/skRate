@@ -25,16 +25,16 @@ public class LogDaoImple implements LogDao{
 		// TODO Auto-generated method stub
 		Session ss=sf.getCurrentSession();
 		Criteria cr=ss.createCriteria(Log.class);
-		cr.addOrder(Order.desc("LTime"));
+		cr.addOrder(Order.desc("time"));
 		
 
-		Criterion user=Restrictions.eq("ENum", cons.get("userName")); //cons.get("userName") 为null ,ok 否?
+		Criterion user=Restrictions.eq("who", cons.get("userName")); //cons.get("userName") 为null ,ok 否?
 		Criterion time; //默认tDate 不为空
 
 		if(cons.get("fDate")==null){
-			time=Restrictions.le("LTime", cons.get("tDate"));
+			time=Restrictions.le("time", cons.get("tDate"));
 		}else{
-			time=Restrictions.between("LTime", cons.get("fDate"), cons.get("tDate"));
+			time=Restrictions.between("time", cons.get("fDate"), cons.get("tDate"));
 		}
 		
 
