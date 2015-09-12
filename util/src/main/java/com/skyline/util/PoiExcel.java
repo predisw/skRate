@@ -61,10 +61,10 @@ public class PoiExcel {
 
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	public List<String[]> readByPoi(String fileName,int sheetNumber,String[] tbIndex ) {
+	public List<String[]> readByPoi(String fileName,int sheetNumber,String[] tbIndex ) throws FileNotFoundException, IOException {
 		Workbook workbook = null;  
         List<String[]> list = new ArrayList<String[]>();  
-        try {  
+
             String fileType=fileName.substring(fileName.lastIndexOf(".")+1,fileName.length());  
                 if (fileType.equals("xls")) {    
                     workbook = new HSSFWorkbook(new FileInputStream(fileName));  
@@ -75,7 +75,8 @@ public class PoiExcel {
                 }    
                 else    
                 {    
-                    System.out.println("您的文档格式不正确！");    
+                	throw new IllegalArgumentException("您的文档格式不正确 !,请上传excel");
+
                 }    
                 
             //创建sheet对象    
@@ -174,9 +175,6 @@ public class PoiExcel {
             	System.out.println("Excel文件中没有找到符合的标题属性");
             }
 
-        } catch (Exception e) {  
-            e.printStackTrace();  
-        }   
         return list;  
     }  
 

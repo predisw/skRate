@@ -49,7 +49,7 @@
 	<div>
 	日志文件:  <!-- 错误提示:-->   <span style="color:red;display:inline-block;margin-left:5%;">${Message}</span> 
 		<table>
-			<c:forEach items="${logsSet}" var="log" begin="10">
+			<c:forEach items="${logsList}" var="log"  end="10">
 				<tr>
 						<td>${log}</td>
 						<td><a href="${pageContext.request.contextPath}/log/downloadFile.do?name=${log}">下载</a></td>

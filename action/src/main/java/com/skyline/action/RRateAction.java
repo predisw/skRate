@@ -75,13 +75,13 @@ public class RRateAction {
 		
 		String[] excelHeaders={"CARRIERNAME","COUNTRYNAME","BREAKNAME","COUNTRYCODE","BREAKCODE","FIRSTUNIT","NEXTUNIT","FEERATE","EFFECTIVE DATE","EXPIRE DATE"};
 		
-		if(!rRateService.checkExcel(fileName, excelHeaders, vosId)){
-			red.addFlashAttribute("Message", "供应商vosId与文件内的vosId不一致 ");
-			return "redirect:toAddRRate.do";
-			
-		}
+
 		
 		try{
+			if(!rRateService.checkExcel(fileName, excelHeaders, vosId)){
+				red.addFlashAttribute("Message", "供应商vosId与文件内的vosId不一致 ");
+				return "redirect:toAddRRate.do";
+			}
 			rRateService.saveIsrExceltoDb(fileName, excelHeaders);
 		}catch(Exception e){
 			e.printStackTrace();

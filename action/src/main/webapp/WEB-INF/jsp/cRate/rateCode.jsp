@@ -11,7 +11,6 @@
 <title>Rate记录</title>
 </head>
 <body>
-
 <div class="rate_body">
 
 	<!--  import the history rateRecord function block-->
@@ -86,8 +85,8 @@
 
 <script type="text/javascript">
 
-if('${uploadError}'!=null && '${uploadError}'!=""){
-	alert('${uploadError}');
+if('${Message}'!=null && '${Message}'!=""){
+	alert('${Message}');
 	location.href="${pageContext.request.contextPath}/cRate/getRateList.do";
 }
 

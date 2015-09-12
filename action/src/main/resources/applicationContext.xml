@@ -72,14 +72,14 @@
 <aop:config  >
  <aop:aspect ref="logAop"  id="serviceLogAop" >
  
- <aop:pointcut expression="execution(* com.skyline.dao.*.*(..))"      id="log_service"/>
+ <aop:pointcut expression="execution(* com.skyline.dao.*+.*(..))"      id="log_service"/>
 <aop:before pointcut-ref="log_service" method="doBefore"/>
 
 <aop:after-returning pointcut-ref="log_service"  returning="returnObj" method="doAfterReturn"/>
  <aop:after pointcut-ref="log_service" method="doAfter"/>
  
 
-<aop:pointcut expression="execution(* com.skyline..*.*(..))"    id="logToDb"/>
+<aop:pointcut expression="execution(* com.skyline..*.*(..)) and @annotation(com.predisw.annotation.Description)"    id="logToDb"/>
 <aop:after-returning pointcut-ref="logToDb"   method="logAfterReturn"/>
 	
    </aop:aspect>

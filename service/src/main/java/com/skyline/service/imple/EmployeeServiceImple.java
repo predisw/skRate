@@ -1,5 +1,7 @@
 package com.skyline.service.imple;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,7 +27,7 @@ public class EmployeeServiceImple extends EmployeeDaoImple implements EmployeeSe
 	
 	
 	@Override
-	public void saveExcelEmpToDb(String fileName, String[] excel_sheetHead_order,String[] empAttributeOrder) throws NumberFormatException, NoSuchFieldException, SecurityException, NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ParseException{
+	public void saveExcelEmpToDb(String fileName, String[] excel_sheetHead_order,String[] empAttributeOrder) throws NumberFormatException, NoSuchFieldException, SecurityException, NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ParseException, FileNotFoundException, IOException{
 
 		
 		SimpleDateFormat str_date =null;

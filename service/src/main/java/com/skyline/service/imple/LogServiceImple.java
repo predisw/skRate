@@ -74,20 +74,20 @@ public class LogServiceImple extends LogDaoImple  implements LogService {
 	}
 
 	@Override
-	public Set<String> getLogFileName(String logDir)
+	public List<String> getLogFileName(String logDir)
 			throws FileNotFoundException {
 		// TODO Auto-generated method stub
-		Set<String> set = new TreeSet<String>();
+		List<String> list = new ArrayList<String>();
 		File dir = new File(logDir);
 		if(dir.isDirectory()){
 			String[] logNames=dir.list();
 			for(int i=0;i<logNames.length;i++){
-				set.add(logNames[i]);
+				list.add(logNames[i]);
 			}
 		}else {
 			throw new FileNotFoundException("文件夹不存在");
 		}
-		return set;
+		return list;
 	}
 
 

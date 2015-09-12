@@ -7,11 +7,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.text.ParseException;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+import java.util.SortedSet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -62,9 +65,12 @@ public class LogAction {
 		SingletonProps sProps=SingletonProps.getInstance();
 		Properties props = sProps.getProperties();
 		
-		Set<String> set = logService.getLogFileName(props.getProperty("logDir"));
+		List<String> list = logService.getLogFileName(props.getProperty("logDir"));
+		Collections.sort(list,Collections.reverseOrder());
 		
-		req.setAttribute("logsSet", set);
+		
+		
+		req.setAttribute("logsList", list);
 		req.setAttribute("params", paramsMap);
 		req.getRequestDispatcher("/WEB-INF/jsp/log/sysLog.jsp").forward(req, res);
 		

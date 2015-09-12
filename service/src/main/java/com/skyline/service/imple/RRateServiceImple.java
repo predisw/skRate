@@ -1,5 +1,7 @@
 package com.skyline.service.imple;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParsePosition;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,7 +28,7 @@ public class RRateServiceImple implements RRateService {
 	private BaseDao baseDao;
 	
 	@Override
-	public void saveIsrExceltoDb(String fileName, String[] excelHeaders)  throws HibernateException {
+	public void saveIsrExceltoDb(String fileName, String[] excelHeaders)  throws HibernateException, FileNotFoundException, IOException {
 		// TODO Auto-generated method stub
 		List<String[]> rRateList =poiExcel.readByPoi(fileName, 0, excelHeaders);
 		for(String[] rRateArr : rRateList){
@@ -81,7 +83,7 @@ public class RRateServiceImple implements RRateService {
 	}
 
 	@Override
-	public boolean checkExcel(String fileName, String[] excelHeaders,String vosId) {
+	public boolean checkExcel(String fileName, String[] excelHeaders,String vosId) throws FileNotFoundException, IOException {
 		// TODO Auto-generated method stub
 		List<String[]> rRateList =poiExcel.readByPoi(fileName, 0, excelHeaders);
 		return vosId.equals(rRateList.get(0)[0]);

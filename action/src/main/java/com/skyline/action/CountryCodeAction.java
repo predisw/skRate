@@ -58,7 +58,15 @@ public class CountryCodeAction {   //如果要使用spring 的自动注入，那
 		int sheetNumber=0;
 		String[] tbIndex={"Destination","Name","Destination Code","code"};
 		
-		List<String[]> cclist = poiExcel.readByPoi(fileName,sheetNumber, tbIndex);
+		List<String[]> cclist=null;
+		try{
+			cclist = poiExcel.readByPoi(fileName,sheetNumber, tbIndex);
+		}catch(Exception e){
+			e.printStackTrace();
+			red.addFlashAttribute("Message", "读上传文件失败 "+e.getMessage()+" cause:"+e.getCause());
+			return "redirect:getCountrys.do";
+		}
+		
 		
 		try {
 			ccService.saveISRListToCcTable(cclist);

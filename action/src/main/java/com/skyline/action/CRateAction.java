@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.predisw.annotation.Description;
 import com.skyline.pojo.CountryCode;
 import com.skyline.pojo.Customer;
 import com.skyline.pojo.Employee;
@@ -91,6 +92,7 @@ public class CRateAction {
 	
 	
 	//------------------导入rate记录----------
+	@Description(name="导入客户报价")
 	@RequestMapping("importRate.do")
 	public void importRate(HttpServletRequest req,HttpServletResponse res) throws ServletException, IOException, ParseException{
 
@@ -108,14 +110,14 @@ public class CRateAction {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			req.setAttribute("uploadError", "上传出错 "+e.getMessage()+" caused:"+e.getCause());
+			req.setAttribute("Message", "上传出错 "+e.getMessage()+" caused:"+e.getCause());
 			req.getRequestDispatcher("getRateList.do").forward(req, res);
 			return;
 		}
 
 
 		if("".equals(eNum) || "".equals(vosid)){
-			req.setAttribute("uploadError", "请选择客户vosId 或者上传文件");
+			req.setAttribute("Message", "请选择客户vosId 或者上传文件");
 			req.getRequestDispatcher("getRateList.do").forward(req, res);
 			return;
 		}
@@ -131,7 +133,17 @@ public class CRateAction {
 		String[] hlist;
 		Rate rate;
 		List<Rate> rateList= new ArrayList<>();
-		List list=poiExcel.readByPoi(fileName, 0, tbIndex);
+		List list=null;
+		try{
+		list=poiExcel.readByPoi(fileName, 0, tbIndex);
+		}catch(Exception e){
+			e.printStackTrace();
+			req.setAttribute("Message", "读取上传文件失败 :"+e.getMessage());
+			req.getRequestDispatcher("getRateList.do").forward(req, res);
+			return;
+		}
+
+		
 		SimpleDateFormat sdf=new SimpleDateFormat("MM-dd-yyyy"); 
 		for(int i=0;i<list.size();i++){
 			hlist=(String[])list.get(i);
@@ -164,13 +176,13 @@ public class CRateAction {
 			baseService.saveBulk(rateList);
 		}catch(Exception e){
 			e.printStackTrace();
-			req.setAttribute("uploadError", "导入失败 "+e.getMessage());
+			req.setAttribute("Message", "导入失败 "+e.getMessage());
 			req.getRequestDispatcher("getRateList.do").forward(req, res);
 			return;
 			
 		}
 
-		
+		req.setAttribute("Message", "导入成功 ");
 		res.sendRedirect(req.getContextPath()+"/cRate/getRateList.do");
 		
 		

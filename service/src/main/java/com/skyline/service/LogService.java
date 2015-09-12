@@ -18,7 +18,7 @@ public interface LogService extends LogDao {
 	public Map<String, String> getParamsMap(String fileName) throws DocumentException  ;
 	
 	//从存放日志的文件路径处,获取后十个日志文件的名称.
-	public Set<String> getLogFileName(String logDir) throws FileNotFoundException;
+	public List<String> getLogFileName(String logDir) throws FileNotFoundException;
 
 	
 }

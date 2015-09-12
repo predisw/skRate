@@ -1,5 +1,7 @@
 package com.skyline.service.imple;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,8 +25,9 @@ public class CustomerServiceImple extends CustomerDaoImple implements CustomerSe
 	private PoiExcel poiExcel;
 	
 	@Override
-	public void saveExcelCusToDb(String excelFile,String[] excel_sheetHead_order,String[] cusAttributeOrder) throws NumberFormatException, NoSuchFieldException, SecurityException, NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ParseException {
+	public void saveExcelCusToDb(String excelFile,String[] excel_sheetHead_order,String[] cusAttributeOrder) throws NumberFormatException, NoSuchFieldException, SecurityException, NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ParseException, FileNotFoundException, IOException {
 			// TODO Auto-generated method stub
+		
 		List cusList=poiExcel.readByPoi(excelFile, 0, excel_sheetHead_order);
 
 		String[] cus_value;
