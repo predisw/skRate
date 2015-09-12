@@ -45,7 +45,8 @@ public class CountryCodeServiceImple extends CountryCodeDaoImple  implements Cou
 
 		for(int i=0;i<idArr.length;i++){
 			if(!idArr[i].equals("")){
-				baseService.delById(CountryCode.class, Integer.parseInt(idArr[i]));
+
+				baseService.delete( baseService.getById(CountryCode.class, Integer.parseInt(idArr[i])) );
 			}
 		}
 		

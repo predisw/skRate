@@ -2,6 +2,7 @@ package com.skyline.dao;
 
 import java.util.List;
 
+import com.skyline.pojo.Log;
 import com.skyline.util.PageInfo;
 //公有数据操作接口
 public interface BaseDao {
@@ -9,12 +10,15 @@ public interface BaseDao {
 	public void save(Object obj);
 	public void update(Object obj);
 	public void saveOrUpdate(Object obj);
+
+	public void delete(Object obj);
 	
 	//通过类名获取该类的所有对象
-	public void delById(Class cla,int id);
+//	public void delById(Class cla,int id);
+
 	//通过id 获取对象
 	public Object getById(Class cal,int id);
-
+	
 	public List getByClass(Class cla);
 	//通过类的某个属性获取有这个属性的所有对象
 	
@@ -28,9 +32,7 @@ public interface BaseDao {
 
 	//分页,保存数据到Pageinfo 对象中,在显示层,将其显示出来
 	public PageInfo getByPage(String hql,PageInfo page);
-	
 
-	 
 
 
 	

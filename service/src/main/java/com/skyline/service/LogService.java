@@ -19,6 +19,10 @@ public interface LogService extends LogDao {
 	
 	//从存放日志的文件路径处,获取后十个日志文件的名称.
 	public List<String> getLogFileName(String logDir) throws FileNotFoundException;
+	
+	
+	public void logToDb(String how, String what, String content);
 
 	
+
 }

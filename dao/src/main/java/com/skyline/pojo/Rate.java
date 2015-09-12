@@ -42,9 +42,10 @@ public class Rate extends BaseRate  implements java.io.Serializable {
 		this.PRid = PRid;
 	}
 
-	public String doubleF(Double d){
-		DecimalFormat df = new DecimalFormat("##0.########");
-		return df.format(d);
+
+	
+	public String forLog(){
+		return "vosId:"+this.getVosId()+"-code: "+this.getCode();
 	}
 
 }

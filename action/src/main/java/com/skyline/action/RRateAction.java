@@ -19,12 +19,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+import com.predisw.annotation.Log;
 import com.skyline.pojo.Customer;
 import com.skyline.pojo.Employee;
 import com.skyline.pojo.Partner;
 import com.skyline.pojo.Props;
 import com.skyline.pojo.RRate;
 import com.skyline.service.BaseService;
+import com.skyline.service.LogService;
 import com.skyline.service.RRateService;
 import com.skyline.util.HttpUpAndDownload;
 import com.skyline.util.PageInfo;
@@ -38,6 +40,9 @@ public class RRateAction {
 	private RRateService rRateService;
 	@Autowired
 	private BaseRateAction baseRateAction;
+	@Autowired
+	private LogService logService;
+	
 	//---------------------跳转到界面
 	@RequestMapping("toAddRRate.do")
 	public String toAddRRate(HttpServletRequest req,HttpServletResponse res){
@@ -56,7 +61,7 @@ public class RRateAction {
 	}
 	
 
-	
+
 	@RequestMapping("importRRate.do")
 	public String importRRate(HttpServletRequest req,HttpServletResponse res,RedirectAttributes red){
 		
@@ -90,6 +95,8 @@ public class RRateAction {
 		}
 		
 		red.addFlashAttribute("Message", "导入成功 ");
+		
+
 		return "redirect:toAddRRate.do";
 	}
 	

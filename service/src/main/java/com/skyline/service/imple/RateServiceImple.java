@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.predisw.annotation.Description;
+import com.predisw.annotation.Log;
 import com.predisw.exception.NotSameException;
 import com.skyline.dao.BaseDao;
 import com.skyline.dao.RateDao;
@@ -20,6 +21,7 @@ import com.skyline.pojo.Rate;
 import com.skyline.pojo.SendRecord;
 import com.skyline.service.BaseService;
 import com.skyline.service.JavaMailService;
+import com.skyline.service.LogService;
 import com.skyline.service.RateService;
 import com.skyline.util.PageInfo;
 @Service
@@ -30,7 +32,8 @@ public class RateServiceImple  extends RateDaoImple implements RateService{
 	private BaseDao baseDao;
 	@Autowired
 	private JavaMailService javaMailService;
-
+	@Autowired
+	private LogService logService;
 
 	
 
@@ -119,6 +122,7 @@ public class RateServiceImple  extends RateDaoImple implements RateService{
 
 	
 	@Override
+	@Log
 	@Description(name="设置报价错误")
 	public void setMailInCorrect(List<SendRecord> srList) {
 
@@ -139,7 +143,7 @@ public class RateServiceImple  extends RateDaoImple implements RateService{
 		}
 	}
 
-
+	@Log
 	@Override
 	public void delCusRates(String[] rIdArr) {
 		// TODO Auto-generated method stub
@@ -147,6 +151,8 @@ public class RateServiceImple  extends RateDaoImple implements RateService{
 			for(int i=0;i<rIdArr.length;i++){
 				Rate rate=(Rate)baseDao.getById(Rate.class,Integer.parseInt(rIdArr[i]));
 				rateDao.setIsAvailable(rate.getVosId(), rate.getCode(), false); //不要用super 调用....,否则无法记录日志
+			
+				logService.logToDb("移除报价code", null, "vosId:"+rate.getVosId()+"-code:"+rate.getCode());
 			}
 		}
 

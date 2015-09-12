@@ -56,8 +56,9 @@
 			</li>
 			<li><a href="#">日志</a>
 				<ul>
-					<li><a href="${pageContext.request.contextPath}/log/getSysLog.do">系统日志</a></li>
 					<li><a href="${pageContext.request.contextPath}/log/getPageLog.do">操作日志</a></li>
+					<li><a href="${pageContext.request.contextPath}/log/getSysLog.do">系统日志</a></li>
+					
 				</ul>
 			</li>
 			<li><a href="#">系统</a>

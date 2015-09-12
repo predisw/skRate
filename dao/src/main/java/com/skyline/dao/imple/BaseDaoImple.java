@@ -8,6 +8,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.predisw.annotation.Description;
+import com.predisw.annotation.Log;
 import com.skyline.dao.BaseDao;
 import com.skyline.util.PageInfo;
 
@@ -16,22 +18,36 @@ public class BaseDaoImple implements BaseDao {
 	@Autowired
 	private SessionFactory sf;
 	
+
+
 	@Override
 	public void save(Object obj) {
 		// TODO Auto-generated method stub
 		Session ss=sf.getCurrentSession();
 		ss.save(obj);
 	}
+	
+	
 
-	@Override
+/*	@Override
 	public void delById(Class cla,int id) {
 		// TODO Auto-generated method stub
 		Session ss=sf.getCurrentSession();
 		Object obj=ss.get(cla, id);
+		this.delete(obj);
+	}*/
+	@Override
+	@Log
+	@Description(name="删除")
+	 public void delete(Object obj){
+		Session ss=sf.getCurrentSession();
 		ss.delete(obj);
-	}
+	 }
+	
 	
 	@Override
+	@Log
+	@Description(name="修改")
 	public void update(Object obj) {
 		// TODO Auto-generated method stub
 		Session ss=sf.getCurrentSession();
@@ -152,7 +168,6 @@ public class BaseDaoImple implements BaseDao {
 		query.setParameter("field_value", field_value);
 		query.executeUpdate();
 	}
-
 
 
 

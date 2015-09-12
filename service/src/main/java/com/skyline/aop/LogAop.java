@@ -31,6 +31,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.predisw.annotation.Description;
 import com.skyline.dao.BaseDao;
+import com.skyline.dao.LogDao;
 import com.skyline.pojo.Log;
 import com.skyline.pojo.User;
 import com.skyline.service.BaseService;
@@ -40,7 +41,7 @@ public class LogAop {
 	Logger logger =LoggerFactory.getLogger(LogAop.class);
 	
 	@Autowired
-	private BaseDao baseDao;
+	private LogDao logDao;
 	
 
 	
@@ -148,9 +149,11 @@ public class LogAop {
 					content.append(par.getClass().getMethod("forLog").invoke(par));
 			}else if(par instanceof HttpServletRequest || par instanceof HttpServletResponse){
 				//如果参数是request 或response ,则什么都不做
+				continue; //并跳过最后添加分割符号部分
 			}
 			else{  //---------参数为普通类型
 					content.append(String.valueOf(par));
+
 			}
 
 			if(params.length>1){
@@ -164,8 +167,8 @@ public class LogAop {
 		log.setTime(time);
 		log.setContent(content.toString());
 		log.setHow(methodName);
-		baseDao.save(log);
-
+		
+		logDao.saveLog(log);
 
 	}
 	

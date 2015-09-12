@@ -106,7 +106,7 @@ public class CountryCode implements java.io.Serializable {
 		return super.equals(obj);
 	}
 	
-	public String getNameForLog(){
-		return this.code;
+	public String forLog(){
+		return "code:"+this.code;
 	}
 }

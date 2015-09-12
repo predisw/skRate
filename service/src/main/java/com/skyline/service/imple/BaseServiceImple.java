@@ -19,6 +19,7 @@ import com.skyline.pojo.Employee;
 import com.skyline.service.BaseService;
 import com.skyline.util.PoiExcel;
 import com.skyline.util.SingletonProps;
+import com.skyline.dao.BaseDao;
 import com.skyline.dao.imple.BaseDaoImple;
 
 @org.springframework.stereotype.Service("baseService")
@@ -28,6 +29,8 @@ public class BaseServiceImple extends BaseDaoImple  implements BaseService { //é
 	private SessionFactory sf;
 	@Autowired
 	private PoiExcel poiExcel;
+	@Autowired
+	private BaseDao baseDao;
 	
 	@Override
 	public boolean isUnique(Class class_name, String field_name,
@@ -80,7 +83,7 @@ public class BaseServiceImple extends BaseDaoImple  implements BaseService { //é
 			super.delByField( obj.getClass(), field_name, method.invoke(obj) );
 			
 		}
-		super.save(obj);
+		baseDao.save(obj);
 
 	}
 
@@ -89,7 +92,7 @@ public class BaseServiceImple extends BaseDaoImple  implements BaseService { //é
 	public void updateBulk(Collection<? extends Object> collection) {
 		// TODO Auto-generated method stub
 		for(Object obj:collection){
-			super.update(obj);
+			baseDao.update(obj);
 			}
 		}
 
@@ -97,7 +100,7 @@ public class BaseServiceImple extends BaseDaoImple  implements BaseService { //é
 	public void saveBulk(Collection<? extends Object> collection) {
 		// TODO Auto-generated method stub
 		for(Object obj:collection){
-			super.save(obj);
+			baseDao.save(obj);
 			}
 		}
 }

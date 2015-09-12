@@ -21,13 +21,13 @@
 	</div>
 
 	<div>
-		<table>
-			<tr>
-				<th>用户</th>
-				<th>操作</th>
-				<th>类型</th>
-				<th>内容</th>
-				<th>时间</th>
+		<table style="width:80%">
+			<tr >
+				<th style="width:9%;">用户</th>
+				<th style="width:19%;">操作</th>
+				<th style="width:15%;">类型</th>
+				<th style="width:36%;">内容</th>
+				<th style="width:20%;">时间</th>
 			</tr>
 			<c:forEach items="${page.data }" var="log">
 				<tr>

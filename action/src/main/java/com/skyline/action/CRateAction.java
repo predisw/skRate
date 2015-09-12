@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.predisw.annotation.Description;
+import com.predisw.annotation.Log;
 import com.skyline.pojo.CountryCode;
 import com.skyline.pojo.Customer;
 import com.skyline.pojo.Employee;
@@ -26,6 +27,7 @@ import com.skyline.pojo.Props;
 import com.skyline.pojo.Rate;
 import com.skyline.service.BaseService;
 import com.skyline.service.CountryCodeService;
+import com.skyline.service.LogService;
 import com.skyline.service.RateService;
 import com.skyline.util.HttpUpAndDownload;
 import com.skyline.util.PageInfo;
@@ -41,7 +43,8 @@ public class CRateAction {
 	private PoiExcel poiExcel;
 	@Autowired
 	private BaseRateAction baseRateAction;
-	
+	@Autowired
+	private LogService logService;
 	
 	//用于显示业务员,rate 的level 属性值
 	@RequestMapping("getRateList.do")
@@ -92,7 +95,7 @@ public class CRateAction {
 	
 	
 	//------------------导入rate记录----------
-	@Description(name="导入客户报价")
+	@Log
 	@RequestMapping("importRate.do")
 	public void importRate(HttpServletRequest req,HttpServletResponse res) throws ServletException, IOException, ParseException{
 
@@ -183,6 +186,17 @@ public class CRateAction {
 		}
 
 		req.setAttribute("Message", "导入成功 ");
+		
+		StringBuffer content=new StringBuffer();
+		content.append("工号:");
+		content.append(eNum);
+		content.append("-vosId:");
+		content.append(vosid);
+		content.append("-level:");
+		content.append(level);
+		
+		logService.logToDb("导入", "客户报价", content.toString());
+		
 		res.sendRedirect(req.getContextPath()+"/cRate/getRateList.do");
 		
 		

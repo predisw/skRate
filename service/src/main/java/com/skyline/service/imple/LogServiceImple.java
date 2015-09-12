@@ -5,11 +5,14 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -19,15 +22,22 @@ import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.skyline.dao.BaseDao;
 import com.skyline.dao.LogDao;
 import com.skyline.dao.imple.LogDaoImple;
+import com.skyline.pojo.Log;
+import com.skyline.pojo.User;
 import com.skyline.service.LogService;
 import com.skyline.util.PageInfo;
 @Service
 public class LogServiceImple extends LogDaoImple  implements LogService {
 	@Autowired
 	private LogDao logDao;
+	@Autowired
+	private BaseDao baseDao;
 	
 	@Override
 	public void modifyXml(Map<String, String> params, String fileName)
@@ -92,9 +102,23 @@ public class LogServiceImple extends LogDaoImple  implements LogService {
 
 
 
+	@Override
+	public  void logToDb(String how,String what,String content){
+		Log log = new Log();
+		
+		HttpServletRequest req = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+		User user =(User)req.getSession().getAttribute("user");
+		Date time=new Date();
+		
+		log.setWho(user.getUName());
+		log.setTime(time);
+		log.setHow(how);
+		log.setWhat(what);
+		log.setContent(content);
+		
+		super.saveLog(log);
 
-
-
+	}
 
 
 }

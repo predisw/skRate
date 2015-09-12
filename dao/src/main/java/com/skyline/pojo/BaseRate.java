@@ -6,6 +6,8 @@ import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
+import com.predisw.annotation.Description;
+@Description(name="baseRate")
 public class BaseRate {
 	private Integer id;
 	private String name;
@@ -278,7 +280,8 @@ public class BaseRate {
 		DecimalFormat df = new DecimalFormat("##0.########");
 		return df.format(d);
 	}
-	public String getNameForLog(){
-		return this.vosId+"-"+this.code;
+	
+	public String forLog(){
+		return "vosId:"+this.getVosId()+"-code: "+this.getCode();
 	}
 }

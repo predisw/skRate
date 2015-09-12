@@ -27,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.predisw.annotation.Description;
+import com.predisw.annotation.Log;
 import com.predisw.exception.UniException;
 import com.skyline.pojo.Customer;
 import com.skyline.pojo.Employee;
@@ -34,6 +35,7 @@ import com.skyline.pojo.Partner;
 import com.skyline.pojo.Rate;
 import com.skyline.service.BaseService;
 import com.skyline.service.CustomerService;
+import com.skyline.service.LogService;
 import com.skyline.service.RateService;
 import com.skyline.util.HttpUpAndDownload;
 import com.skyline.util.PoiExcel;
@@ -48,6 +50,7 @@ public class CustomerAction{
 	private BaseService baseService;
 	@Autowired
 	private CustomerService cusService;
+
 
 	
 	
@@ -147,6 +150,7 @@ public class CustomerAction{
 	}
 	
 //更新客户
+
 	@RequestMapping("update.do")
 	public void update(Customer cus,HttpServletRequest req,HttpServletResponse res) throws ServletException, IOException{
 		

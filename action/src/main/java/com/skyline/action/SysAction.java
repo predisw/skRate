@@ -37,6 +37,7 @@ public class SysAction {
 		req.getRequestDispatcher("/WEB-INF/jsp/sys/sysOperation.jsp").forward(req, res);
 	}
 	
+	@com.predisw.annotation.Log
 	@Description(name="重启应用服务")
 	@RequestMapping("reload.do")
 	public String reload(HttpServletRequest req,HttpServletResponse res) throws IOException{

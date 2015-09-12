@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 import com.skyline.dao.LogDao;
 import com.skyline.pojo.Log;
 import com.skyline.util.PageInfo;
-@Repository
+@Repository("logDao")
 public class LogDaoImple implements LogDao{
 	@Autowired
 	private SessionFactory sf;
@@ -57,6 +57,12 @@ public class LogDaoImple implements LogDao{
 
 		
 		return page ;
+	}
+
+	@Override
+	public void saveLog(Log log) {
+		// TODO Auto-generated method stub
+		sf.getCurrentSession().save(log);
 	}
 
 }
