@@ -99,6 +99,7 @@ public class PropsAction {
 		String id =req.getParameter("id");
 		JSONObject obj=new JSONObject();
 
+
 		try{
 			baseService.delete(baseService.getById(Props.class,Integer.parseInt(id)));
 		}catch(Exception e){

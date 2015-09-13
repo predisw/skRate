@@ -43,8 +43,8 @@
     <orderEntry type="library" name="Maven: javax.activation:activation:1.0" level="project" />
     <orderEntry type="library" name="Maven: antlr:antlr:2.7.7" level="project" />
     <orderEntry type="library" name="Maven: org.aopalliance:aopalliance:1.0" level="project" />
-    <orderEntry type="library" name="Maven: org.aspectj:aspectjrt:1.8.6" level="project" />
-    <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.8.6" level="project" />
+    <orderEntry type="library" name="Maven: org.aspectj:aspectjrt:1.8.7" level="project" />
+    <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.8.7" level="project" />
     <orderEntry type="library" name="Maven: net.sf:cglib:3.1" level="project" />
     <orderEntry type="library" name="Maven: net.sf:cglib-nodep:3.1" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:2.4" level="project" />
