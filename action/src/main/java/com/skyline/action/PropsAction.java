@@ -100,7 +100,7 @@ public class PropsAction {
 		JSONObject obj=new JSONObject();
 
 		try{
-			baseService.delById(Props.class,Integer.parseInt(id));
+			baseService.delete(baseService.getById(Props.class,Integer.parseInt(id)));
 		}catch(Exception e){
 			e.printStackTrace();
 			obj.put("Message", "删除失败"+e.getMessage()+" "+e.getCause());

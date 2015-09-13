@@ -28,9 +28,7 @@ import com.skyline.util.PageInfo;
  *
  */
 @Controller
-public class BaseRateAction {
-	@Autowired
-	private BaseService baseService;
+class BaseRateAction {
 	@Autowired
 	private CountryCodeService ccService;
 	@Autowired
