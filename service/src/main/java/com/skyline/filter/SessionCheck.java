@@ -1,6 +1,7 @@
 package com.skyline.filter;
 
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -33,13 +34,14 @@ public class SessionCheck implements Filter{
 		HttpServletRequest request =(HttpServletRequest) req;
 		HttpServletResponse response =(HttpServletResponse) res;
 		User login_user=(User)request.getSession().getAttribute("user");
-		if(!request.getRequestURI().contains("login"))  //除了登录页面或者action 不拦截其他都拦截,这个也可以在filter 的init-param 中配置
+		
+/*		if(!request.getRequestURI().contains("login"))  //除了登录页面或者action 不拦截其他都拦截,这个也可以在filter 的init-param 中配置
 			if(login_user==null){
 				request.getSession().setMaxInactiveInterval(1200); //单位为秒,设置为20分钟后,会话超时
 				response.sendRedirect(request.getContextPath()+"/login.jsp");
 //				 chain.doFilter(request, response);
 				 return; //重定向之后,用return中断之后的代码执行;然后当浏览器重新申请/login.jsp 的时候,就会跳过这里,不会进入这里执行return,所以可以通过这个拦截器
-			}
+			}*/
 		
 		String thread_user=null;
 		if(login_user!=null){
@@ -63,17 +65,19 @@ public class SessionCheck implements Filter{
 			logger.debug("cookies is null");
 		}
 */
-
+		
+		logger.info("total threads is [{}],peak thread number [{}]",ManagementFactory.getThreadMXBean().getThreadCount(),ManagementFactory.getThreadMXBean().getPeakThreadCount());
 		logger.debug("from user [{}],the session id of requestUrl [{}] is [{}]",thread_user,reqUrl,ssId);
 
-		String threadName=thread_user+"-"+request.getRequestURI()+"-"+Thread.currentThread().getId();
+		String threadName=thread_user+"-"+request.getRequestURI()+"-"+Thread.currentThread().getId()+"g:"+Thread.currentThread().getThreadGroup();
 		Thread.currentThread().setName(threadName);
-
+		
 		chain.doFilter(request, response);
 	//	chain.doFilter(req, res);
 
 
 		logger.debug("耗时:[{}]ms",System.currentTimeMillis()-start_time);
+		
 	}
 
 	@Override

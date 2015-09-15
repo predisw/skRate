@@ -1,12 +1,15 @@
 package com.skyline.action;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,7 @@ public class SysAction {
 	
 	Logger logger=LoggerFactory.getLogger(this.getClass());
 	
+	
 	@RequestMapping("getVerInfo.do")
 	public void getVerInfo(HttpServletRequest req,HttpServletResponse res) throws ServletException, IOException{
 		req.getRequestDispatcher("/WEB-INF/jsp/sys/version.jsp").forward(req, res);
@@ -36,6 +40,7 @@ public class SysAction {
 		
 		req.getRequestDispatcher("/WEB-INF/jsp/sys/sysOperation.jsp").forward(req, res);
 	}
+	
 	
 	@com.predisw.annotation.Log
 	@Description(name="重启应用服务")
@@ -59,14 +64,63 @@ public class SysAction {
 			}
 		}
 		
-/*		//记录操作日志
-		User user=(User)req.getSession(false).getAttribute("user");
-		Log log = new Log();
-		log.setENum(user.getUName());
-		log.setLType("重启");
-		log.setLTime(new Date());
-		baseService.save(log);
-		*/
+
 		return "forward:toSysOperation.do";
 	}
+	
+	//---------------------跳到performance.jsp页面
+	@RequestMapping("toPerformance.do")
+	public String toPerformance(HttpServletRequest req,HttpServletResponse res){
+		
+		
+		return "forward:/WEB-INF/jsp/sys/performance.jsp";
+	}
+	
+	
+	//--------------------------------动态更新
+	@RequestMapping("getPerformance.do")
+	public void getPerformance(HttpServletRequest req,HttpServletResponse res) throws IOException{
+		
+		int threadNum=Thread.activeCount();
+		
+		String threadNums=req.getParameter("threadNums");
+		threadNums.replace("[", "");
+		threadNums.replace("]", "");
+		String[] threadNumArr=threadNums.split(",");
+		JSONArray threadNumArrj=new JSONArray(threadNums);
+
+		
+/*		for(int i=1;i<threadNumArr.length;i++){
+
+			threadNumArrj.put(threadNumArr[i]);
+			
+			
+		}*/
+		if(threadNumArrj.length()>120){
+			threadNumArrj.remove(0);
+		}
+		
+
+		threadNumArrj.put(threadNum);
+		
+
+		logger.info("the current threadNum is [{}],线程组is [{}]",threadNum,Thread.currentThread().getThreadGroup());
+		
+		PrintWriter out =res.getWriter();
+		
+		logger.info("the threadNumArr is [{}]",threadNumArrj);
+		out.print(threadNumArrj);
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 }

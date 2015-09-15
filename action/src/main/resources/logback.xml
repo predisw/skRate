@@ -38,12 +38,12 @@
   </appender>  
   <!-- 凡是org 开头的日志都是info 级别 -->  
   <!-- <logger name="org" level="INFO" /> -->  
-  <logger name="com.skyline" level="debug"/>  
+  <logger name="com.skyline" level="info"/>  
   <!-- 管理spring 的日志-->  
   <logger name="org.springframework" level="warn"/>  
   <logger name="org.hibernate" level="INFO"/>  
 <!-- 将sql 也输出到日志文件 -->
- <logger name="org.hibernate.SQL" level="DEBUG"/>  
+ <logger name="org.hibernate.SQL" level="info"/>  
   <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="debug"/>  <!-- 显示绑定的参数 -->
 <!--   <logger name="org.hibernate.engine" level="ALL"></logger> -->
   <!--  aop 日志-->  

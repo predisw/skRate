@@ -170,6 +170,7 @@ public class LogAop {
 		
 		logDao.saveLog(log);
 
+
 	}
 	
 	
