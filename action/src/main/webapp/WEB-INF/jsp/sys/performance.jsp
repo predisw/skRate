@@ -5,8 +5,8 @@
 <html>
 <head>
 <link href="${pageContext.request.contextPath}/css/performance.css" rel="stylesheet" type="text/css"/>
-   <script type="text/javascript" src="http://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
-   <script type="text/javascript" src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+<script type="text/javascript" src="http://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
+<script src="http://code.highcharts.com/stock/highstock.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>系统性能</title>
 </head>
@@ -18,6 +18,8 @@
 	
 	</div>
 
+	<input type="hidden" id ="thread" value="${threadNums }"/>
+	<input type="hidden"  id="curPerformance" />
 </div>
 
 
@@ -26,78 +28,77 @@
   <script>
   var  chart;
   $(function () { 
-	   chart=new Highcharts.Chart({                   //图表展示容器，与div的id保持一致
-	    	 chart: {
-	    		 renderTo : "container",  // 注意这里一定是 ID 选择器
-	             zoomType: 'x',
-	             spacingRight: 20
-	         },
-	        title: {
-	            text: '线程'      //指定图表标题
-	        },
-	        xAxis: {
-					type:'datetime',
-					maxZoom: 3600*1000
-	        },
-	        yAxis: {
-	            title: {
-	                text: '线程数'                  //指定y轴的标题
-	            }
-	        },
-	        series: [{
 
-	            name: 'TIME',
-	            pointInterval: 3 * 1000,
-				pointStart:Date.now()+8*3600*1000,  //一个小时前
-
-	            
-	            data: [
-					
-	                
-	        	]
-	        }]
-
-
-	        
+	    Highcharts.setOptions({
+	        global : {
+	            useUTC : false
+	        }
 	    });
-	});
+
+	
+		  
+	   chart=new Highcharts.StockChart({                   //图表展示容器，与div的id保持一致
+	         chart : {
+	    		 renderTo : "container",  // 注意这里一定是 ID 选择器
+	             events : {
+	                 load : function () {
+	                     // set up the updating of the chart each second
+	                     var series = this.series[0];
+	                     setInterval(function(){
+	                    	 $.get("${pageContext.request.contextPath}/sys/getPerformance.do",
+		                				function(data,status){
+		        					if(status=="success"){
+		            					var json=JSON.parse(data);
+		      //      					alert(json.currentThreadNum);
+		 	                         series.addPoint(json.currentThreadNum,true,true)
+
+		        					}else{ series.addPoint([0, 0], true, true);}
+
+		        				}
+		        			);
+		                     },1000);
+	                 }
+	             }
+	         },
+
+	         rangeSelector: {
+	             buttons: [{
+	                 count: 1,
+	                 type: 'minute',
+	                 text: '1M'
+	             }, {
+	                 count: 5,
+	                 type: 'minute',
+	                 text: '5M'
+	             }, {
+	                 type: 'all',
+	                 text: 'All'
+	             }],
+	             inputEnabled: false,
+	             selected: 0
+	         },
+
+	         title : {
+	             text : 'Live random data'
+	         },
+
+	         exporting: {
+	             enabled: false
+	         },
+
+	         series : [{
+	             name : 'Random data',
+	             data :JSON.parse(document.getElementById('thread').value)
+	         }]
+	     });
+
+	 });
 
 
 
-  onload=function(){
-		updateChart();
-	  }
-
- function updateChart(){
 
 
-var data=	chart.series[0].yData;
-var jsonData=JSON.stringify(data);
-
-//alert(data[0]);
-//var data_str=JSON.stringify(data);
-
-//alert(data_str);
-
-	$(function (){
-		$.post("${pageContext.request.contextPath}/sys/getPerformance.do",{"threadNums":jsonData},
-				function(data,status){
-					if(status=="success"){
-						chart.series[0].setData(JSON.parse(data));
-					}
-					
-				}
-			);
-		}
-	);
-
-		
-	 setTimeout("updateChart()",3*1000);
-
-
-
-		
-	  }
+ 
    </script>
 
 

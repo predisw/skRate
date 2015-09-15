@@ -43,7 +43,7 @@
 			
 			
 			<input type="submit" value="查询"/>
-			<input type="button" style="position: absolute;right: 10%;" value="修改"  onclick="submit_rRates()"/>
+			<input type="button" style="position: absolute;right: 10%;" value="修改"  onclick="if(confirm('确定修改?'))submit_rRates()"/>
 		</form>
 
 	</div>

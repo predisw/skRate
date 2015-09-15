@@ -1,7 +1,14 @@
 package com.skyline.action;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -17,15 +24,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.predisw.annotation.Description;
+import com.predisw.util.DateFormatUtil;
 import com.skyline.pojo.Log;
 import com.skyline.pojo.User;
 import com.skyline.service.BaseService;
+import com.skyline.service.SysService;
 
 @Controller
 @RequestMapping("/sys")
 public class SysAction {
 	@Autowired
 	private BaseService baseService;
+	@Autowired
+	private SysService sysService;
 	
 	Logger logger=LoggerFactory.getLogger(this.getClass());
 	
@@ -72,7 +83,18 @@ public class SysAction {
 	@RequestMapping("toPerformance.do")
 	public String toPerformance(HttpServletRequest req,HttpServletResponse res){
 		
+		String pathFileName="/var/log/skyline/performance.log";
+		String threadNums="";
+		try{
+			threadNums=sysService.getPerformance(pathFileName, 20);
+		}catch(Exception e){
+			e.printStackTrace();
+			req.setAttribute("Message", "失败 "+e.getMessage());
+			return "forward:/WEB-INF/jsp/sys/performance.jsp";
+		}
 		
+		System.out.println(threadNums);
+		req.setAttribute("threadNums", threadNums);
 		return "forward:/WEB-INF/jsp/sys/performance.jsp";
 	}
 	
@@ -81,38 +103,17 @@ public class SysAction {
 	@RequestMapping("getPerformance.do")
 	public void getPerformance(HttpServletRequest req,HttpServletResponse res) throws IOException{
 		
-		int threadNum=Thread.activeCount();
+	//	String fileName="performance.log";
 		
-		String threadNums=req.getParameter("threadNums");
-		threadNums.replace("[", "");
-		threadNums.replace("]", "");
-		String[] threadNumArr=threadNums.split(",");
-		JSONArray threadNumArrj=new JSONArray(threadNums);
-
+		String json=sysService.getCurrentPerformance();
 		
-/*		for(int i=1;i<threadNumArr.length;i++){
-
-			threadNumArrj.put(threadNumArr[i]);
-			
-			
-		}*/
-		if(threadNumArrj.length()>120){
-			threadNumArrj.remove(0);
-		}
-		
-
-		threadNumArrj.put(threadNum);
-		
-
-		logger.info("the current threadNum is [{}],线程组is [{}]",threadNum,Thread.currentThread().getThreadGroup());
-		
-		PrintWriter out =res.getWriter();
-		
-		logger.info("the threadNumArr is [{}]",threadNumArrj);
-		out.print(threadNumArrj);
+		PrintWriter out = res.getWriter();
+		System.out.println(json);
+		out.print(json);
+				
 		
 		
-		
+	
 		
 	}
 	
