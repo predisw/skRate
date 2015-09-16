@@ -23,10 +23,11 @@ public class SysDaoImple implements SysDao {
 	@Override
 	public String readFileToString(String pathFileName) throws IOException {
 		// TODO Auto-generated method stub
+		String performance="";
 		
 		Path path=Paths.get(pathFileName);
+
 		BufferedReader fileReader=Files.newBufferedReader(path, Charset.forName("utf-8"));
-		String performance="";
 		int size=1024;
 		char[] cbuf=new char[size];
 		while(fileReader.read(cbuf, 0, size) != -1){

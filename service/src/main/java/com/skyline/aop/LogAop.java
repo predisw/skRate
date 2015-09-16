@@ -100,7 +100,7 @@ public class LogAop {
 
 	public void logAfterReturn(JoinPoint jp) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
 		//先看方法上有没有描述注解,如果有则保存到数据库中,如果没有则不再执行
-		logger.debug("abccccccccccccccccccccccccccccccc");
+
 		Class[] parameterTypes = ((MethodSignature)jp.getSignature()).getMethod().getParameterTypes();
 		Method method=jp.getTarget().getClass().getMethod(jp.getSignature().getName(), parameterTypes);
 		String methodName="";

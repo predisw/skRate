@@ -29,6 +29,7 @@ import com.skyline.pojo.Log;
 import com.skyline.pojo.User;
 import com.skyline.service.BaseService;
 import com.skyline.service.SysService;
+import com.skyline.util.SingletonProps;
 
 @Controller
 @RequestMapping("/sys")
@@ -83,9 +84,12 @@ public class SysAction {
 	@RequestMapping("toPerformance.do")
 	public String toPerformance(HttpServletRequest req,HttpServletResponse res){
 		
-		String pathFileName="/var/log/skyline/performance.log";
+		
+		
 		String threadNums="";
 		try{
+			String pathFileName=SingletonProps.getInstance().getProperties().getProperty("performanceLog");
+			
 			threadNums=sysService.getPerformance(pathFileName, 20);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -117,11 +121,6 @@ public class SysAction {
 		
 	}
 	
-	
-	
-	
-	
-	
-	
+
 	
 }
