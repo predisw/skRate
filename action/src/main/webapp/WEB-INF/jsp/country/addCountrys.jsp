@@ -34,7 +34,7 @@
 code:
 <input type="text"  name="code" class="num_input" required/>
 
-<input type="submit"  value="确认"/>
+<input type="submit"  value="添加"/>
 </form>
 
 

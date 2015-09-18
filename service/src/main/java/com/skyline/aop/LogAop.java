@@ -36,7 +36,7 @@ import com.skyline.pojo.Log;
 import com.skyline.pojo.User;
 import com.skyline.service.BaseService;
 
-@Controller
+@Controller("logAop")
 public class LogAop {
 	Logger logger =LoggerFactory.getLogger(LogAop.class);
 	

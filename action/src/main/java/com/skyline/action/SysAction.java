@@ -90,7 +90,7 @@ public class SysAction {
 		try{
 			String pathFileName=SingletonProps.getInstance().getProperties().getProperty("performanceLog");
 			
-			threadNums=sysService.getPerformance(pathFileName, 20);
+			threadNums=sysService.getPerformance(Paths.get(pathFileName), 5);
 		}catch(Exception e){
 			e.printStackTrace();
 			req.setAttribute("Message", "失败 "+e.getMessage());
@@ -112,7 +112,7 @@ public class SysAction {
 		String json=sysService.getCurrentPerformance();
 		
 		PrintWriter out = res.getWriter();
-		System.out.println(json);
+//		System.out.println(json);
 		out.print(json);
 				
 		

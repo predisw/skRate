@@ -11,7 +11,7 @@
 <title>系统性能</title>
 </head>
 <body>
-
+	${Message}
 <div class="per_body">
 
 	<div id="container" style="width:400px;height:300px" >

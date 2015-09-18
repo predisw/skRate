@@ -28,30 +28,14 @@
   </appender>  
   
   
-    <!--  写入文件-->  
-  <appender name="performance" class="ch.qos.logback.core.rolling.RollingFileAppender"> 
-    <file>/var/log/skyline/performance.log</file>  
-    <!-- 按照时间来滚动生成日志 -->  
-    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"> 
-      <!-- daily rollover -->  
-      <fileNamePattern>/var/log/skyline/skylineRate.%d{yyyy-MM-dd}.log</fileNamePattern>  
-      <!-- keep 30 days' worth of history -->  
-      <maxHistory>30</maxHistory> 
-    </rollingPolicy>  
-    <encoder> 
-      <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern> 
-    </encoder> 
-  </appender>  
-  
-  
-  
+ 
   
   
   
   
   <!-- 凡是org 开头的日志都是info 级别 -->  
   <!-- <logger name="org" level="INFO" /> -->  
-  <logger name="com.skyline" level="DEBUG"/>  
+  <logger name="com.skyline" level="info"/>  
   <!-- 管理spring 的日志-->  
   <logger name="org.springframework" level="INFO"/>  
   <logger name="org.hibernate" level="INFO"/>  

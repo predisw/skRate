@@ -344,8 +344,21 @@
       <scope>test</scope>
     </dependency>
 
+    <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>1.16.6</version>
+    </dependency>
+
+
   </dependencies>
 
+<repositories>
+    <repository>
+        <id>projectlombok.org</id>
+        <url>http://projectlombok.org/mavenrepo</url>
+    </repository>
+</repositories>
 
 	<build>
 	  <plugins>

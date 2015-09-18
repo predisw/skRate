@@ -33,11 +33,13 @@ public class PerformanceTest {
 	@Test
 	public void test() throws IOException, JSONException, ParseException{
 		String pathFileName="/var/log/skyline/performance.log";
-	//	String jsonstr=sysDao.readFileToString(pathFileName);
-	//	sysDao.writePerformance(pathFileName, new JSONObject(jsonstr));
+		Path path =Paths.get(pathFileName);
+//	String jsonstr=sysDao.readFileToString(pathFileName);
+//		sysDao.writePerformance(pathFileName, new JSONObject(jsonstr));
 		
-	System.out.println(sysService.getPerformance(pathFileName, 30));
-	//	System.out.println(sysService.getCurrentPerformance());
+//	System.out.println(sysService.getPerformance(pathFileName, 30));
+//	/.out.println(sysService.getCurrentPerformance());
 		
+//		sysDao.CreatePerformance(path);
 	}
 }

@@ -28,11 +28,11 @@ import com.skyline.service.JavaMailService;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath*:applicationContext.xml"})*/
 public class CustomerTest {
-
-
-	@Test
-	public void test() {
 	
-		}
+	public void test(){
+
+	}
+	
+
 
 }
