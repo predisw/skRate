@@ -27,7 +27,7 @@ public class PerformanceInit implements  Runnable {
 
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	SysDao sysDao=(SysDao) SpringContextUtil.getBean("sysDao");
+//	private SysDao sysDao=(SysDao) SpringContextUtil.getBean("sysDao"); 这里会获取到空指针异常
 
 	private  String pathFileName="";
 
@@ -45,6 +45,8 @@ public class PerformanceInit implements  Runnable {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
+		SysDao sysDao=(SysDao) SpringContextUtil.getBean("sysDao");
+		 
 		logger.info("performance.log is initing");
 		Date now = new Date();
 		SimpleDateFormat sdf = DateFormatUtil.getSdf("yyyy-MM-dd");

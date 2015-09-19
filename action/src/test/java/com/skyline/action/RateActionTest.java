@@ -27,13 +27,13 @@ import com.skyline.service.BaseService;
 
 
 
-/*@Transactional
+@Transactional
 @TransactionConfiguration(defaultRollback = true)
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath*:applicationContext.xml"})*/
+@ContextConfiguration(locations={"classpath*:applicationContext.xml"})
 public class RateActionTest  {
 
-/*	@Autowired
+	@Autowired
 	private BaseService baseService;
 	@Autowired
 	private UserAction userAction;
@@ -46,17 +46,16 @@ public class RateActionTest  {
 		req = new MockHttpServletRequest();
 		res =new MockHttpServletResponse();
 		
-	}*/
+	}
 	
 	@Test
 	public void abc() throws ServletException, IOException{
-			
-/*		User user=new User();
+		User user=new User();
 		user.setPassword("admin");
 		user.setUName("admin");
 		userAction.login(user, req, res);
 
-		System.out.println(req.getContextPath());*/
+		System.out.println(req.getContextPath());
 	}
 
 	

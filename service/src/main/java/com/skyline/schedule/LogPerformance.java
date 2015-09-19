@@ -21,7 +21,7 @@ import com.skyline.util.SpringContextUtil;
 
 public class LogPerformance implements Runnable {
 
-	private SysDao sysDao=(SysDao) SpringContextUtil.getBean("sysDao");
+	//private SysDao sysDao=(SysDao) SpringContextUtil.getBean("sysDao"); 这里会获取到空指针异常
 	
 	 private String pathFileName="";
 		
@@ -39,7 +39,8 @@ public class LogPerformance implements Runnable {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		
+		 SysDao sysDao=(SysDao) SpringContextUtil.getBean("sysDao");
+		 
 		try {
 		Path path =Paths.get(pathFileName);
 		sysDao.writeStringToFile(path, sysDao.createPerformance(sysDao.readFileToString(path)));
