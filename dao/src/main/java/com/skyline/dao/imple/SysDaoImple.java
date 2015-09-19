@@ -92,7 +92,8 @@ public class SysDaoImple implements SysDao {
 		jsonObj.put("threadNums", jsonArr);
 		jsonObj.put("cpu", jsonArr);
 		jsonObj.put("memory", jsonArr);
-		
+
+
 		Files.createFile(path);
 		writeStringToFile(path, jsonObj.toString());
 		
@@ -104,13 +105,15 @@ public class SysDaoImple implements SysDao {
 		
 		JSONObject jsonObj=new JSONObject(content);
 		
+	
 		Date now =new Date();
-		String time =DateFormatUtil.format(now, "HH:mm:SS");
+		String time =DateFormatUtil.format(now, "HH:mm:ss");
 		int threadNum=ManagementFactory.getThreadMXBean().getThreadCount();
 		JSONArray threadNumArrS = jsonObj.getJSONArray("threadNums");
 		JSONArray threadNumArr=new JSONArray();
 		threadNumArr.put(time);
 		threadNumArr.put(threadNum);
+
 		threadNumArrS.put(threadNumArr);
 		
 

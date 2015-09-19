@@ -23,13 +23,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.predisw.util.DateFormatUtil;
 import com.skyline.dao.SysDao;
 import com.skyline.service.SysService;
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath*:applicationContext.xml"})
+
+/*@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations={"classpath*:applicationContext.xml"})*/
 public class PerformanceTest {
-	@Autowired
+/*	@Autowired
 	private SysDao sysDao;
 	@Autowired
-	private SysService sysService;
+	private SysService sysService;*/
 	@Test
 	public void test() throws IOException, JSONException, ParseException{
 		String pathFileName="/var/log/skyline/performance.log";
