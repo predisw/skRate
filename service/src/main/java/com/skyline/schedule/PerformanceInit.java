@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
 
 import com.predisw.util.DateFormatUtil;
 import com.skyline.dao.SysDao;
-
 import com.skyline.util.SpringContextUtil;
 
 
@@ -48,6 +47,8 @@ public class PerformanceInit implements  Runnable {
 		SysDao sysDao=(SysDao) SpringContextUtil.getBean("sysDao");
 		 
 		logger.info("performance.log is initing");
+
+		
 		Date now = new Date();
 		SimpleDateFormat sdf = DateFormatUtil.getSdf("yyyy-MM-dd");
 		
@@ -71,17 +72,20 @@ public class PerformanceInit implements  Runnable {
 				jsonObj= new JSONObject(performInfo);
 				date=jsonObj.get("date").toString();
 			}catch(JSONException e){
-				e.printStackTrace();
-				System.exit(1);
 				try {
+	//			e.printStackTrace();
+				throw new RuntimeException("aa");
+/*				try {
 					sysDao.moveAndinit(path, Paths.get(targetName));
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-					System.exit(-1); //如果最后创建失败,则退出虚拟机
+					
+//					System.exit(-1); //如果最后创建失败,则退出虚拟机
 				}
-				
+
 				return; //创建成功,则跳过下面的执行
+*/
 			}
 
 			if(!sdf.format(now).equals(date)){ //假如时间不一致,则backup 旧的文件,同时创建新的.

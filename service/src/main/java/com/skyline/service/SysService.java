@@ -12,6 +12,8 @@ public interface SysService {
 	String getPerformance(Path path, int arrLength) throws IOException, JSONException, ParseException;
 
 	String getCurrentPerformance();
+	
+
 
 	
 }

@@ -39,12 +39,12 @@ public class LogPerformance implements Runnable {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
+
 		 SysDao sysDao=(SysDao) SpringContextUtil.getBean("sysDao");
-		 
+
 		try {
 		Path path =Paths.get(pathFileName);
 		sysDao.writeStringToFile(path, sysDao.createPerformance(sysDao.readFileToString(path)));
-
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
