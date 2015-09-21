@@ -72,19 +72,22 @@ public class PerformanceInit implements  Runnable {
 				jsonObj= new JSONObject(performInfo);
 				date=jsonObj.get("date").toString();
 			}catch(JSONException e){
-				try {
+
 	//			e.printStackTrace();
 				throw new RuntimeException("aa");
-/*				try {
+/*			try {
 					sysDao.moveAndinit(path, Paths.get(targetName));
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 					
+
+					
 //					System.exit(-1); //如果最后创建失败,则退出虚拟机
 				}
-
+				
 				return; //创建成功,则跳过下面的执行
+
 */
 			}
 

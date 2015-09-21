@@ -196,12 +196,15 @@ function check(){
 function submit_rRates(){
 
 	var checktd=document.getElementsByName('id');
+
 	
  	var rRates="[";
 
 	for(var i=0;i<checktd.length;i++){
 
 		if(checktd[i].firstChild.checked){
+			if(rRates.length>1)rRates+=",";
+			
 			var id = checktd[i].firstChild.value;
 			var rate = document.getElementById(id+'rate');
 			var billing_unit = document.getElementById(id+'billing_unit');
@@ -209,9 +212,9 @@ function submit_rRates(){
 			var expire_time = document.getElementById(id+'expire_time');
 			var remark = document.getElementById(id+'remark');
 			rRates+="{id:\""+id+"\",rate:\""+rate.value+"\",billing_unit:\""+billing_unit.value+"\",effect_time:\""+effect_time.value+"\",expire_time:\""+expire_time.value+"\",remark:\""+remark.value+"\"}";
-			if(i+1<checktd.length && checktd[i+1].firstChild.checked){
+/* 			if(i+1<checktd.length && checktd[i+1].firstChild.checked){
 				rRates+=",";
-				}
+				} */
 			}
 
  	}
