@@ -20,18 +20,20 @@ public class DoSchedule  implements InitializingBean ,DisposableBean{
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	ScheduledExecutorService scheduleService = Executors.newScheduledThreadPool(1);
-	
+
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		// TODO Auto-generated method stub
-
+//		Thread.setDefaultUncaughtExceptionHandler(new DefaultUnCatchException());
 		String pathFileName=SingletonProps.getInstance().getProperties().getProperty("performanceLog");
+
 		
-	
 	//初始化
 		PerformanceInit performanceInit = new PerformanceInit();
 		performanceInit.setPathFileName(pathFileName);
+	
 		scheduleService.schedule(performanceInit, 0, TimeUnit.MILLISECONDS);
+//		new Thread(performanceInit).start();
 
 		
 		//常规任务之记录性能信息performance
@@ -42,8 +44,8 @@ public class DoSchedule  implements InitializingBean ,DisposableBean{
 
 		//常规任务之每天rotate 日志文件
 		logger.info("doschedule has started ,recording  performance has started!");
-
-
+		throw new RuntimeException("哈哈,挂吧");
+		
 	}
 
 	@Override

@@ -27,7 +27,7 @@ public class SysServiceImple implements SysService {
 		Date now = new Date();
 
 		SimpleDateFormat sdf= DateFormatUtil.getSdf("yyyy-MM-dd HH:mm:SS");
-		
+
 		String json_str = sysDao.readFileToString(path);
 		if("".equals(json_str))json_str="{}";
 		
@@ -83,7 +83,7 @@ public class SysServiceImple implements SysService {
 	}
 
 
-	
+
 	
 	
 }

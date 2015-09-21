@@ -35,7 +35,8 @@
   
   <!-- 凡是org 开头的日志都是info 级别 -->  
   <!-- <logger name="org" level="INFO" /> -->  
-  <logger name="com.skyline.schedule" level="debug"/>  
+  <logger name="com.skyline.schedule" level="info"/>  
+    <logger name="com.skyline" level="debug"/>  
   <!-- 管理spring 的日志-->  
   <logger name="org.springframework" level="INFO"/>  
   <logger name="org.hibernate" level="INFO"/>  
