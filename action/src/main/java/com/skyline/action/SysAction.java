@@ -60,8 +60,18 @@ public class SysAction {
 	public String reload(HttpServletRequest req,HttpServletResponse res) throws IOException{
 		
 		String cmd="curl --user predisw:admin http://localhost:8080/manager/text/reload?path=/SkylineRate";
-		Process process=Runtime.getRuntime().exec(cmd);
-		 java.util.Scanner in= new java.util.Scanner(process.getInputStream());
+		Process process=null;
+		try{
+			process=Runtime.getRuntime().exec(cmd);
+		}catch(Exception e){
+			e.printStackTrace();
+			req.setAttribute("Message", "失败"+e.getMessage());
+			return "forward:toSysOperation.do";
+		}
+
+		
+		java.util.Scanner in= new java.util.Scanner(process.getInputStream());
+		
 		while(in.hasNextLine()){
 			String Message=in.nextLine();
 			logger.warn("reload response is [{}]",Message);

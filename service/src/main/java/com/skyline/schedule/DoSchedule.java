@@ -43,7 +43,7 @@ public class DoSchedule  implements InitializingBean ,DisposableBean{
 		//常规任务之每天rotate 日志文件
 		logger.info("doschedule has started ,recording  performance has started!");
 
-
+		
 	}
 
 	@Override

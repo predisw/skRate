@@ -71,7 +71,8 @@ public class PerformanceInit implements  Runnable {
 				jsonObj= new JSONObject(performInfo);
 				date=jsonObj.get("date").toString();
 			}catch(JSONException e){
-//test here if the 				System.exit(-1); run then what will happen??
+				e.printStackTrace();
+				System.exit(1);
 				try {
 					sysDao.moveAndinit(path, Paths.get(targetName));
 				} catch (IOException e1) {
@@ -105,6 +106,7 @@ public class PerformanceInit implements  Runnable {
 			}
 		
 		}
+		logger.info("performance.log is done!!!!");
 		
 	}
 		
