@@ -66,7 +66,7 @@ public class PerformanceInit implements  Runnable {
 			JSONObject jsonObj=null;
 			String date="";
 			String pathName=path.toString();
-			String targetName=pathName.substring(0,pathName.indexOf("."))+"-"+DateFormatUtil.format(now, "yyyy-MM-dd_HH-mm-SS")+".log";
+			String targetName=pathName.substring(0,pathName.indexOf("."))+"_"+DateFormatUtil.format(now, "yyyy-MM-dd_HH-mm-ss")+".log";
 			
 			try{
 				jsonObj= new JSONObject(performInfo);

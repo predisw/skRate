@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
@@ -30,7 +31,7 @@ import com.skyline.service.BaseService;
 @Transactional
 @TransactionConfiguration(defaultRollback = true)
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath*:applicationContext.xml"})
+@ContextConfiguration(locations={"/WEB-INF/web.xml"})
 public class RateActionTest  {
 
 	@Autowired
@@ -49,13 +50,15 @@ public class RateActionTest  {
 	}
 	
 	@Test
-	public void abc() throws ServletException, IOException{
-		User user=new User();
+	public void test() throws ServletException, IOException{
+	/*	User user=new User();
 		user.setPassword("admin");
 		user.setUName("admin");
-		userAction.login(user, req, res);
-
-		System.out.println(req.getContextPath());
+		userAction.login(user, req, res);*/
+		
+/*		System.out.println(req.getServletContext().getAttribute("WebApplicationContext.ROOT"));
+		
+		System.out.println(req.getContextPath());*/
 	}
 
 	

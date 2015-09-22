@@ -93,7 +93,7 @@ public class SysDaoImple implements SysDao {
 		jsonObj.put("cpu", jsonArr);
 		jsonObj.put("memory", jsonArr);
 
-
+		
 		Files.createFile(path);
 		writeStringToFile(path, jsonObj.toString());
 		
