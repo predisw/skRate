@@ -34,7 +34,7 @@
 code:
 <input type="text"  name="code" class="num_input" required/>
 
-<input type="submit"  value="确认"/>
+<input type="submit"  value="添加"/>
 </form>
 
 
@@ -89,8 +89,8 @@ code:
 <input type="hidden"  name="scode"  value="${scode}"/>
 <input type="hidden" name="curP" value="${page.curPage}"/>
 
-<input type=button value="修改"  onclick =" return editorEnable( ${c.ccId})" />
-<input type="submit"  value="保存" />
+<input type=button value="激活"  onclick =" return editorEnable( ${c.ccId})" />
+<input type="submit"  value="修改"  onClick="return checkUpdate(${c.ccId})"/>
 </td>
 
 </tr>
@@ -200,7 +200,20 @@ function selectCheck(id){
 
 }
 
-
+function	checkUpdate(id){
+	 var x=document.getElementById(id);
+	 for (var i=0;i<x.length;i++)
+	  {
+		 	if( x.elements[i].getAttribute("disabled")!=null){
+				alert("请先激活,才可以修改!");
+				return false;
+			 	}
+		 } 
+	 if(!confirm("确定修改?")){
+		return false;
+		 }
+	 return true;
+}
 
 
 

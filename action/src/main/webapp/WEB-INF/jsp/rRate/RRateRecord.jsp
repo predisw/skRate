@@ -43,7 +43,7 @@
 			
 			
 			<input type="submit" value="查询"/>
-			<input type="button" style="position: absolute;right: 10%;" value="修改"  onclick="submit_rRates()"/>
+			<input type="button" style="position: absolute;right: 10%;" value="修改"  onclick="if(check())if(confirm('确定修改?'))submit_rRates()"/>
 		</form>
 
 	</div>
@@ -54,6 +54,7 @@
 			<div class="c_head">${c }</div>
 			<table>
 				<tr>
+					<th style="width:5px;"></th>
 					<th  style="width:12%;">vosId</th>
 					<th >operator</th>
 					<th style="width:11%;">code</th>
@@ -65,6 +66,7 @@
 				</tr>
 				<!-- 统一修改行 -->
 				<tr>
+					<td><input type="checkbox" id="${c}id"     onChange="select_checkbox('${c}id','${c }id')"  /></td>
 					<td ></td>
 					<td></td>
 					<td></td>
@@ -84,26 +86,27 @@
 				
 					<c:forEach items="${page.data }" var="r" varStatus="index">
 						<c:if test="${c==r.country }">
-							<input type="hidden" name="id"  value="${r.id}"/>
+						
 							<tr >
+								<td  name="id" ><input type="checkbox"  name="${r.country}id"  value="${r.id}"/></td>
 								<td>${r.bakVosId }</td>
 								<td>${r.operator } </td>
 								<td>${r.code } </td>
-								<td name="rate"><input type="text"  name="${r.country}rate"  style="width:90%;" value="${r.doubleF(r.rate) }"/> </td>
+								<td ><input type="text"  name="${r.country}rate"   id="${r.id}rate"  style="width:90%;" value="${r.doubleF(r.rate) }"/> </td>
 								
-								<td style="width:8px;" name="billing_unit"> 
-									<select name="${r.country}billing_unit"  style="width:100%;">
+								<td style="width:8px;"> 
+									<select name="${r.country}billing_unit"  style="width:100%;" id="${r.id}billing_unit">
 										<c:forEach items="${bList }" var="bUnit" >
 										<option ${r.billingType==bUnit.value?"selected":null} >${bUnit.value}</option>
 										</c:forEach>
 									</select>
 								 </td>
 								 
-								<td name="effect_time"><input type="date"  name="${r.country}effect_time"  style="width:90%;" value="${r.effectiveTime }" /> </td>
+								<td><input type="date"  name="${r.country}effect_time"  style="width:90%;" value="${r.effectiveTime }"  id="${r.id}effect_time" /> </td>
 								
-								<td name="expire_time"><input type="date"  name="${r.country}expire_time" style="width:90%;"  value="${r.expireTime }"/> </td>
+								<td><input type="date"  name="${r.country}expire_time" style="width:90%;"  value="${r.expireTime }"  id="${r.id}expire_time" /> </td>
 
-								<td name="remark"><input type="text"  name="${r.country}remark"  value="${r.remark }" style="width:95%;" /></td>
+								<td ><input type="text"  name="${r.country}remark"  value="${r.remark }" style="width:95%;" id="${r.id }remark" /></td>
 							</tr> 
  						</c:if>
 				</c:forEach>
@@ -159,6 +162,14 @@ if("${tDate}"=="" ){
 		alert('${Message}');
 	}
 
+function select_checkbox(id,name){
+	var check=document.getElementById(id);
+	var checks = document.getElementsByName(name);
+	for(var j=0;j<checks.length;j++){
+			checks[j].checked=check.checked;
+		}
+}
+ 
 function all_change(id,name){
 	var id_ele= document.getElementById(id);
 	var name_eles=document.getElementsByName(name);
@@ -170,26 +181,46 @@ function all_change(id,name){
 	
 }
 
+function check(){
+
+	var checktd=document.getElementsByName('id');
+	for(var i=0;i<checktd.length;i++){
+		if(checktd[i].firstChild.checked){
+			return true;
+		}
+	}
+	alert("请先选择需要修改的行!!");
+	return false;
+}
 
 function submit_rRates(){
-	var ids=document.getElementsByName("id");
-	var rates=document.getElementsByName("rate");
-	var bUnits=document.getElementsByName("billing_unit");
-	var effect_times=document.getElementsByName("effect_time");
-	var expire_times=document.getElementsByName("expire_time");
-	var remarks=document.getElementsByName("remark");
 
+	var checktd=document.getElementsByName('id');
 
-	var rRates="[";
 	
-	for(var i=0;i<ids.length;i++){
+ 	var rRates="[";
 
-		rRates+="{\"id\":\""+ids[i].value+"\",\"rate\":\""+rates[i].firstChild.value+"\",\"billing_unit\":\""+bUnits[i].children[0].value+"\",\"effect_time\":\""+effect_times[i].firstChild.value+"\",\"expire_time\":\""+expire_times[i].firstChild.value+"\",\"remark\":\""+remarks[i].firstChild.value+"\"}";
-	//	rRates+='{"id":'+ids[i].value+',"rate":'+rates[i].firstChild.value+'}';
-	//	rRates+={"id":ids[i].value,"rate":rates[i].firstChild.value,"billing_unit":bUnits[i].children[0].value,"effect_time":effect_times[i].firstChild.value,"effect_times":expire_times[i].firstChild.value,"remark":remarks[i].firstChild.value};
-		if(i+1<ids.length)rRates+=",";
-		}
+	for(var i=0;i<checktd.length;i++){
+
+		if(checktd[i].firstChild.checked){
+			if(rRates.length>1)rRates+=",";
+			
+			var id = checktd[i].firstChild.value;
+			var rate = document.getElementById(id+'rate');
+			var billing_unit = document.getElementById(id+'billing_unit');
+			var effect_time = document.getElementById(id+'effect_time');
+			var expire_time = document.getElementById(id+'expire_time');
+			var remark = document.getElementById(id+'remark');
+			rRates+="{id:\""+id+"\",rate:\""+rate.value+"\",billing_unit:\""+billing_unit.value+"\",effect_time:\""+effect_time.value+"\",expire_time:\""+expire_time.value+"\",remark:\""+remark.value+"\"}";
+/* 			if(i+1<checktd.length && checktd[i+1].firstChild.checked){
+				rRates+=",";
+				} */
+			}
+
+ 	}
+
 	rRates+="]";
+
 	
   	$(function(){
 		$.post("${pageContext.request.contextPath}/rRate/modifyrRate.do",{"rRates":rRates},

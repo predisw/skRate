@@ -1,6 +1,7 @@
 package com.skyline.filter;
 
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -33,6 +34,7 @@ public class SessionCheck implements Filter{
 		HttpServletRequest request =(HttpServletRequest) req;
 		HttpServletResponse response =(HttpServletResponse) res;
 		User login_user=(User)request.getSession().getAttribute("user");
+		
 		if(!request.getRequestURI().contains("login"))  //除了登录页面或者action 不拦截其他都拦截,这个也可以在filter 的init-param 中配置
 			if(login_user==null){
 				request.getSession().setMaxInactiveInterval(1200); //单位为秒,设置为20分钟后,会话超时
@@ -63,17 +65,19 @@ public class SessionCheck implements Filter{
 			logger.debug("cookies is null");
 		}
 */
-
+		
+//		logger.info("total threads is [{}],peak thread number [{}]",ManagementFactory.getThreadMXBean().getThreadCount(),ManagementFactory.getThreadMXBean().getPeakThreadCount());
 		logger.debug("from user [{}],the session id of requestUrl [{}] is [{}]",thread_user,reqUrl,ssId);
 
 		String threadName=thread_user+"-"+request.getRequestURI()+"-"+Thread.currentThread().getId();
 		Thread.currentThread().setName(threadName);
-
+		
 		chain.doFilter(request, response);
 	//	chain.doFilter(req, res);
 
 
 		logger.debug("耗时:[{}]ms",System.currentTimeMillis()-start_time);
+		
 	}
 
 	@Override

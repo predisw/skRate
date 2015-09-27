@@ -1,0 +1,8 @@
+@CHARSET "UTF-8";
+
+.per_body{
+	z-index:-100; 
+	position:absolute;
+	
+}
+

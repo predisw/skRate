@@ -8,7 +8,9 @@ import org.junit.Test;
 public class RuntimeTest {
 	@Test
 	public void RuntimeTest(){
-
+		
+		
+		
 		System.out.println(System.getProperty("os.name"));
 		Runtime myRun=Runtime.getRuntime();
 		System.out.println("total memory mbs"+Runtime.getRuntime().totalMemory()/(1024*1024));

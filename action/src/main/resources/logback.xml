@@ -11,6 +11,7 @@
       <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern> 
     </encoder> 
   </appender>  
+  
   <!--  写入文件-->  
   <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender"> 
     <file>/var/log/skyline/skylineRate.log</file>  
@@ -21,30 +22,27 @@
       <!-- keep 30 days' worth of history -->  
       <maxHistory>30</maxHistory> 
     </rollingPolicy>  
-    <!-- 压缩日志文件的配置-->  
-    <!-- <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-      <fileNamePattern>/var/log/skyline/skylineRate.%i.log.zip</fileNamePattern>
-      <minIndex>1</minIndex>
-      <maxIndex>3</maxIndex>
-    </rollingPolicy>
-
-    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-      <maxFileSize>5MB</maxFileSize>
-    </triggeringPolicy>
- -->  
     <encoder> 
       <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern> 
     </encoder> 
   </appender>  
+  
+  
+ 
+  
+  
+  
+  
   <!-- 凡是org 开头的日志都是info 级别 -->  
   <!-- <logger name="org" level="INFO" /> -->  
-  <logger name="com.skyline" level="debug"/>  
+  <logger name="com.skyline.schedule" level="info"/>  
+    <logger name="com.skyline" level="debug"/>  
   <!-- 管理spring 的日志-->  
-  <logger name="org.springframework" level="warn"/>  
+  <logger name="org.springframework" level="INFO"/>  
   <logger name="org.hibernate" level="INFO"/>  
 <!-- 将sql 也输出到日志文件 -->
  <logger name="org.hibernate.SQL" level="DEBUG"/>  
-  <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="debug"/>  <!-- 显示绑定的参数 -->
+  <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE"/>  <!-- 显示绑定的参数 -->
 <!--   <logger name="org.hibernate.engine" level="ALL"></logger> -->
   <!--  aop 日志-->  
   <logger name="org.aspectj" level="warn"/>  

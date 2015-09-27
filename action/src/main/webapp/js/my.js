@@ -25,6 +25,7 @@ function curDate(id){
 	if(dStr<10){
 		dStr="0"+dStr;
 		}
+
 	var reDate=curDate.getFullYear()+"-"+mStr+"-"+dStr;
 	//alert(reDate);
 	document.getElementById(id).value=reDate;

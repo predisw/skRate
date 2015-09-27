@@ -457,7 +457,7 @@ function loading(){
 			 }
 	 }
 
- function updateProg(){
+  function updateProg(){
 
 	 if (xmlhttp.readyState==4)
 	  {console.log("xmlhttp.status"+xmlhttp.status);
@@ -476,7 +476,7 @@ function loading(){
 			console.log("prog.value  is "+prog.value);
 			
 			if(xmlRes_json.sendMailProgress<=100){
-		 		 setTimeout("getProgress()",1000);
+		 		 setTimeout("getProgress()",2000);
 				}//使用异步来处理,看是否ok
 
 

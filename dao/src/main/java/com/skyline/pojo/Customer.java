@@ -3,6 +3,11 @@ package com.skyline.pojo;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
+
+
+
+import lombok.Setter;
+
 import com.predisw.annotation.Description;
 
 // Generated 2015-9-9 9:11:18 by Hibernate Tools 4.3.1
@@ -27,7 +32,8 @@ public class Customer implements java.io.Serializable {
 	private Integer count;
 	private Boolean isOften;
 	private String rateLevel;
-
+	@Setter
+	private String abc;
 	public Customer() {
 	}
 
