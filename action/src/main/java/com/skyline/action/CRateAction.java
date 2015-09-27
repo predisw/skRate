@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.predisw.annotation.Description;
 import com.predisw.annotation.Log;
@@ -24,7 +26,9 @@ import com.skyline.pojo.Customer;
 import com.skyline.pojo.Employee;
 import com.skyline.pojo.Partner;
 import com.skyline.pojo.Props;
+import com.skyline.pojo.RRate;
 import com.skyline.pojo.Rate;
+import com.skyline.service.BaseRateService;
 import com.skyline.service.BaseService;
 import com.skyline.service.CountryCodeService;
 import com.skyline.service.LogService;
@@ -44,6 +48,8 @@ public class CRateAction {
 	@Autowired
 	private BaseRateAction baseRateAction;
 	@Autowired
+	private BaseRateService baseRateService;
+	@Autowired
 	private LogService logService;
 	
 	//用于显示业务员,rate 的level 属性值
@@ -57,6 +63,11 @@ public class CRateAction {
 		}
 		req.setAttribute("empList", empList);
 		req.setAttribute("lList", levelList);
+		
+		Map<String,?> map=RequestContextUtils.getInputFlashMap(req);
+		if(map!=null){
+			req.setAttribute("Message",map.get("Message"));
+		}
 		
 		req.getRequestDispatcher("/WEB-INF/jsp/cRate/rateCode.jsp").forward(req, res);
 	}
@@ -201,6 +212,63 @@ public class CRateAction {
 		
 		
 	}
+	
+	//--------------从ISR 导入客户的历史报价记录
+	@RequestMapping("importRateFromISR.do")
+	public String importRateFromISR(HttpServletRequest req,HttpServletResponse res,RedirectAttributes red){
+		
+		String vosId="";
+		String fileName="";
+		String level="";
+		String eNum="";
+		try {
+			Map<String,String> uploadInfo =HttpUpAndDownload.getUploadInput(req);
+			fileName=uploadInfo.get("upload");
+			vosId=uploadInfo.get("im_vosid");
+			eNum=uploadInfo.get("im_eNum");
+			level=uploadInfo.get("level");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			red.addFlashAttribute("Message", "上传失败 "+e.getMessage()+" "+e.getCause());
+			return "redirect:getRateList.do";
+		}
+		
+		
+		int c_id=0;
+		List cusList =baseService.getByField(Customer.class, "vosId", vosId);
+		if(cusList!=null && !cusList.isEmpty()){
+			Customer cus=(Customer)cusList.get(0);
+			c_id=cus.getCId();
+		}
+		
+		String[] excelHeaders={"CARRIERNAME","COUNTRYNAME","BREAKNAME","COUNTRYCODE","BREAKCODE","FIRSTUNIT","NEXTUNIT","FEERATE","EFFECTIVE DATE","EXPIRE DATE"};
+		
+
+		
+		try{
+			if(!baseRateService.checkExcel(fileName, excelHeaders, vosId)){
+				red.addFlashAttribute("Message", "供应商vosId与文件内的vosId不一致 ");
+				return "redirect:getRateList.do";
+			}
+			Rate rate= new Rate();
+			rate.setLevel(level);
+			rate.setENum(eNum);
+			rate.setCId(c_id);
+			rate.setLevelPrefix("");
+			baseRateService.saveIsrExceltoDb(fileName, excelHeaders,rate);
+		}catch(Exception e){
+			e.printStackTrace();
+			red.addFlashAttribute("Message", "写入数据失败 "+e.getMessage()+" "+e.getCause());
+			return "redirect:getRateList.do";
+		}
+		
+		red.addFlashAttribute("Message", "导入成功 ");
+		
+
+		return "redirect:getRateList.do";
+	}
+	
 	
 	
 	//-----------下面的action 对应 rateRecord.jsp

@@ -1,21 +1,34 @@
 package com.skyline.service.imple;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.ParsePosition;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.HibernateException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.predisw.util.DateFormatUtil;
+import com.predisw.util.NumberUtils;
+import com.skyline.dao.BaseDao;
 import com.skyline.dao.imple.BaseRateDaoImple;
 import com.skyline.pojo.BaseRate;
 import com.skyline.pojo.Rate;
 import com.skyline.service.BaseRateService;
 import com.skyline.util.PageInfo;
+import com.skyline.util.PoiExcel;
 
 @Service("baseRateService")
 public class BaseRateServiceImple extends BaseRateDaoImple implements BaseRateService{
+	@Autowired
+	private PoiExcel poiExcel;
+	@Autowired
+	private BaseDao baseDao;
 	
-
 
 	
 	@Override
@@ -63,5 +76,71 @@ public class BaseRateServiceImple extends BaseRateDaoImple implements BaseRateSe
 		return page;
 	}
 	
+	
+	
+	@Override
+	public void saveIsrExceltoDb(String fileName, String[] excelHeaders,BaseRate newrate)  throws HibernateException, FileNotFoundException, IOException, CloneNotSupportedException {
+		// TODO Auto-generated method stub
+		List<String[]> rateList =poiExcel.readByPoi(fileName, 0, excelHeaders);
+
+		for(String[] rateArr : rateList){
+			BaseRate rate =(BaseRate) newrate.clone();
+			//--billingUnit
+			String billingUnit="";
+			if(StringUtils.isNumeric(rateArr[5]) && StringUtils.isNumeric(rateArr[6])){
+				billingUnit=rateArr[5]+"/"+rateArr[6];
+			}
+			//--code
+			String code=rateArr[3];
+			if(StringUtils.isNumeric(rateArr[4])){
+				code +=rateArr[4];
+			}
+		
+			rate.setVosId(rateArr[0]);
+			rate.setBakVosId(rateArr[0]);
+			rate.setCountry(rateArr[1]);
+			rate.setCode(code);
+			rate.setOperator(rateArr[2]);
+			rate.setBillingType(billingUnit);
+			
+			
+			if(rateArr[7]!=null && NumberUtils.isNumber(rateArr[7]) ) {
+				rate.setRate(Double.valueOf(rateArr[7]));
+			}
+			
+			rate.setSendTime(new Date());
+			
+			if(rateArr[8]!=null){
+				rate.setEffectiveTime(DateFormatUtil.getSdf("MM-dd-yyyy").parse(rateArr[8], new ParsePosition(0)));
+			}
+
+			if(rateArr[9]!=null){
+				rate.setExpireTime(DateFormatUtil.getSdf("MM-dd-yyyy").parse(rateArr[9], new ParsePosition(0)));
+			}
+			
+			rate.setIsAvailable(true);
+			rate.setIsCorrect(true);
+			rate.setIsSuccess(true);
+			
+			try{
+				
+				baseDao.save(rate);
+			}catch(HibernateException he){
+				throw he;
+			}
+
+			
+		}
+		
+		
+		
+	}
+
+	@Override
+	public boolean checkExcel(String fileName, String[] excelHeaders,String vosId) throws FileNotFoundException, IOException {
+		// TODO Auto-generated method stub
+		List<String[]> rateList =poiExcel.readByPoi(fileName, 0, excelHeaders);
+		return vosId.equals(rateList.get(0)[0]);
+	}
 
 }

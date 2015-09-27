@@ -15,8 +15,8 @@
 
 	<!--  import the history rateRecord function block-->
 	<div>
-	导入历史记录<br /><br />
-		<form id="im_form" action="${pageContext.request.contextPath}/cRate/importRate.do" method=post  enctype="multipart/form-data">
+	导入历史记录from 邮件附件<br /><br />
+		<form id="im_form"   method=post  enctype="multipart/form-data">
 			<input type="hidden" name="im_eNum"  id="im_eNUm" />
 			<input type="hidden"  name="im_vosid" id="im_vosid"  />
 			<input type="file" name="upload" value="选择文件"   /> 只支持excel 格式     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -26,9 +26,18 @@
 					<option value="${level }">${level }</option>
 				</c:forEach>
 			</select>
+
+			
+			<select id="im_type">
+				<option value="0">from ISR</option>
+				<option  value="1">from 附件</option>
+			</select>
+			
 			<input type="button"  value="上传" onclick="on_submit()"/>
 		</form>
 	</div>
+	
+
 
 	<!--  选择业务员和客户的功能块-->
 	<div>
@@ -135,8 +144,15 @@ function on_submit(){
 	im_eNum.value=eNum.options[eNum.selectedIndex].value;
 	im_vosid.value=vosid.options[vosid.selectedIndex].value;
 
-	var im_form=document.getElementById("im_form");
-	im_form.submit();
+	var im_type= document.getElementById('im_type');
+
+	var form = document.getElementById('im_form');
+
+	if(im_type.value=="0") form.action="${pageContext.request.contextPath}/cRate/importRateFromISR.do";
+	if(im_type.value=="1")form.action="${pageContext.request.contextPath}/cRate/importRate.do";
+
+
+	form.submit();
 	
 }
 
