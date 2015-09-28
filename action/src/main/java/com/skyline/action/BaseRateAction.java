@@ -1,5 +1,7 @@
 package com.skyline.action;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,11 +11,15 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.predisw.util.DateFormatUtil;
+import com.predisw.util.NumberUtils;
+import com.skyline.pojo.BaseRate;
 import com.skyline.pojo.CountryCode;
 import com.skyline.pojo.Customer;
 import com.skyline.service.BaseRateService;
@@ -21,9 +27,10 @@ import com.skyline.service.BaseService;
 import com.skyline.service.CountryCodeService;
 import com.skyline.service.RateService;
 import com.skyline.util.PageInfo;
+import com.skyline.util.PoiExcel;
 
 /**
- * 被CRAteAction 和RRateAction 共用的Action
+ * 被CRAteAction 和rateAction 共用的Action
  * @author predisw
  *
  */
@@ -33,6 +40,9 @@ class BaseRateAction {
 	private CountryCodeService ccService;
 	@Autowired
 	private BaseRateService baseRateService;
+
+
+	
 	
 	@RequestMapping("getBaseRatePageInfo.do")
 	public HttpServletRequest  getBaseRatePageInfo(HttpServletRequest req,HttpServletResponse res){
@@ -95,4 +105,8 @@ class BaseRateAction {
 		
 		return req;
 	}
+	
+
+	
+	
 }

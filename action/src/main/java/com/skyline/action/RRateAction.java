@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -20,11 +21,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.predisw.annotation.Log;
+import com.skyline.comparatorImple.CusComparator;
 import com.skyline.pojo.Customer;
 import com.skyline.pojo.Employee;
 import com.skyline.pojo.Partner;
 import com.skyline.pojo.Props;
 import com.skyline.pojo.RRate;
+import com.skyline.service.BaseRateService;
 import com.skyline.service.BaseService;
 import com.skyline.service.LogService;
 import com.skyline.service.RRateService;
@@ -41,6 +44,8 @@ public class RRateAction {
 	@Autowired
 	private BaseRateAction baseRateAction;
 	@Autowired
+	private BaseRateService baseRateService;
+	@Autowired
 	private LogService logService;
 	
 	//---------------------跳转到界面
@@ -54,6 +59,7 @@ public class RRateAction {
 		
 		List<Customer> cusList=baseService.getByField(Customer.class, "CType", Partner.PROVIDER);
 
+		Collections.sort(cusList, new CusComparator());
 		req.setAttribute("cusList", cusList);
 
 
@@ -83,11 +89,11 @@ public class RRateAction {
 
 		
 		try{
-			if(!rRateService.checkExcel(fileName, excelHeaders, vosId)){
+			if(!baseRateService.checkExcel(fileName, excelHeaders, vosId)){
 				red.addFlashAttribute("Message", "供应商vosId与文件内的vosId不一致 ");
 				return "redirect:toAddRRate.do";
 			}
-			rRateService.saveIsrExceltoDb(fileName, excelHeaders);
+			baseRateService.saveIsrExceltoDb(fileName, excelHeaders,new RRate());
 		}catch(Exception e){
 			e.printStackTrace();
 			red.addFlashAttribute("Message", "写入数据失败 "+e.getMessage()+" "+e.getCause());

@@ -8,7 +8,7 @@ import org.springframework.format.annotation.NumberFormat;
 
 import com.predisw.annotation.Description;
 @Description(name="baseRate")
-public class BaseRate {
+public class BaseRate  implements Cloneable{
 	private Integer id;
 	private String name;
 	private String country;
@@ -283,5 +283,13 @@ public class BaseRate {
 	
 	public String forLog(){
 		return "vosId:"+this.getVosId()+"-code: "+this.getCode();
+	}
+	
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		// TODO Auto-generated method stub
+		
+		return super.clone();
+		
 	}
 }
