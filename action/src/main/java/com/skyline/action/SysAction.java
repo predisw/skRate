@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
+import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -98,7 +99,8 @@ public class SysAction {
 		
 		String threadNums="";
 		try{
-			String pathFileName=SingletonProps.getInstance().getProperties().getProperty("performanceLog");
+			Properties props=SingletonProps.getInstance().getProperties();
+			String pathFileName=props.getProperty("performanceLogDir")+props.getProperty("performanceLogName");
 			
 			threadNums=sysService.getPerformance(Paths.get(pathFileName), 5);
 		}catch(Exception e){

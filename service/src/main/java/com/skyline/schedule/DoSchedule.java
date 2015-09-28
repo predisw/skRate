@@ -26,7 +26,7 @@ public class DoSchedule  implements InitializingBean ,DisposableBean{
 	public void afterPropertiesSet() throws Exception {
 		// TODO Auto-generated method stub
 //		Thread.setDefaultUncaughtExceptionHandler(new DefaultUnCatchException());
-		Properties props=SingletonProps.getInstance().getProperties();
+/*		Properties props=SingletonProps.getInstance().getProperties();
 		String pathFileName=props.getProperty("performanceLogDir")+props.getProperty("performanceLogName");
 
 		
@@ -46,7 +46,7 @@ public class DoSchedule  implements InitializingBean ,DisposableBean{
 
 		//常规任务之每天rotate 日志文件
 		logger.info("doschedule has started ,recording  performance has started!");
-
+*/
 	//	throw new RuntimeException("哈哈,挂吧");
 		
 	}

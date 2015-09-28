@@ -79,7 +79,7 @@
 	         },
 
 	         title : {
-	             text : 'Live random data'
+	             text : 'Thread Number'
 	         },
 
 	         exporting: {
