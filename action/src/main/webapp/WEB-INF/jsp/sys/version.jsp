@@ -17,6 +17,7 @@
 	<h2>SkylineRate System</h2> 
 2015-9-28 version 1.8 <br />
 关闭了性能日志记录.还需要完善<br />
+日志记录系统需要完善.<br />
 
 	
 <hr />
