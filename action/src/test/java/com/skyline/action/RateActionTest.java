@@ -31,7 +31,7 @@ import com.skyline.service.BaseService;
 @Transactional
 @TransactionConfiguration(defaultRollback = true)
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"/WEB-INF/web.xml"})
+@ContextConfiguration(locations={"classpath*:applicationContext.xml"})
 public class RateActionTest  {
 
 	@Autowired
