@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -29,6 +30,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.predisw.annotation.Description;
 import com.predisw.annotation.Log;
 import com.predisw.exception.UniException;
+import com.skyline.comparatorImple.CusComparator;
+import com.skyline.comparatorImple.EmpComparator;
 import com.skyline.pojo.Customer;
 import com.skyline.pojo.Employee;
 import com.skyline.pojo.Partner;
@@ -58,6 +61,7 @@ public class CustomerAction{
 	@RequestMapping("toAddCus.do")
 	public void toAddCust(HttpServletRequest req,HttpServletResponse res) throws ServletException, IOException{
 		List<Employee> empList=baseService.getByClass(Employee.class);
+		Collections.sort(empList, new EmpComparator());
 		req.setAttribute("empList", empList);
 		
 		req.getRequestDispatcher("/WEB-INF/jsp/customer/addCustomer.jsp").forward(req, res);
@@ -184,6 +188,7 @@ public class CustomerAction{
 	public String getCusByAjax(HttpServletRequest req,HttpServletResponse res) throws IOException{
 		String eNum = req.getParameter("eNum"); //获取前台通过xmlRequest 对象传过来的
 		List<Customer> cusListOfEmp=baseService.getByField(Customer.class, "ENum", eNum);
+		Collections.sort(cusListOfEmp, new CusComparator());
 		req.setAttribute("cusList", cusListOfEmp);
 		return "forward:responseCusListJson.do";
 

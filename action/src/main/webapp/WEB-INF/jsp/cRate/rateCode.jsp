@@ -15,7 +15,7 @@
 
 	<!--  import the history rateRecord function block-->
 	<div>
-	导入历史记录from 邮件附件<br /><br />
+	导入历史记录<br /><br />
 		<form id="im_form"   method=post  enctype="multipart/form-data">
 			<input type="hidden" name="im_eNum"  id="im_eNUm" />
 			<input type="hidden"  name="im_vosid" id="im_vosid"  />

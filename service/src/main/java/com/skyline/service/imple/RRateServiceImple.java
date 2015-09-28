@@ -22,72 +22,11 @@ import com.skyline.service.RRateService;
 import com.skyline.util.PoiExcel;
 @Service
 public class RRateServiceImple implements RRateService {
-	@Autowired
-	private PoiExcel poiExcel;
+
 	@Autowired
 	private BaseDao baseDao;
 	
-	@Override
-	public void saveIsrExceltoDb(String fileName, String[] excelHeaders)  throws HibernateException, FileNotFoundException, IOException {
-		// TODO Auto-generated method stub
-		List<String[]> rRateList =poiExcel.readByPoi(fileName, 0, excelHeaders);
-		for(String[] rRateArr : rRateList){
-			RRate rRate = new RRate();
-			//--billingUnit
-			String billingUnit="";
-			if(StringUtils.isNumeric(rRateArr[5]) && StringUtils.isNumeric(rRateArr[6])){
-				billingUnit=rRateArr[5]+"/"+rRateArr[6];
-			}
-			//--code
-			String code=rRateArr[3];
-			if(StringUtils.isNumeric(rRateArr[4])){
-				code +=rRateArr[4];
-			}
-		
-			rRate.setVosId(rRateArr[0]);
-			rRate.setBakVosId(rRateArr[0]);
-			rRate.setCountry(rRateArr[1]);
-			rRate.setCode(code);
-			rRate.setOperator(rRateArr[2]);
-			rRate.setBillingType(billingUnit);
-			
-			if(rRateArr[7]!=null && NumberUtils.isNumber(rRateArr[7]) ) {
-				rRate.setRate(Double.valueOf(rRateArr[7]));
-			}
-			
-			rRate.setSendTime(new Date());
-			
-			if(rRateArr[8]!=null){
-				rRate.setEffectiveTime(DateFormatUtil.getSdf("MM-dd-yyyy").parse(rRateArr[8], new ParsePosition(0)));
-			}
 
-			if(rRateArr[9]!=null){
-				rRate.setExpireTime(DateFormatUtil.getSdf("MM-dd-yyyy").parse(rRateArr[8], new ParsePosition(0)));
-			}
-			
-			rRate.setIsAvailable(true);
-			rRate.setIsCorrect(true);
-			rRate.setIsSuccess(true);
-			
-			try{
-				baseDao.save(rRate);
-			}catch(HibernateException he){
-				throw he;
-			}
-
-			
-		}
-		
-		
-		
-	}
-
-	@Override
-	public boolean checkExcel(String fileName, String[] excelHeaders,String vosId) throws FileNotFoundException, IOException {
-		// TODO Auto-generated method stub
-		List<String[]> rRateList =poiExcel.readByPoi(fileName, 0, excelHeaders);
-		return vosId.equals(rRateList.get(0)[0]);
-	}
 
 	@Override
 	public  void SaveJsonToDb(JSONArray jsonArr) throws Exception {

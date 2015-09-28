@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,8 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.predisw.annotation.Description;
 import com.predisw.annotation.Log;
+import com.skyline.comparatorImple.CusComparator;
+import com.skyline.comparatorImple.EmpComparator;
 import com.skyline.pojo.CountryCode;
 import com.skyline.pojo.Customer;
 import com.skyline.pojo.Employee;
@@ -61,7 +64,10 @@ public class CRateAction {
 		for(int i=0;i<propList.size();i++){
 			levelList.add(propList.get(i).getValue());
 		}
+		
+		Collections.sort(empList, new EmpComparator());
 		req.setAttribute("empList", empList);
+		
 		req.setAttribute("lList", levelList);
 		
 		Map<String,?> map=RequestContextUtils.getInputFlashMap(req);
@@ -281,6 +287,8 @@ public class CRateAction {
 		
 		req=baseRateAction.getBaseRatePageInfo(req, res);
 		List<Customer> cusList=baseService.getByField(Customer.class,"CType",Partner.CUSTOMER);
+		
+		Collections.sort(cusList, new CusComparator());
 		req.setAttribute("cusList", cusList);
 		
 		req.getRequestDispatcher("/WEB-INF/jsp/cRate/rateRecord.jsp").forward(req, res);
