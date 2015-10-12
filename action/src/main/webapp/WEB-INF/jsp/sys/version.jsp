@@ -14,7 +14,10 @@
 	<div>
 	
 	
-	<h2>SkylineRate System</h2> 
+	<h2>SkylineRate System</h2>
+2015-10-12 version 1.8.1 <br />
+报价附件内容按照A-Z 排序 <br />
+countryCode 也按照A-Z 排序<br />
 2015-9-28 version 1.8 <br />
 关闭了性能日志记录.还需要完善<br />
 日志记录系统需要完善.<br />

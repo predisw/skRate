@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -40,6 +41,8 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
+
+
 import org.hibernate.StaleObjectStateException;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -52,6 +55,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.predisw.exception.NotSameException;
+import com.skyline.comparatorImple.CcComparator;
 import com.skyline.pojo.CountryCode;
 import com.skyline.pojo.Customer;
 import com.skyline.pojo.Email;
@@ -275,7 +279,7 @@ public class RateAction {
 		String[] ccids=req.getParameterValues("oftenCC");
 
 		CountryCode cc=null;
-		List ccList=new ArrayList<CountryCode>();
+		List<CountryCode> ccList=new ArrayList<CountryCode>();
 		List tmpList=null;  
 		List ssList=null;////将之前保存到session 中的 国家code id 添加到list 中,
 		ssList= (List)(req.getSession().getAttribute("cl"));

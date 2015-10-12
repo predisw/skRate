@@ -10,6 +10,7 @@ import java.nio.file.StandardOpenOption;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.predisw.util.DateFormatUtil;
+import com.skyline.comparatorImple.BaseRateComparator;
 import com.skyline.pojo.Customer;
 import com.skyline.pojo.Email;
 import com.skyline.pojo.Props;
@@ -270,9 +272,10 @@ public class SendMailAction {
 					}else{
 						send_rateList.addAll(rateList1);
 					}
-
 					send_rateList.addAll(cRateList);
-					
+					//A-Z 排序
+					Collections.sort(send_rateList, new BaseRateComparator());
+
 					//生成附件内容--------------------------------------
 				try {
 					poiExcel.toExisting(send_rateList, excel_path_name, db_header, excel_header, sheetIndex, newSheetName,sdf);

@@ -1,5 +1,6 @@
 package com.skyline.dao.imple;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -11,6 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+
 import com.skyline.dao.CountryCodeDao;
 import com.skyline.pojo.CountryCode;
 import com.skyline.util.PageInfo;
@@ -33,7 +36,7 @@ public class CountryCodeDaoImple  implements CountryCodeDao {
 			Query query;
 			Query countQuery;
 			if( (conditions[0]==null || "".equals(conditions[0]) )  && (conditions[1]==null ||"".equals(conditions[1]) ) ){
-				query=ss.createQuery("from CountryCode cc order by cc.ccId desc");
+				query=ss.createQuery("from CountryCode cc order by cc.country ");
 
 				countQuery=ss.createQuery("select count(*) from CountryCode");
 				List countList=countQuery.list();
@@ -70,6 +73,7 @@ public class CountryCodeDaoImple  implements CountryCodeDao {
 			query.setFirstResult((page.getCurPage()-1)*page.getPageSize());  //if curPage=0 then how ?
 			query.setMaxResults(page.getPageSize());
 			List list = query.list();
+
 			page.setData(list); //将查到当页的内容返回
 			//之后 query 和list 指向其他的 query和list 会对之前的有影响吗?
 			//实践证明是没有影响的,因为list 的内容由setData 让其他的list 指向了,而之前的query 不再需要了,可以释放掉 

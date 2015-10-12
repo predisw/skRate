@@ -2,6 +2,7 @@ package com.skyline.action;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.predisw.exception.UniException;
+import com.skyline.comparatorImple.CcComparator;
 import com.skyline.pojo.CountryCode;
 import com.skyline.service.BaseService;
 import com.skyline.service.CountryCodeService;
@@ -117,7 +119,9 @@ public class CountryCodeAction {   //如果要使用spring 的自动注入，那
 		
 		page=ccService.getCountrys(page, conditions);
 		
-		req.setAttribute("ccList", page.getData());
+		List<CountryCode> ccList=page.getData();
+
+		req.setAttribute("ccList", ccList);
 		req.setAttribute("page", page);
 		req.setAttribute("scountry", country);
 		req.setAttribute("scode", code);
