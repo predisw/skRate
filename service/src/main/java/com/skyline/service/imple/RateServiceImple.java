@@ -151,7 +151,7 @@ public class RateServiceImple  extends RateDaoImple implements RateService{
 			for(int i=0;i<rIdArr.length;i++){
 				Rate rate=(Rate)baseDao.getById(Rate.class,Integer.parseInt(rIdArr[i]));
 				rateDao.setIsAvailable(rate.getVosId(), rate.getCode(), false); //不要用super 调用....,否则无法记录日志
-			
+
 				logService.logToDb("移除报价code", null, "vosId:"+rate.getVosId()+"-code:"+rate.getCode());
 			}
 		}

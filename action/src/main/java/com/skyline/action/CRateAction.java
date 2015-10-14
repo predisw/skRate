@@ -3,6 +3,7 @@ package com.skyline.action;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -121,12 +122,14 @@ public class CRateAction {
 		String vosid="";
 		String fileName="";
 		String level="";
+
 		try {
 			uploadInput=HttpUpAndDownload.getUploadInput(req);
 			eNum=uploadInput.get("im_eNum");
 			 vosid=uploadInput.get("im_vosid");
 			fileName=uploadInput.get("upload");
 			level=uploadInput.get("level");
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -149,7 +152,9 @@ public class CRateAction {
 			c_id=cus.getCId();
 		}
 		
-		String[] tbIndex={"Destination","Name","Destination Code","Code","Rate","Billing Unit","Effective Date"};
+		String[] tbIndex={"Destination","Name","Destination Code","Code","Rate","Billing Unit","Effective Date","Expire Date"};
+
+		
 		String[] hlist;
 		Rate rate;
 		List<Rate> rateList= new ArrayList<>();
@@ -183,6 +188,9 @@ public class CRateAction {
 			rate.setSendTime(new Date());
 
 			rate.setEffectiveTime(sdf.parse(hlist[6]));
+			if(hlist[7]!=null && !"".equals(hlist[7])){
+				rate.setEffectiveTime(sdf.parse(hlist[7],new ParsePosition(0)));
+			}
 			rate.setIsAvailable(true);
 			rate.setIsSuccess(true);
 			rate.setIsCorrect(true);

@@ -54,8 +54,9 @@ public class RateDaoImple implements RateDao {
 	public void setIsAvailable(String vosid, String code, boolean is_available) {
 		// TODO Auto-generated method stub
 		Session ss=sf.getCurrentSession();
-		String hql="update Rate r set r.isAvailable=:is_available  where r.vosId=:vosid and r.code=:code";
+		String hql="update Rate r set r.isAvailable=:is_available,r.remark=:remark where r.vosId=:vosid and r.code=:code";
 		Query query = ss.createQuery(hql);
+		query.setParameter("remark", "unavailable");
 		query.setParameter("is_available", is_available);
 		query.setParameter("vosid", vosid);
 		query.setParameter("code", code);

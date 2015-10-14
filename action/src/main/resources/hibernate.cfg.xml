@@ -19,7 +19,7 @@
 的时候,数据库就会存在maximumPoolSize 这么多的空闲连接了.因为这个值同时也是 minimumIdle -->
 <!-- <property name="hibernate.hikari.minimumIdle">5</property> -->
   <!--  数据连接池最大的连接数,包括空闲的和在使用中的连接数,默认值为10-->
-  <property name="hibernate.hikari.maximumPoolSize">5</property>
+  <property name="hibernate.hikari.maximumPoolSize">7</property>
 <!-- 连接超时的时间,如应用程序向数据库申请一个连接,,如果超过了这个时间没有回应,就返回一个sqlException ,单位毫秒,默认为30秒 -->
 <property name="hibernate.hikari.connectionTimeout">30000</property>
   

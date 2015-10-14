@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<!--  级别是 WARN->INFO->DEBUG ,级别低的会输出级别高的日志,如:info会输出debug的日志-->
 <!-- <configuration debug="true"> -->
 <!-- 输出logback 扫描读取配置文件的详情 -->
 <configuration> 
@@ -26,29 +26,43 @@
       <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern> 
     </encoder> 
   </appender>  
-  
-  
- 
-  
-  
-  
-  
+     
+       <!--  写入sqlconnector文件-->  
+  <appender name="sqlconnector" class="ch.qos.logback.core.rolling.RollingFileAppender"> 
+    <file>/var/log/skyline/sqlconnector/sqlconnector.log</file>  
+    <!-- 按照时间来滚动生成日志 -->  
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"> 
+      <!-- daily rollover -->  
+      <fileNamePattern>/var/log/skyline/sqlconnector/sqlconnector.%d{yyyy-MM-dd}.log</fileNamePattern>  
+      <!-- keep 10 days' worth of history -->  
+      <maxHistory>10</maxHistory> 
+    </rollingPolicy>  
+    <encoder> 
+      <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern> 
+    </encoder> 
+  </appender>  
+     
   <!-- 凡是org 开头的日志都是info 级别 -->  
-  <!-- <logger name="org" level="INFO" /> -->  
+
   <logger name="com.skyline.schedule" level="info"/>  
     <logger name="com.skyline" level="debug"/>  
   <!-- 管理spring 的日志-->  
-  <logger name="org.springframework" level="INFO"/>  
+  <logger name="org.springframework" level="WARN"/>  
   <logger name="org.hibernate" level="INFO"/>  
 <!-- 将sql 也输出到日志文件 -->
- <logger name="org.hibernate.SQL" level="DEBUG"/>  
-  <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE"/>  <!-- 显示绑定的参数 -->
+ <logger name="org.hibernate.SQL" level="debug"/>  
+  <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="trace"/>  <!-- 显示绑定的参数 -->
 <!--   <logger name="org.hibernate.engine" level="ALL"></logger> -->
   <!--  aop 日志-->  
   <logger name="org.aspectj" level="warn"/>  
   <!--  开启到debug 可以查看数据库连接池连接的情况-->  
-  <logger name="com.zaxxer" level="INFO"/>  
+ 
+  <logger name="com.zaxxer" level="DEBUG" additivity="false">  <!--  additivity="false" 这样就不会追加到上层的日志文件 root 中-->
+  		<appender-ref ref="sqlconnector" />
+  </logger>  
+  
   <!-- 如果没有设置log 等级，就用默认试用这个root 的等级 -->  
+   
 
   <root level="DEBUG"> 
     <appender-ref ref="FILE"/>  

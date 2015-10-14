@@ -28,9 +28,9 @@
 			</select>
 
 			
-			<select id="im_type">
+			<select id="im_type" name="im_type">
 				<option value="0">from ISR</option>
-				<option  value="1">from 附件</option>
+				<option  value="1">from Old附件</option>
 			</select>
 			
 			<input type="button"  value="上传" onclick="on_submit()"/>
