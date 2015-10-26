@@ -114,6 +114,8 @@ public class RRateAction {
 		
 		List<Customer> cusList=baseService.getByField(Customer.class, "CType", Partner.PROVIDER);
 		//获取可选的name 为 billing_unit属性的对象,对象类似一个map
+		
+		Collections.sort(cusList, new CusComparator());
 		List<Props> bList=baseService.getByField(Props.class, "name", "billing_unit");
 		
 		req.setAttribute("cusList", cusList);

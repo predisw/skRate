@@ -88,7 +88,7 @@ public class SendMailServiceImple implements SendMailService {
 				baseDao.setByField(Rate.class, "sendTime",send_time , "name", successedSR.getRateName()); //更新对应类记录的发送时间
 				
 				List<Rate> rateList=baseDao.getByField(Rate.class, "name", successedSR.getRateName());
-				this.setETAfterMail(rateList);
+				this.setETAfterMail(rateList);  //修正cRate中的过期时间
 				
 			} catch ( Exception e) { 
 				// TODO Auto-generated catch block

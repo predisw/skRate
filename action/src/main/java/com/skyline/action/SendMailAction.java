@@ -238,17 +238,18 @@ public class SendMailAction {
 								
 								Date newEfTime=rateList1.get(j).getEffectiveTime(); //新的生效时间
 								
+								//假如生效时间比现在大将cRateList 中相同code 的这个报价设置好过期时间,也发给客户
 								if(newEfTime.getTime()>now.getTime()){
 									Calendar calendar = Calendar.getInstance();  //得到日历
 									calendar.setTime(newEfTime);
 									calendar.add(Calendar.DAY_OF_MONTH, -1); // 当天+(-1) 就是得到前天;
 									Date expireDate=calendar.getTime();
 									
-									rateList1.get(j).setPRid(cRateList.get(k).getRId()); //将对应的之前的rate 的rid 保存到新的Rate 中,方便重发邮件时使用.
+									rateList1.get(j).setPRid(cRateList.get(k).getRId()); //用于发送报价成功时,通过rateList 找到对应的cRate,在修改数据库中的过期时间
 									cRateList.get(k).setExpireTime(expireDate);
 									cRateList.get(k).setIsChange("Current");
 									rateList2.add(cRateList.get(k));
-									rateList2.add(rateList1.get(j));
+//									rateList2.add(rateList1.get(j));
 
 								}
 
@@ -269,9 +270,9 @@ public class SendMailAction {
 					List<Rate> send_rateList= new ArrayList<Rate>(); //必须用新建的List,要不会被覆盖,要不就在循环体外建send_rateList
 					if(rateList2.size()>0){
 						send_rateList.addAll(rateList2);
-					}else{
-						send_rateList.addAll(rateList1);
 					}
+					send_rateList.addAll(rateList1);
+
 					send_rateList.addAll(cRateList);
 					//A-Z 排序
 					Collections.sort(send_rateList, new BaseRateComparator());

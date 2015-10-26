@@ -12,9 +12,10 @@
 <div class="main_body">
 
 	<div>
-	
-	
-	<h2>SkylineRate System</h2>
+		<h2>SkylineRate System</h2>
+2015-10-15 version 1.8.2 <br />
+修复一个bug:生效时间不一致时,导致生效时间为now 的报价不写入附件.<br />
+
 2015-10-12 version 1.8.1 <br />
 报价附件内容按照A-Z 排序 <br />
 countryCode 也按照A-Z 排序<br />
