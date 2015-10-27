@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.predisw.util.DateFormatUtil;
 import com.predisw.util.NumberUtils;
+import com.skyline.comparatorImple.BaseRateComparator;
 import com.skyline.pojo.BaseRate;
 import com.skyline.pojo.CountryCode;
 import com.skyline.pojo.Customer;
@@ -94,6 +96,9 @@ class BaseRateAction {
 			countryList=baseRateService.getCountry(sDate, tDate, vosId, is_success, firstResult, maxResult,is_correct,ratecCazz);
 			page = baseRateService.getRateByPage(sDate, tDate, vosId, country, is_success, page,is_correct,ratecCazz); //page.data 就是rList
 		}
+		
+		Collections.sort(page.getData(), new BaseRateComparator());
+		
 
 		//用于在html 上显示 提交的值
 		req.setAttribute("sDate", sDateStr);

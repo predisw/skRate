@@ -1,5 +1,7 @@
 package com.skyline.action;
-
+/**
+ * 和RRate 相对应.
+ */
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -91,7 +93,7 @@ public class CRateAction {
 		if(cusList.size()>0){
 			Customer cus =cusList.get(0);
 			rateList=rateService.getLastRateByCid(cus.getCId(), true, true,true);
-		}
+		}  
 
 		req.setAttribute("vosId", vosId); //在html上显示选择的vosId
 		req.setAttribute("rateList", rateList);

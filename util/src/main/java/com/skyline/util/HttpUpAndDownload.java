@@ -34,7 +34,7 @@ public class HttpUpAndDownload {
 		
 		Logger logger = LoggerFactory.getLogger(HttpUpAndDownload.class);
 		File file ;
-		int maxFileSize = 5000 * 1024;
+		int maxFileSize = 15000 * 1024;
 		int maxMemSize = 6000 * 1024;
 		
 		String contextType=req.getContentType();

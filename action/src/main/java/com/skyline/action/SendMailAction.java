@@ -32,7 +32,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.predisw.util.DateFormatUtil;
-import com.skyline.comparatorImple.BaseRateComparator;
+import com.skyline.comparatorImple.BaseRateCodeComparator;
+import com.skyline.comparatorImple.BaseRateCountryComparator;
+import com.skyline.comparatorImple.BaseRateOperatorComparator;
 import com.skyline.pojo.Customer;
 import com.skyline.pojo.Email;
 import com.skyline.pojo.Props;
@@ -275,7 +277,8 @@ public class SendMailAction {
 
 					send_rateList.addAll(cRateList);
 					//A-Z 排序
-					Collections.sort(send_rateList, new BaseRateComparator());
+
+					Collections.sort(send_rateList, new BaseRateCountryComparator());
 
 					//生成附件内容--------------------------------------
 				try {

@@ -1,5 +1,7 @@
 package com.skyline.action;
-
+/**
+ * 辅助发邮件,获得供应商,客户,rate 的信息
+ */
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -43,6 +45,10 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
+
+
+
+
 import org.hibernate.StaleObjectStateException;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -55,6 +61,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.predisw.exception.NotSameException;
+import com.skyline.comparatorImple.BaseRateCodeComparator;
+import com.skyline.comparatorImple.BaseRateComparator;
+import com.skyline.comparatorImple.BaseRateCountryComparator;
+import com.skyline.comparatorImple.BaseRateOperatorComparator;
 import com.skyline.comparatorImple.CcComparator;
 import com.skyline.pojo.CountryCode;
 import com.skyline.pojo.Customer;
@@ -414,6 +424,13 @@ public class RateAction {
 		
 		logger.debug("[getRate.do]: [{}] customers need to be sent,[{}] rate records need to be sent to every customer ",cusList.size(),rateList.size());
 
+		//排序...
+		Collections.sort(rateList, new BaseRateComparator());
+//		Collections.sort(rateList, new BaseRateCountryComparator());
+//		Collections.sort(rateList, new BaseRateOperatorComparator());
+//		Collections.sort(rateList, new BaseRateCodeComparator());
+		
+		
 		req.setAttribute("rateList", rateList);
 		req.getRequestDispatcher("/getcc.do").forward(req, res);
 
