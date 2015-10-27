@@ -87,7 +87,8 @@ sendRecord 类覆盖了clone 方法
 发送报价和历史查询（落地和客户）
 
 添加RRate 的失效日期.
-
+修复数据迁移.修改vosId只需要改rate 和r_rate 就可以了,send_record 不用改.还有就是enum修改也要对应的改.
+备份vosId 如何修改呢?根据bak_vosId来修改vosId
 
 
 
