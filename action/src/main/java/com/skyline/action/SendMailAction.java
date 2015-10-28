@@ -277,7 +277,7 @@ public class SendMailAction {
 
 					send_rateList.addAll(cRateList);
 					//A-Z 排序
-
+					Collections.sort(send_rateList, new BaseRateCodeComparator());
 					Collections.sort(send_rateList, new BaseRateCountryComparator());
 
 					//生成附件内容--------------------------------------

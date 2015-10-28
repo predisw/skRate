@@ -17,4 +17,8 @@ public interface CustomerService extends CustomerDao{
 
 	
 	public void saveExcelCusToDb(String excelFile,String[] excel_sheetHead_order,String[] cusAttributeOrder) throws NumberFormatException, NoSuchFieldException, SecurityException, NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ParseException, FileNotFoundException, IOException;
+
+	
+	//更新客户,如果更新了vosId 或工号,则要对应的修改
+	void updateCus(Customer cus);
 }

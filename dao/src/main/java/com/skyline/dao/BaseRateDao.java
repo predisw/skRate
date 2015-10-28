@@ -18,4 +18,8 @@ public interface BaseRateDao {
 	//假如sDate 是null,则 表示 没有sDate<= 只有<=tDate
 	public List getCountry(Date sDate,Date tDate,String vosId,boolean is_success,Integer firstResult,Integer  maxResult,boolean is_correct,Class rateClazz);
 
+	//当修改客户的vosId时,需要同步修改rate 中对应的vosId 和,设置old_vosId
+	//只修改vosId而不修改bak_vosId,bak_vosId初始值就是等于第一次写入的vosId值.新发的报价生成的bak_vosid 会替换旧的
+	void upAndBakVos(String old_vosId, String new_vosId, Class rateClazz);
+
 }

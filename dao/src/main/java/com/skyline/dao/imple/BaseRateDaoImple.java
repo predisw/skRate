@@ -106,4 +106,16 @@ public class BaseRateDaoImple implements BaseRateDao {
 
 		return cr.list();
 	}
+	
+	@Override
+	public void upAndBakVos(String old_vosId,String new_vosId,Class rateClazz) {
+
+		Session ss=sf.getCurrentSession();
+		String hql="update "+rateClazz.getSimpleName() +" r set r.vosId=:new_vosId where r.vosId=:old_vosId";
+		Query query=ss.createQuery(hql);
+		query.setParameter("old_vosId", old_vosId);
+		query.setParameter("new_vosId", new_vosId);
+		query.executeUpdate();
+	}
+
 }

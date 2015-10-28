@@ -25,7 +25,7 @@ public interface RateDao {
 //	获取某个客户一个Rate 对象
 	public Rate getOneRate(String vosId,boolean is_available ,boolean is_success,boolean is_correct);
 	
-	//当修改客户的vosId时,需要同步修改rate 中对应的vosId 和,设置old_vosId
-	public void upAndBakVos(String old_vosId,String new_vosId);
+
+
 
 }

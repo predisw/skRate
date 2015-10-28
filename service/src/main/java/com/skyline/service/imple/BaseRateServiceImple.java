@@ -143,4 +143,7 @@ public class BaseRateServiceImple extends BaseRateDaoImple implements BaseRateSe
 		return vosId.equals(rateList.get(0)[0]);
 	}
 
+	
+	
+	
 }

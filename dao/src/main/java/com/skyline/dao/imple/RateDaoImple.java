@@ -93,16 +93,7 @@ public class RateDaoImple implements RateDao {
 		return query.list();
 	}
 	
-	@Override
-	public void upAndBakVos(String old_vosId,String new_vosId) {
-		// TODO Auto-generated method stub
-		Session ss=sf.getCurrentSession();
-		String hql="update Rate r set r.vosId=:new_vosId where r.vosId=:old_vosId";
-		Query query=ss.createQuery(hql);
-		query.setParameter("old_vosId", old_vosId);
-		query.setParameter("new_vosId", new_vosId);
-		query.executeUpdate();
-	}
+
 
 	@Override
 	public Rate getOneRate(String vosId,boolean is_available,

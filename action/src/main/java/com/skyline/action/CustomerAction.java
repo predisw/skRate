@@ -164,7 +164,7 @@ public class CustomerAction{
 		
 		try{
 			baseService.updateUniCheck(cus,"vosId", cus.getVosId(),"CId");
-			baseService.update(cus);
+			cusService.updateCus(cus);
 		}catch(UniException e){  //vosId 已存在
 			e.printStackTrace();
 			req.setAttribute("Message", e.getMessage());
