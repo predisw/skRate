@@ -3,8 +3,8 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.predisw.skyline</groupId>
   <artifactId>SkylineRate</artifactId>
-  <packaging>pom</packaging>
-  <version>1.8</version>
+  <packaging>war</packaging>
+  <version>1.8.4</version>
   <name>SkylineRate</name>
  
  
@@ -13,12 +13,8 @@
 	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties> 
 
-  <modules>  
-    <module>util</module>
-    <module>dao</module>
-    <module>service</module>
-    <module>action</module> 
-  </modules>  
+
+
   <dependencies>
     <dependency>
       <groupId>org.springframework</groupId>
