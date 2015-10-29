@@ -53,7 +53,7 @@ public class CountryCodeAction {   //如果要使用spring 的自动注入，那
 			fileName = HttpUpAndDownload.getUploadInput(req).get("upload");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("上传失败", e);
 			red.addFlashAttribute("Message", "上传失败");
 			return "redirect:getCountrys.do";
 		}
@@ -64,7 +64,7 @@ public class CountryCodeAction {   //如果要使用spring 的自动注入，那
 		try{
 			cclist = poiExcel.readByPoi(fileName,sheetNumber, tbIndex);
 		}catch(Exception e){
-			e.printStackTrace();
+			logger.error("读上传文件失败", e);
 			red.addFlashAttribute("Message", "读上传文件失败 "+e.getMessage()+" cause:"+e.getCause());
 			return "redirect:getCountrys.do";
 		}
@@ -74,7 +74,7 @@ public class CountryCodeAction {   //如果要使用spring 的自动注入，那
 			ccService.saveISRListToCcTable(cclist);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("导入失败", e);
 			red.addFlashAttribute("Message", "导入失败 "+e.getMessage()+" cause:"+e.getCause());
 		}
 		red.addFlashAttribute("Message", "用时: "+(System.currentTimeMillis()-begin_time)/1000+" 秒");
@@ -150,7 +150,7 @@ public class CountryCodeAction {   //如果要使用spring 的自动注入，那
 		try{
 			ccService.delBulkById(idArr);
 		}catch(Exception e){
-			e.printStackTrace();
+			logger.error("删除失败", e);
 			red.addFlashAttribute("Message","删除失败 "+e.getMessage()+" cause:"+e.getCause());
 			return "redirect:getCountrys.do";
 		}
@@ -169,7 +169,7 @@ public class CountryCodeAction {   //如果要使用spring 的自动注入，那
 			baseService.addUniCheck(cc,"code", cc.getCode()); 		//检查是否唯一
 			baseService.save(cc);
 		}catch(Exception e){
-			e.printStackTrace();
+			logger.error("新增失败", e);
 			red.addFlashAttribute("Message", "新增失败 "+e.getMessage()+" cause: "+e.getCause());
 			return "redirect:getCountrys.do";
 		}
@@ -193,12 +193,9 @@ public class CountryCodeAction {   //如果要使用spring 的自动注入，那
 		try{
 			baseService.updateUniCheck(cc, "code", cc.getCode(),"ccId");   //检查code是否唯一
 			baseService.update(cc);
-		}catch(StaleObjectStateException e){
-			e.printStackTrace();
-			red.addFlashAttribute("Message", "其他人已经更新了数据,请重新更新");
-			return "redirect:getCountrys.do";
+
 		}catch(Exception e){
-			e.printStackTrace();
+			logger.error("更新失败 ",e);
 			red.addFlashAttribute("Message", "更新失败 "+e.getMessage()+" cause: "+e.getCause());
 			return "redirect:getCountrys.do";
 		}

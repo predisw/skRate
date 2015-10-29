@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skyline.dao.CountryCodeDao;
 import com.skyline.dao.imple.CountryCodeDaoImple;
 import com.skyline.pojo.CountryCode;
 import com.skyline.service.BaseService;
@@ -14,11 +15,13 @@ import com.skyline.util.PageInfo;
 
 
 @Service("countryCodeService")
-public class CountryCodeServiceImple extends CountryCodeDaoImple  implements CountryCodeService{
+public class CountryCodeServiceImple   implements CountryCodeService{
 
 	@Autowired 
 	private BaseService baseService;
-
+	@Autowired
+	private CountryCodeDao ccDao;
+	
 	
 	//只把country ，operator 和code 字段加到数据库中的country 表中
 		public void saveISRListToCcTable(List<String[]> ccList) throws  NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
@@ -57,9 +60,44 @@ public class CountryCodeServiceImple extends CountryCodeDaoImple  implements Cou
 	public void setOftenCountrys(boolean is_often,String[] ccIds) {
 		// TODO Auto-generated method stub
 		for(String ccId:ccIds){
-			super.setOftenCountry(is_often, Integer.parseInt(ccId));
+			ccDao.setOftenCountry(is_often, Integer.parseInt(ccId));
 		}
 
+	}
+
+
+	@Override
+	public PageInfo getCountrys(PageInfo page, String[] conditions) {
+		// TODO Auto-generated method stub
+		return ccDao.getCountrys(page, conditions);
+	}
+
+
+	@Override
+	public List<CountryCode> getCountrys() {
+		// TODO Auto-generated method stub
+		return ccDao.getCountrys();
+	}
+
+
+	@Override
+	public void setOftenCountry(boolean is_often, int ccId) {
+		// TODO Auto-generated method stub
+		ccDao.setOftenCountry(is_often, ccId);
+	}
+
+
+	@Override
+	public List<CountryCode> getOfenCountrys(boolean is_often) {
+		// TODO Auto-generated method stub
+		return ccDao.getOfenCountrys(is_often);
+	}
+
+
+	@Override
+	public List<CountryCode> getOperators(String country) {
+		// TODO Auto-generated method stub
+		return ccDao.getOperators(country);
 	}
 	
 		

@@ -43,7 +43,7 @@ public class ExcelTpAction {
 			upload = HttpUpAndDownload.getUploadInput(req);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("", e);
 			req.setAttribute("Message", "上传失败");
 			req.getRequestDispatcher("getExcelTp.do").forward(req, res);
 			return;
@@ -59,7 +59,7 @@ public class ExcelTpAction {
 		try{
 			baseService.saveOrReplaceIfDup(tp, "name"); //只要名字相同就覆盖
 		}catch(Exception e){
-			e.printStackTrace();
+			logger.error("", e);
 			req.setAttribute("Message", "写入数据库失败");
 			req.getRequestDispatcher("getExcelTp.do").forward(req, res);
 			return;
@@ -78,7 +78,7 @@ public class ExcelTpAction {
 			try{
 				HttpUpAndDownload.downLoadFile(tp.getFilePathName(), res);
 			}catch(Exception e){
-				e.printStackTrace();
+				logger.error("", e);
 				req.setAttribute("Message", "下载失败");
 				req.getRequestDispatcher("getExcelTp.do").forward(req, res);
 			}

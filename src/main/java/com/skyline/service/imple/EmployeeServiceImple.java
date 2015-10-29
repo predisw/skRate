@@ -19,12 +19,13 @@ import com.skyline.service.EmployeeService;
 import com.skyline.util.PoiExcel;
 import com.skyline.util.SingletonProps;
 @Service
-public class EmployeeServiceImple extends EmployeeDaoImple implements EmployeeService {
+public class EmployeeServiceImple  implements EmployeeService {
 	@Autowired
 	private PoiExcel poiExcel;
 	@Autowired
 	private BaseService baseService;
-	
+	@Autowired
+	private EmployeeDao empDao;
 	
 	@Override
 	public void saveExcelEmpToDb(String fileName, String[] excel_sheetHead_order,String[] empAttributeOrder) throws NumberFormatException, NoSuchFieldException, SecurityException, NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ParseException, FileNotFoundException, IOException{
@@ -44,6 +45,13 @@ public class EmployeeServiceImple extends EmployeeDaoImple implements EmployeeSe
 			baseService.saveOrReplaceIfDup(emp,"ENum");
 		}
 		
+	}
+
+
+	@Override
+	public List<Employee> getEmps(boolean status) {
+		// TODO Auto-generated method stub
+		return empDao.getEmps(status);
 	}
 
 }

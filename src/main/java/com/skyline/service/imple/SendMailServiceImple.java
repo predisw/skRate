@@ -91,10 +91,9 @@ public class SendMailServiceImple implements SendMailService {
 				this.setETAfterMail(rateList);  //修正cRate中的过期时间
 				
 			} catch ( Exception e) { 
-				// TODO Auto-generated catch block
+				logger.error("", e);
 				failedSR.setSendTime(send_time);
 				baseDao.update(failedSR);
-				e.printStackTrace();
 				throw new Exception(e.getMessage(), e.getCause());
 			}
 				

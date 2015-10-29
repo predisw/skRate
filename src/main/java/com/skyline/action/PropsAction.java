@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.hibernate.StaleObjectStateException;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +28,8 @@ import com.skyline.service.BaseService;
 public class PropsAction {
 	@Autowired
 	private  BaseService baseService;
+	
+	private Logger logger =LoggerFactory.getLogger(this.getClass());
 	
 	@RequestMapping("toAddProp.do")
 	public void toAddProp(HttpServletRequest req,HttpServletResponse res) throws ServletException, IOException{
@@ -63,7 +67,7 @@ public class PropsAction {
 			}
 		catch(StaleObjectStateException e){
 			req.setAttribute("Message", "其他人已经更新了数据,请重新更新");
-			e.printStackTrace();
+			logger.error("", e);
 			req.getRequestDispatcher("toAddProp.do").forward(req, res);
 			return;
 		}
@@ -103,7 +107,7 @@ public class PropsAction {
 		try{
 			baseService.delete(baseService.getById(Props.class,Integer.parseInt(id)));
 		}catch(Exception e){
-			e.printStackTrace();
+			logger.error("", e);
 			obj.put("Message", "删除失败"+e.getMessage()+" "+e.getCause());
 			obj.put("isSuccess", false);
 		}

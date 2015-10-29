@@ -56,12 +56,12 @@ public class EmployeeAction  {
 			baseService.addUniCheck(emp, "ENum", emp.getENum());
 			baseService.save(emp);
 		}catch(UniException e){
-			e.printStackTrace();
+			logger.error("", e);
 			req.setAttribute("Message", "添加失败 "+e.getMessage());
 			req.getRequestDispatcher("toAddEmp.do").forward(req, res);
 		}
 		catch(Exception e){
-			e.printStackTrace();
+			logger.error("", e);
 			req.setAttribute("Message", "添加失败");
 			req.getRequestDispatcher("toAddEmp.do").forward(req, res);
 		}
@@ -83,7 +83,7 @@ public class EmployeeAction  {
 			uploadInput = HttpUpAndDownload.getUploadInput(req);
 			fileName=uploadInput.get("upload");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("", e);
 			req.setAttribute("Message", "上传失败 "+e.getMessage()+" cause: "+e.getCause());
 			req.getRequestDispatcher("toAddEmp.do").forward(req, res);
 			return;
@@ -95,7 +95,7 @@ public class EmployeeAction  {
 		try{
 			empService.saveExcelEmpToDb(fileName, excel_sheetHead_order, empAttributeOrder);
 		}catch(Exception e){
-			e.printStackTrace();
+			logger.error("", e);
 			req.setAttribute("Message", "上传失败 "+e.getMessage()+" cause: "+e.getCause());
 			req.getRequestDispatcher("toAddEmp.do").forward(req, res);
 			return;
@@ -155,12 +155,12 @@ public class EmployeeAction  {
 			}
 		catch(StaleObjectStateException e){
 			req.setAttribute("Message", "其他人已经更新了数据,请重新更新");
-			e.printStackTrace();
+			logger.error("", e);
 			req.getRequestDispatcher("toUpdateEmp.do").forward(req, res);
 			return;
 		}catch(Exception e){
 			req.setAttribute("Message", "更新失败");
-			e.printStackTrace();
+			logger.error("", e);
 			req.getRequestDispatcher("toUpdateEmp.do").forward(req, res);
 			return;
 		}

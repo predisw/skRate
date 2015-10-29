@@ -23,7 +23,7 @@ public class SessionCheck implements Filter{
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
-		logger.debug("************************important!!,we are getting shutdown****************************************");
+		logger.warn("************************important!!,we are getting shutdown****************************************");
 	}
 
 	@Override
@@ -67,7 +67,7 @@ public class SessionCheck implements Filter{
 */
 		
 //		logger.info("total threads is [{}],peak thread number [{}]",ManagementFactory.getThreadMXBean().getThreadCount(),ManagementFactory.getThreadMXBean().getPeakThreadCount());
-		logger.debug("from user [{}],the session id of requestUrl [{}] is [{}]",thread_user,reqUrl,ssId);
+		logger.info("from user [{}],the session id of requestUrl [{}] is [{}]",thread_user,reqUrl,ssId);
 
 		String threadName=thread_user+"-"+request.getRequestURI()+"-"+Thread.currentThread().getId();
 		Thread.currentThread().setName(threadName);
@@ -76,7 +76,7 @@ public class SessionCheck implements Filter{
 	//	chain.doFilter(req, res);
 
 
-		logger.debug("耗时:[{}]ms",System.currentTimeMillis()-start_time);
+		logger.info("耗时:[{}]ms",System.currentTimeMillis()-start_time);
 		
 	}
 

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.predisw.util.DateFormatUtil;
 import com.predisw.util.NumberUtils;
 import com.skyline.dao.BaseDao;
+import com.skyline.dao.BaseRateDao;
 import com.skyline.dao.imple.BaseRateDaoImple;
 import com.skyline.pojo.BaseRate;
 import com.skyline.pojo.Rate;
@@ -23,12 +24,13 @@ import com.skyline.util.PageInfo;
 import com.skyline.util.PoiExcel;
 
 @Service("baseRateService")
-public class BaseRateServiceImple extends BaseRateDaoImple implements BaseRateService{
+public class BaseRateServiceImple  implements BaseRateService{
 	@Autowired
 	private PoiExcel poiExcel;
 	@Autowired
 	private BaseDao baseDao;
-	
+	@Autowired
+	private BaseRateDao baseRateDao;
 
 	
 	@Override
@@ -42,32 +44,32 @@ public class BaseRateServiceImple extends BaseRateDaoImple implements BaseRateSe
 
 		if(!"all".equalsIgnoreCase(country)&&country!=null && !"".equals(country)){
 			if(sDate==null){ //如果sDate(就是没有选择sDate),则返回某个country 所有code 最新的报价记录
-				rates=super.getLastRate(tDate,vosId, country, is_success,is_correct,rateClazz); 
+				rates=baseRateDao.getLastRate(tDate,vosId, country, is_success,is_correct,rateClazz); 
 			}else{
-				rates=super.getRate(sDate, tDate, vosId, country, is_success,is_correct,rateClazz);  //返回一个国家的所有rate 记录
+				rates=baseRateDao.getRate(sDate, tDate, vosId, country, is_success,is_correct,rateClazz);  //返回一个国家的所有rate 记录
 			}
 			total_c.add(country);
 		}else{
 			 rates=new ArrayList<>();
 			List tmpRates;
-			List<String> countrys=super.getCountry(sDate, tDate, vosId, is_success, firstResult, maxResult,is_correct,rateClazz); // 返回多个国家的记录
+			List<String> countrys=baseRateDao.getCountry(sDate, tDate, vosId, is_success, firstResult, maxResult,is_correct,rateClazz); // 返回多个国家的记录
 			
 			if(sDate==null){ //假如没有选择 sDate,则返回多个国家各个code最新的rate 记录
 				for(int i=0;i<countrys.size();i++){
-					tmpRates=super.getLastRate(tDate,vosId, countrys.get(i), is_success,is_correct,rateClazz);
+					tmpRates=baseRateDao.getLastRate(tDate,vosId, countrys.get(i), is_success,is_correct,rateClazz);
 					rates.addAll(tmpRates);
 					tmpRates.clear();
 				}
 			}else{
 				for(int i=0;i<countrys.size();i++){
-					tmpRates=super.getRate(sDate, tDate, vosId, countrys.get(i), is_success,is_correct,rateClazz);
+					tmpRates=baseRateDao.getRate(sDate, tDate, vosId, countrys.get(i), is_success,is_correct,rateClazz);
 					rates.addAll(tmpRates);
 					tmpRates.clear();
 				}
 			}
 
 			
-			total_c=super.getCountry(sDate, tDate, vosId, is_success, null, null,true,rateClazz); //查询没有limit 限制,所有的国家
+			total_c=baseRateDao.getCountry(sDate, tDate, vosId, is_success, null, null,true,rateClazz); //查询没有limit 限制,所有的国家
 		}
 		
 		page.setData(rates);
@@ -141,6 +143,43 @@ public class BaseRateServiceImple extends BaseRateDaoImple implements BaseRateSe
 		// TODO Auto-generated method stub
 		List<String[]> rateList =poiExcel.readByPoi(fileName, 0, excelHeaders);
 		return vosId.equals(rateList.get(0)[0]);
+	}
+
+
+
+	@Override
+	public List<BaseRate> getRate(Date sDate, Date tDate, String vosId,
+			String country, boolean is_success, boolean is_correct,
+			Class rateClazz) {
+		// TODO Auto-generated method stub
+		return baseRateDao.getRate(sDate, tDate, vosId, country, is_success, is_correct, rateClazz);
+	}
+
+
+
+	@Override
+	public List<BaseRate> getLastRate(Date tDate, String vosId, String country,
+			boolean is_success, boolean is_correct, Class rateClazz) {
+		// TODO Auto-generated method stub
+		return baseRateDao.getLastRate(tDate, vosId, country, is_success, is_correct, rateClazz);
+	}
+
+
+
+	@Override
+	public List getCountry(Date sDate, Date tDate, String vosId,
+			boolean is_success, Integer firstResult, Integer maxResult,
+			boolean is_correct, Class rateClazz) {
+		// TODO Auto-generated method stub
+		return baseRateDao.getCountry(sDate, tDate, vosId, is_success, firstResult, maxResult, is_correct, rateClazz);
+	}
+
+
+
+	@Override
+	public void upAndBakVos(String old_vosId, String new_vosId, Class rateClazz) {
+		// TODO Auto-generated method stub
+		baseRateDao.upAndBakVos(old_vosId, new_vosId, rateClazz);
 	}
 
 	

@@ -57,8 +57,8 @@ public class LogAop {
 			}
 		}
 		String class_method=jp.getTarget().getClass().getName()+"."+jp.getSignature().getName();
-		logger.debug(class_method+"开始执行");
-		logger.debug("params:"+paramsStr.toString());
+		logger.info(class_method+"开始执行");
+		logger.info("params:"+paramsStr.toString());
 
 
 		
@@ -73,12 +73,12 @@ public class LogAop {
 	public void doAfterReturn(JoinPoint jp,Object returnObj ){
 		if(returnObj!=null){
 			if(returnObj.getClass().getName().contains("List")){
-				logger.debug("方法[{}],返回类型是 List,长度是{}",jp.getTarget().getClass().getSimpleName()+"."+jp.getSignature().getName(),((List)(returnObj)).size());
+				logger.info("方法[{}],返回类型是 List,长度是{}",jp.getTarget().getClass().getSimpleName()+"."+jp.getSignature().getName(),((List)(returnObj)).size());
 			}else{
-				logger.debug("方法[{}],返回[{}]",jp.getTarget().getClass().getSimpleName()+"."+jp.getSignature().getName(),returnObj.toString());
+				logger.info("方法[{}],返回[{}]",jp.getTarget().getClass().getSimpleName()+"."+jp.getSignature().getName(),returnObj.toString());
 			}
 		}else{
-			logger.debug("方法[{}],返回[{}]",jp.getTarget().getClass().getSimpleName()+"."+jp.getSignature().getName(),returnObj);
+			logger.info("方法[{}],返回[{}]",jp.getTarget().getClass().getSimpleName()+"."+jp.getSignature().getName(),returnObj);
 		}
 		
 	}
@@ -86,7 +86,7 @@ public class LogAop {
 
 	public void doAfter(JoinPoint jp){
 		String class_method=jp.getTarget().getClass().getName()+"."+jp.getSignature().getName();
-		logger.debug(class_method+"结束");
+		logger.info(class_method+"结束");
 /*		Object[] params=jp.getArgs();
 		StringBuffer paramsStr=new StringBuffer();
 		for(Object par:params){

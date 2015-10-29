@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,6 +51,9 @@ public class RRateAction {
 	@Autowired
 	private LogService logService;
 	
+	private Logger logger= LoggerFactory.getLogger(RRateAction.class);
+	
+	
 	//---------------------跳转到界面
 	@RequestMapping("toAddRRate.do")
 	public String toAddRRate(HttpServletRequest req,HttpServletResponse res){
@@ -80,7 +85,7 @@ public class RRateAction {
 			vosId=uploadInfo.get("vosId");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("", e);
 			red.addFlashAttribute("Message", "上传失败 "+e.getMessage()+" "+e.getCause());
 			return "redirect:toAddRRate.do";
 		}
@@ -96,7 +101,7 @@ public class RRateAction {
 			}
 			baseRateService.saveIsrExceltoDb(fileName, excelHeaders,new RRate());
 		}catch(Exception e){
-			e.printStackTrace();
+			logger.error("", e);
 			red.addFlashAttribute("Message", "写入数据失败 "+e.getMessage()+" "+e.getCause());
 			return "redirect:toAddRRate.do";
 		}
@@ -152,7 +157,7 @@ public class RRateAction {
 		try{
 			rRateService.SaveJsonToDb(jsonArr); 
 		}catch(Exception e){
-			e.printStackTrace();
+			logger.error("", e);
 			result.put("Message", "修改失败 "+e.getMessage()+" cause: "+e.getCause());
 			out.print(result);
 			return;
@@ -179,8 +184,9 @@ public class RRateAction {
 		try{
 			baseService.delBulkByids(RRate.class, intIdArr);
 			Message="删除成功";
+
 		}catch(Exception e){
-			e.printStackTrace();
+			logger.error("", e);;
 			Message="失败:"+e.getLocalizedMessage()+" cause:"+e.getCause();
 		}
 

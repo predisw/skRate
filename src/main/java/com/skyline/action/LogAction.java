@@ -21,6 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.dom4j.DocumentException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,7 +43,7 @@ public class LogAction {
 	@Autowired
 	private LogService logService;
 	
-
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	//----------跳到 系统日志页面
 	@RequestMapping("getSysLog.do")
@@ -58,7 +60,7 @@ public class LogAction {
 			paramsMap= logService.getParamsMap(fileName);
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("", e);
 			req.setAttribute("Message", e.getMessage()+" cause:"+e.getCause());
 		}
 		//显示下载列表
@@ -85,7 +87,7 @@ public class LogAction {
 			logService.modifyXml(Params.getLogParams(), fileName);
 			red.addFlashAttribute("Message", "success");
 		}catch( Exception e){
-			e.printStackTrace();
+			logger.error("", e);
 			red.addFlashAttribute("Message", e.getMessage()+" cause:"+e.getCause());
 			
 		}
@@ -104,8 +106,7 @@ public class LogAction {
 		try {
 			HttpUpAndDownload.downLoadFile(logDir+File.separator+name, res);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("", e);
 			req.setAttribute("Message", e.getMessage()+" cause:"+e.getCause());
 			req.getRequestDispatcher("getSysLog.do").forward(req,res);
 		}

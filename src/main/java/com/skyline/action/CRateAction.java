@@ -17,14 +17,20 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+
+
+
 import com.predisw.annotation.Description;
 import com.predisw.annotation.Log;
+import com.skyline.comparatorImple.BaseRateComparator;
 import com.skyline.comparatorImple.CusComparator;
 import com.skyline.comparatorImple.EmpComparator;
 import com.skyline.pojo.CountryCode;
@@ -57,6 +63,10 @@ public class CRateAction {
 	private BaseRateService baseRateService;
 	@Autowired
 	private LogService logService;
+	
+	
+	private Logger logger =LoggerFactory.getLogger(this.getClass());
+	
 	
 	//用于显示业务员,rate 的level 属性值
 	@RequestMapping("getRateList.do")
@@ -95,6 +105,7 @@ public class CRateAction {
 			rateList=rateService.getLastRateByCid(cus.getCId(), true, true,true);
 		}  
 
+		Collections.sort(rateList, new BaseRateComparator());
 		req.setAttribute("vosId", vosId); //在html上显示选择的vosId
 		req.setAttribute("rateList", rateList);
 		req.getRequestDispatcher("getRateList.do").forward(req, res);
@@ -133,8 +144,7 @@ public class CRateAction {
 			level=uploadInput.get("level");
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("上传出错", e);
 			req.setAttribute("Message", "上传出错 "+e.getMessage()+" caused:"+e.getCause());
 			req.getRequestDispatcher("getRateList.do").forward(req, res);
 			return;
@@ -164,7 +174,7 @@ public class CRateAction {
 		try{
 		list=poiExcel.readByPoi(fileName, 0, tbIndex);
 		}catch(Exception e){
-			e.printStackTrace();
+			logger.error("读取上传文件失败", e);
 			req.setAttribute("Message", "读取上传文件失败 :"+e.getMessage());
 			req.getRequestDispatcher("getRateList.do").forward(req, res);
 			return;
@@ -205,7 +215,7 @@ public class CRateAction {
 		try{
 			baseService.saveBulk(rateList);
 		}catch(Exception e){
-			e.printStackTrace();
+			logger.error("导入失败", e);
 			req.setAttribute("Message", "导入失败 "+e.getMessage());
 			req.getRequestDispatcher("getRateList.do").forward(req, res);
 			return;
@@ -245,7 +255,7 @@ public class CRateAction {
 			level=uploadInfo.get("level");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("上传失败", e);
 			red.addFlashAttribute("Message", "上传失败 "+e.getMessage()+" "+e.getCause());
 			return "redirect:getRateList.do";
 		}
@@ -274,7 +284,7 @@ public class CRateAction {
 			rate.setLevelPrefix("");
 			baseRateService.saveIsrExceltoDb(fileName, excelHeaders,rate);
 		}catch(Exception e){
-			e.printStackTrace();
+			logger.error("写入数据失败", e);
 			red.addFlashAttribute("Message", "写入数据失败 "+e.getMessage()+" "+e.getCause());
 			return "redirect:getRateList.do";
 		}

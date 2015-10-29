@@ -91,51 +91,31 @@ public class CountryCodeDaoImple  implements CountryCodeDao {
 
 	@Override
 	public List<CountryCode> getCountrys() {
-		// TODO Auto-generated method stub
 		Session ss=sf.getCurrentSession();
-	//	Transaction tx = ss.beginTransaction();
 		List list=null;
 		try{
 			String hql="from CountryCode cc group by cc.country,cc.CCode";
 			Query query =ss.createQuery(hql);
 			list=query.list();
-//			tx.commit();
-	//		logger.debug("[{}] kinds of country name returned ",list.size());
 		}catch(HibernateException ex){
 			ex.printStackTrace();
 		}
-/*		finally{
-			if(ss.isOpen()){
-				ss.close();
-			}
-		}*/
-		
-		
 		return list;
 	}
 
 
 	@Override
 	public void setOftenCountry(boolean is_often,int ccId) {
-		// TODO Auto-generated method stub
 		Session ss=sf.getCurrentSession();
-//		Transaction tx = ss.beginTransaction();
 		try{
 			String hql="update CountryCode cc set cc.ctyOften=:is_often where cc.ccId=:ccId";
 			Query query =ss.createQuery(hql);
 			query.setParameter("is_often", is_often);
 			query.setParameter("ccId", ccId);
 			query.executeUpdate();
-//			tx.commit();
 		}catch(HibernateException ex){
 			ex.printStackTrace();
 		}
-/*		finally{
-			if(ss.isOpen()){
-				ss.close();
-			}
-		}*/
-	
 	}
 
 
@@ -172,23 +152,15 @@ public class CountryCodeDaoImple  implements CountryCodeDao {
 	public List<CountryCode> getOperators(String country) {
 		// TODO Auto-generated method stub
 		Session ss=sf.getCurrentSession();
-//		Transaction tx = ss.beginTransaction();
 		List list=null;
 		try{
 			String hql=" from CountryCode cc where cc.country=:country";
 			Query query =ss.createQuery(hql);
 			query.setParameter("country", country);
 			list=query.list();
-//			tx.commit();
-//			logger.debug("there are [{}] records belonged to [{}]  are returned ",list.size(),country);
 		}catch(HibernateException ex){
 			ex.printStackTrace();
 		}
-/*		finally{
-			if(ss.isOpen()){
-				ss.close();
-			}
-		}*/
 		return list;
 	}
 

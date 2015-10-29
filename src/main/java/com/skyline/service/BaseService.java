@@ -11,7 +11,11 @@ import com.skyline.dao.BaseDao;
 
 
 
-//公有业务接口
+/**
+ * 
+ * @author predisw
+ * 公有业务接口,所有类都可以用到
+ */
 public interface BaseService extends BaseDao {
 
 	//保存对象,如果对象已经存在,则替换.//通过程序来实现replace into

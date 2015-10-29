@@ -9,7 +9,9 @@ import com.skyline.dao.CountryCodeDao;
 import com.skyline.pojo.CountryCode;
 import com.skyline.util.PageInfo;
 
-public interface CountryCodeService extends CountryCodeDao  {
+public interface CountryCodeService  extends CountryCodeDao  {
+	
+
 	
 	//从ISR 导出的excel 中导入地区信息数据到数据表CountryCode中,是专门为ISR 导出excel 表设计的
 	public void saveISRListToCcTable(List<String[]> ccList) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException;

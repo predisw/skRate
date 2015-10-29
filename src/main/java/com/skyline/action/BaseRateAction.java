@@ -43,8 +43,6 @@ class BaseRateAction {
 	@Autowired
 	private BaseRateService baseRateService;
 
-
-	
 	
 	@RequestMapping("getBaseRatePageInfo.do")
 	public HttpServletRequest  getBaseRatePageInfo(HttpServletRequest req,HttpServletResponse res){

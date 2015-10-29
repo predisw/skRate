@@ -247,7 +247,7 @@ public class RateAction {
 			red.addFlashAttribute("Message", "其他人已设置了");
 			return "redirect:getcc.do";
 		}catch(Exception e){
-			e.printStackTrace();
+			logger.error("", e);
 			red.addFlashAttribute("Message", "失败: "+e.getMessage()+"cause: "+e.getCause() );
 			return "redirect:getcc.do";
 		}
@@ -265,11 +265,11 @@ public class RateAction {
 			try{
 				ccService.setOftenCountrys(false, ccIds);
 			}catch(StaleObjectStateException e){
-				e.printStackTrace();
+				logger.error("", e);
 				red.addFlashAttribute("Message", "其他人已设置了");
 				return "redirect:/getcc.do";
 			}catch(Exception e){
-				e.printStackTrace();
+				logger.error("", e);
 				red.addFlashAttribute("Message", "失败: "+e.getMessage()+"cause: "+e.getCause() );
 				return "redirect:/getcc.do";
 			}
@@ -408,7 +408,7 @@ public class RateAction {
 				rate = rateService.doBeforeGetRate(cusList);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error("", e);
 				req.setAttribute("Message", e.getMessage()+"cause: "+e.getCause());
 				req.getRequestDispatcher("/getcc.do").forward(req, res);
 				return;
@@ -452,7 +452,7 @@ public class RateAction {
 			fileName = HttpUpAndDownload.getUploadInput(req).get("upload");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("", e);
 
 		}
 		String http_name=req.getScheme()+"://"+req.getServerName()+":"+req.getServerPort()+req.getContextPath()+File.separator+"upload"+File.separator+fileName.substring(fileName.lastIndexOf(File.separator));

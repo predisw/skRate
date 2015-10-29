@@ -65,7 +65,7 @@ public class SysAction {
 		try{
 			process=Runtime.getRuntime().exec(cmd);
 		}catch(Exception e){
-			e.printStackTrace();
+			logger.error("", e);
 			req.setAttribute("Message", "失败"+e.getMessage());
 			return "forward:toSysOperation.do";
 		}
@@ -104,7 +104,7 @@ public class SysAction {
 			
 			threadNums=sysService.getPerformance(Paths.get(pathFileName), 5);
 		}catch(Exception e){
-			e.printStackTrace();
+			logger.error("", e);
 			req.setAttribute("Message", "失败 "+e.getMessage());
 			return "forward:/WEB-INF/jsp/sys/performance.jsp";
 		}

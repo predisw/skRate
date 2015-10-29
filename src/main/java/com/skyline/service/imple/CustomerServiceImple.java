@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 
 import com.skyline.dao.BaseDao;
 import com.skyline.dao.BaseRateDao;
-import com.skyline.dao.RateDao;
-import com.skyline.dao.imple.CustomerDaoImple;
+import com.skyline.dao.CustomerDao;
+
 import com.skyline.pojo.Customer;
 import com.skyline.pojo.Partner;
 import com.skyline.pojo.RRate;
@@ -24,7 +24,7 @@ import com.skyline.service.CustomerService;
 import com.skyline.util.PoiExcel;
 
 @Service
-public class CustomerServiceImple extends CustomerDaoImple implements CustomerService{
+public class CustomerServiceImple   implements CustomerService{
 	@Autowired
 	private BaseService baseService;
 	@Autowired
@@ -35,6 +35,9 @@ public class CustomerServiceImple extends CustomerDaoImple implements CustomerSe
 	private BaseDao baseDao;
 	@Autowired
 	private SessionFactory sf;
+	@Autowired
+	private CustomerDao cusDao;
+	
 	
 	@Override
 	public void saveExcelCusToDb(String excelFile,String[] excel_sheetHead_order,String[] cusAttributeOrder) throws NumberFormatException, NoSuchFieldException, SecurityException, NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ParseException, FileNotFoundException, IOException {
@@ -87,6 +90,13 @@ public class CustomerServiceImple extends CustomerDaoImple implements CustomerSe
 		}
 		baseDao.update(cus);
 		
+	}
+
+
+	@Override
+	public List<Customer> getCustomersByType(String eNum, Partner partnerType) {
+		// TODO Auto-generated method stub
+		return cusDao.getCustomersByType(eNum, partnerType);
 	}
 	
 	

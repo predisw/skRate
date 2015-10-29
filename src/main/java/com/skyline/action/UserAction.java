@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.StaleObjectStateException;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Description;
 import org.springframework.stereotype.Controller;
@@ -33,6 +34,8 @@ public class UserAction {
 	@Autowired
 	private BaseService baseService;
 	
+	private org.slf4j.Logger logger =LoggerFactory.getLogger(this.getClass());
+	
 	@Description("登录")
 	@RequestMapping("/login.do")
 	public void login(User user,HttpServletRequest req,HttpServletResponse res) throws ServletException, IOException{
@@ -42,7 +45,7 @@ public class UserAction {
 			user_db = userService.getByName(user.getUName());  //根据名字获取数据库中的对应的user
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("", e);
 			req.setAttribute("login_error", e.getMessage());
 			req.getRequestDispatcher("/login.jsp").forward(req, res);
 			return;
@@ -87,7 +90,7 @@ public class UserAction {
 			baseService.save(user);
 			red.addFlashAttribute("Message","添加成功");
 		}catch(Exception e){
-			e.printStackTrace();
+			logger.error("", e);
 			red.addFlashAttribute("Message","添加失败 "+e.getMessage());
 		}
 		return "redirect:toUser.do";
@@ -186,11 +189,11 @@ public class UserAction {
 			}
 		catch(StaleObjectStateException e){
 			red.addFlashAttribute("Message", "其他人已经更新了数据,请重新更新");
-			e.printStackTrace();
+			logger.error("", e);
 			return "redirect:toUser.do";
 		}catch(Exception e){
 			red.addFlashAttribute("Message", "更新失败");
-			e.printStackTrace();
+			logger.error("", e);
 			return "redirect:toUser.do";
 		}
 

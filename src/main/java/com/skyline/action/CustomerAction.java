@@ -81,12 +81,12 @@ public class CustomerAction{
 			}
 		catch(UniException e){
 			req.setAttribute("Message", e.getMessage());
-			e.printStackTrace();
+			logger.error("", e);
 			req.getRequestDispatcher("toAddCus.do").forward(req, res);
 			return;
 		}catch(Exception e){
 			req.setAttribute("Message","添加失败");
-			e.printStackTrace();
+			logger.error("添加失败", e);
 			req.getRequestDispatcher("toAddCus.do").forward(req, res);
 			return;
 		}
@@ -112,7 +112,7 @@ public class CustomerAction{
 			fileName=uploadInput.get("upload");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("上传失败", e);
 			req.setAttribute("Message", "上传失败 "+e.getMessage()+"cause: "+e.getCause());
 			req.getRequestDispatcher("toAddCus.do").forward(req, res);
 			return;
@@ -124,7 +124,7 @@ public class CustomerAction{
 			cusService.saveExcelCusToDb(fileName, excel_sheetHead_order, cusAttributeOrder);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("导入失败", e);
 			req.setAttribute("Message", "导入失败");
 			req.getRequestDispatcher("toAddCus.do").forward(req, res);
 			return;
@@ -166,12 +166,12 @@ public class CustomerAction{
 			baseService.updateUniCheck(cus,"vosId", cus.getVosId(),"CId");
 			cusService.updateCus(cus);
 		}catch(UniException e){  //vosId 已存在
-			e.printStackTrace();
+			logger.error("", e);
 			req.setAttribute("Message", e.getMessage());
 			req.getRequestDispatcher("toAddCus.do").forward(req, res);
 			return;
 		}catch(Exception e){
-			e.printStackTrace();
+			logger.error("更新失败", e);
 			req.setAttribute("Message", "更新失败: "+e.getLocalizedMessage());
 			req.getRequestDispatcher("toAddCus.do").forward(req, res);
 			return;

@@ -60,29 +60,31 @@
         <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" />
     </aop:config>
 
-<!-- 因为service 接口用了extends dao层接口的原因,所以调用service 层上继承的方法实际上是直接调用了dao 层方法,所以也要加事务 -->
+<!-- 因为service 接口用了extends dao层接口的原因,所以调用service 层上继承的方法实际上是直接调用了dao 层方法,所以也要加事务
      <aop:config>
         <aop:pointcut id="daoOperation" expression="execution(* com.skyline.dao.*.*(..))" />
         <aop:advisor advice-ref="txAdvice" pointcut-ref="daoOperation" />
     </aop:config>
-
+ -->
 
 <!-- 对service 层进行aop 日志检测-->
 
 <aop:config  >
  <aop:aspect ref="logAop"  id="serviceLogAop" >
  
- <aop:pointcut expression="execution(* com.skyline.dao..*+.*(..)) and !execution(* com.skyline.dao.imple.SysDaoImple.*(..))"       id="log_service"/>
+ <aop:pointcut expression="execution(* com.skyline.service.*.*(..)) "       id="log_service"/>
+ 
 <aop:before pointcut-ref="log_service" method="doBefore"/>
-
 <aop:after-returning pointcut-ref="log_service"  returning="returnObj" method="doAfterReturn"/>
  <aop:after pointcut-ref="log_service" method="doAfter"/>
  
 
-<aop:pointcut expression="execution(* com.skyline..*.*(..)) and @annotation(com.predisw.annotation.Description)"    id="logToDb"/>
+<!-- 
+<aop:pointcut expression="execution(* com.skyline..*.*(..)) and @annotation(com.predisw.annotation.Description)"    id="logToDb"/> 
 
 <aop:after-returning pointcut-ref="logToDb"   method="logAfterReturn"/>
-	
+-->
+
    </aop:aspect>
  </aop:config> 
 

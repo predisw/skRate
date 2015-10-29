@@ -44,14 +44,14 @@
      
   <!-- 凡是org 开头的日志都是info 级别 -->  
 
-  <logger name="com.skyline.schedule" level="info"/>  
+
     <logger name="com.skyline" level="debug"/>  
   <!-- 管理spring 的日志-->  
-  <logger name="org.springframework" level="WARN"/>  
+  <logger name="org.springframework" level="info"/>  
   <logger name="org.hibernate" level="INFO"/>  
 <!-- 将sql 也输出到日志文件 -->
- <logger name="org.hibernate.SQL" level="debug"/>  
-  <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="trace"/>  <!-- 显示绑定的参数 -->
+ <logger name="org.hibernate.SQL" level="info"/>    <!--  debug 会显示sql 语句-->
+  <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="info"/>  <!-- 显示绑定的参数 -->
 <!--   <logger name="org.hibernate.engine" level="ALL"></logger> -->
   <!--  aop 日志-->  
   <logger name="org.aspectj" level="warn"/>  

@@ -128,7 +128,7 @@ public class SendMailAction {
 		try {
 			props = SingletonProps.getInstance().getProperties();
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("", e);
 			red.addFlashAttribute("Message", "获取系统属性失败 "+e.getMessage()+" cause:"+e.getCause());
 			return "redirect:/getcc.do";
 		}
@@ -204,7 +204,7 @@ public class SendMailAction {
 					try {
 						Files.copy(Paths.get(excelTp),Files.newOutputStream(Paths.get(excel_path_name),StandardOpenOption.CREATE_NEW));
 					} catch (IOException e) {
-						e.printStackTrace();
+						logger.error("", e);
 						red.addFlashAttribute("Message", "复制模板失败"+e.getMessage()+" cause:"+e.getCause());
 						return "redirect:/getcc.do";
 					}
@@ -284,7 +284,7 @@ public class SendMailAction {
 				try {
 					poiExcel.toExisting(send_rateList, excel_path_name, db_header, excel_header, sheetIndex, newSheetName,sdf);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error("", e);
 					red.addFlashAttribute("Message", "写入excel 附件失败 "+e.getMessage()+" cause:"+e.getCause());
 					return "redirect:/getcc.do";
 				}
@@ -363,7 +363,7 @@ public class SendMailAction {
 
 						smService.saveForMail(rateList1, sr,email);
 					}catch(Exception e){
-						e.printStackTrace();
+						logger.error("", e);
 						red.addFlashAttribute("Message", "写入数据库失败 "+e.getMessage()+" cause:"+e.getCause());
 						return "redirect:/getcc.do";
 					}
@@ -429,7 +429,7 @@ public class SendMailAction {
 	
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					logger.error("", e);
 					red.addFlashAttribute("Message", e.getMessage()+" cuased Exception:"+e.getCause());
 				}
 				//进度每处理完一个客户增加45/客户数量的进度
@@ -457,7 +457,7 @@ public class SendMailAction {
 				sr = (SendRecord) baseService.getById(SendRecord.class, id);
 				email=(Email)baseService.getByField(Email.class, "name", sr.getEmailName()).get(0);
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.error("", e);
 				red.addFlashAttribute("Message", e.getMessage()+" cuased Exception:"+e.getCause());
 				return "redirect:/sendRecord/getSendRecords.do";
 			}
@@ -481,8 +481,8 @@ public class SendMailAction {
 			try {
 				smService.sendMail(email, successedSR, failedSR);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+
+				logger.error("", e);
 				red.addFlashAttribute("Message", e.getMessage()+" cuased Exception:"+e.getCause());
 			}
 
@@ -505,7 +505,7 @@ public class SendMailAction {
 		try{
 			rateService.setMailInCorrect(srList);
 		}catch(Exception e){
-			e.printStackTrace();
+			logger.error("", e);
 			red.addFlashAttribute("Message", "设置失败");
 			return "redirect:/sendRecord/getSendRecords.do";
 		}finally{

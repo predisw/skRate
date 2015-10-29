@@ -29,13 +29,6 @@ public class BaseDaoImple implements BaseDao {
 	
 	
 
-/*	@Override
-	public void delById(Class cla,int id) {
-		// TODO Auto-generated method stub
-		Session ss=sf.getCurrentSession();
-		Object obj=ss.get(cla, id);
-		this.delete(obj);
-	}*/
 	@Override
 	@Log
 	@Description(name="删除")

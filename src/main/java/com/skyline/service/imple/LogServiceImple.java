@@ -33,7 +33,7 @@ import com.skyline.pojo.User;
 import com.skyline.service.LogService;
 import com.skyline.util.PageInfo;
 @Service
-public class LogServiceImple extends LogDaoImple  implements LogService {
+public class LogServiceImple   implements LogService {
 	@Autowired
 	private LogDao logDao;
 	@Autowired
@@ -116,8 +116,20 @@ public class LogServiceImple extends LogDaoImple  implements LogService {
 		log.setWhat(what);
 		log.setContent(content);
 		
-		super.saveLog(log);
+		logDao.saveLog(log);
 
+	}
+
+	@Override
+	public PageInfo getPageOfOpLog(PageInfo page, Map<String, Object> cons) {
+		// TODO Auto-generated method stub
+		return logDao.getPageOfOpLog(page, cons);
+	}
+
+	@Override
+	public void saveLog(Log log) {
+		// TODO Auto-generated method stub
+		logDao.saveLog(log);
 	}
 
 

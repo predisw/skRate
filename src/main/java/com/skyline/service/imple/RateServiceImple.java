@@ -25,7 +25,7 @@ import com.skyline.service.LogService;
 import com.skyline.service.RateService;
 import com.skyline.util.PageInfo;
 @Service
-public class RateServiceImple  extends RateDaoImple implements RateService{
+public class RateServiceImple   implements RateService{
 	@Autowired
 	private RateDao rateDao;
 	@Autowired
@@ -156,6 +156,51 @@ public class RateServiceImple  extends RateDaoImple implements RateService{
 			}
 		}
 
+	}
+
+
+	@Override
+	public List<Rate> getRateByCid(int cid, String code, boolean is_available,
+			boolean is_success, boolean is_correct) {
+		// TODO Auto-generated method stub
+		return rateDao.getRateByCid(cid, code, is_available, is_success, is_correct);
+	}
+
+
+	@Override
+	public List<Rate> getLastRateByCid(int cid, boolean is_available,
+			boolean is_success, boolean is_correct) {
+		// TODO Auto-generated method stub
+		return rateDao.getLastRateByCid(cid, is_available, is_success, is_correct);
+	}
+
+
+	@Override
+	public void setChange(String isChange) {
+		// TODO Auto-generated method stub
+		rateDao.setChange(isChange);
+	}
+
+
+	@Override
+	public void setSuccess(String rateName, boolean is_success) {
+		// TODO Auto-generated method stub
+		rateDao.setSuccess(rateName, is_success);
+	}
+
+
+	@Override
+	public void setIsAvailable(String vosid, String code, boolean is_available) {
+		// TODO Auto-generated method stub
+		rateDao.setIsAvailable(vosid, code, is_available);
+	}
+
+
+	@Override
+	public Rate getOneRate(String vosId, boolean is_available,
+			boolean is_success, boolean is_correct) {
+		// TODO Auto-generated method stub
+		return rateDao.getOneRate(vosId, is_available, is_success, is_correct);
 	}
 
 

@@ -27,6 +27,8 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +43,9 @@ import com.sun.image.codec.jpeg.JPEGImageEncoder;
 public class JavaMailServiceImple implements JavaMailService {
 	@Autowired
 	private BaseDao baseDao;
+	
+	private Logger logger =LoggerFactory.getLogger(JavaMailServiceImple.class);
+	
 	/**
 	 * 邮件内容中支持 上传插入多图片
 	 * 发送邮件的几个步骤
@@ -256,7 +261,8 @@ public class JavaMailServiceImple implements JavaMailService {
 		
 		for(int i=messages.length-1;i>0;i--){
 			Message message =messages[i];
-			System.out.println(message.getSubject()+"-----"+message.getSentDate());
+			
+//			System.out.println(message.getSubject()+"-----"+message.getSentDate());
 		}
 		
 		

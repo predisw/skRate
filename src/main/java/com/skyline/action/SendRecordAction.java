@@ -25,6 +25,7 @@ public class SendRecordAction {
 	@Autowired
 	private BaseService baseService;
 	@RequestMapping("getSendRecords.do")
+	
 	public void getSendRecords(PageInfo page,HttpServletRequest req,HttpServletResponse res) throws ServletException, IOException{
 		if(page==null){
 			page=new PageInfo(); //新实例化的一个page 带有默认值
