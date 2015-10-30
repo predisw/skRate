@@ -54,7 +54,7 @@ public class BaseRateDaoImple implements BaseRateDao {
 	}
 	
 	@Override
-	public List<BaseRate> getLastRate(Date tDate,String vosId, String country, boolean is_success,boolean is_correct,Class rateClazz) {
+	public List<BaseRate> getLastRate(Date tDate,String vosId, String country, boolean is_success,boolean is_correct,boolean is_available,Class rateClazz) {
 		// TODO Auto-generated method stub
 		String rateTable="";
 		if(rateClazz==Rate.class){
@@ -64,7 +64,7 @@ public class BaseRateDaoImple implements BaseRateDao {
 			rateTable="r_rate";
 		}
 		Session ss=sf.getCurrentSession();
-		String sql="select * from (select * from "+rateTable+" where vosId=:vosId and country=:country and is_success=:is_success and is_correct=:is_correct  and effective_time<=:tDate order by send_time desc) abc group by code";
+		String sql="select * from (select * from "+rateTable+" where vosId=:vosId and country=:country and is_success=:is_success and is_correct=:is_correct  and is_available=:is_available and effective_time<=:tDate order by send_time desc) abc group by code";
 		Query query=ss.createSQLQuery(sql).addEntity(rateClazz);
 //		String hql="select *  from  ( select * from Rate  r where r.vosId=:vosId and r.country=:country and r.isSuccess=:is_success and r.isCorrect=:is_correct  and r.effectiveTime<=:tDate order by r.sendTime desc  )  r group by r.code";
 //		Query query=ss.createQuery(hql);
@@ -72,6 +72,7 @@ public class BaseRateDaoImple implements BaseRateDao {
 		query.setParameter("country", country);
 		query.setParameter("is_success", is_success);
 		query.setParameter("is_correct", is_correct);
+		query.setParameter("is_available", is_available);
 		query.setParameter("tDate", tDate);
 		return query.list();
 	}

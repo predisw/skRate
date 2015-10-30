@@ -11,6 +11,9 @@
 <body>
 <div  class="menu_body">
 
+<div style="position:absolute;right:10%;">
+	version 1.8.6
+</div>
 <div class="top_notice">
 	${user.UName},Welcome here! Have you smiled today !
 </div>

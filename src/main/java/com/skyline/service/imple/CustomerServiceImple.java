@@ -6,15 +6,17 @@ import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReadWriteLock;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.predisw.util.SingletonLock;
 import com.skyline.dao.BaseDao;
 import com.skyline.dao.BaseRateDao;
 import com.skyline.dao.CustomerDao;
-
 import com.skyline.pojo.Customer;
 import com.skyline.pojo.Partner;
 import com.skyline.pojo.RRate;
@@ -37,6 +39,8 @@ public class CustomerServiceImple   implements CustomerService{
 	private SessionFactory sf;
 	@Autowired
 	private CustomerDao cusDao;
+	
+
 	
 	
 	@Override
@@ -88,6 +92,7 @@ public class CustomerServiceImple   implements CustomerService{
 		if(sf.getCurrentSession().isOpen()){
 			sf.getCurrentSession().evict(db_cus);
 		}
+		
 		baseDao.update(cus);
 		
 	}

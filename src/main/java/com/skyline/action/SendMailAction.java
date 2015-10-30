@@ -2,8 +2,6 @@ package com.skyline.action;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -17,13 +15,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +28,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.predisw.util.DateFormatUtil;
+import com.predisw.util.SingletonLock;
 import com.skyline.comparatorImple.BaseRateCodeComparator;
 import com.skyline.comparatorImple.BaseRateCountryComparator;
-import com.skyline.comparatorImple.BaseRateOperatorComparator;
+import com.skyline.comparatorImple.BaseRateEfTimeComparator;
 import com.skyline.pojo.Customer;
 import com.skyline.pojo.Email;
 import com.skyline.pojo.Props;
@@ -42,6 +39,7 @@ import com.skyline.pojo.Rate;
 import com.skyline.pojo.RateList;
 import com.skyline.pojo.SendRecord;
 import com.skyline.pojo.User;
+import com.skyline.service.BaseRateService;
 import com.skyline.service.BaseService;
 import com.skyline.service.JavaMailService;
 import com.skyline.service.RateService;
@@ -64,13 +62,19 @@ public class SendMailAction {
 	private SendMailService smService;
 	@Autowired
 	private SendRecordService srService;
+	@Autowired
+	private BaseRateService baseRateService;
+	
 	
 	Logger logger =LoggerFactory.getLogger(this.getClass());
 
 	//添加一个锁
-	ReentrantReadWriteLock rwlock = new ReentrantReadWriteLock();
-	Lock rLock=rwlock.readLock(); 
-	Lock wLock=rwlock.writeLock();
+	// 防止在发报价的时候修改rate 表
+	//在sendRecordAction 中的setRateRecordIncorrect() 会修改rate 表.
+	//
+	private ReadWriteLock rateLock=SingletonLock.getSingletonReadWriteLock();  
+	Lock rLock=rateLock.readLock(); 
+
 	
 	//用到session.setAttibute 的方法：getEmail(),getOperators(),getCus(),save()
 	//------------------------------------------------------------------------------
@@ -228,31 +232,38 @@ public class SendMailAction {
 							if(rateList1.get(j).getCode().equals(cRateList.get(k).getCode())){  //当code 相同....
 								//多个客户的时候,独立比较rate 的变化来设置change,再发送
 								if(cusList.size()>1){
-									double dbRateValue=cRateList.get(k).getRate();
-									double newRateValue=rateList1.get(j).getRate();
-									if(newRateValue>dbRateValue){
-										rateList1.get(j).setIsChange("Increase");
-									}else if(newRateValue<dbRateValue){
-										rateList1.get(j).setIsChange("Decrease");
-									}else rateList1.get(j).setIsChange("current");
-									
+									baseRateService.setChangeStatus(cRateList.get(k), rateList1.get(j));
 								}
 								
 								Date newEfTime=rateList1.get(j).getEffectiveTime(); //新的生效时间
 								
 								//假如生效时间比现在大将cRateList 中相同code 的这个报价设置好过期时间,也发给客户
-								if(newEfTime.getTime()>now.getTime()){
-									Calendar calendar = Calendar.getInstance();  //得到日历
-									calendar.setTime(newEfTime);
-									calendar.add(Calendar.DAY_OF_MONTH, -1); // 当天+(-1) 就是得到前天;
-									Date expireDate=calendar.getTime();
-									
-									rateList1.get(j).setPRid(cRateList.get(k).getRId()); //用于发送报价成功时,通过rateList 找到对应的cRate,在修改数据库中的过期时间
-									cRateList.get(k).setExpireTime(expireDate);
-									cRateList.get(k).setIsChange("Current");
-									rateList2.add(cRateList.get(k));
-//									rateList2.add(rateList1.get(j));
+								if(newEfTime.getTime()>now.getTime()  ){
+									Date oldEfTime=cRateList.get(k).getEffectiveTime();
+									//假如这个生效时间大于现在,而且属于重复发送.
+									if(newEfTime.compareTo(oldEfTime)==0){
+										
+										Rate pRate=cRateList.get(k);  //或者等于null 也可
+										if(cRateList.get(k).getPRid()!=null){ //用于查找上个报价
+											
+											pRate =(Rate)baseService.getById(Rate.class, cRateList.get(k).getPRid());  //可以用泛型改善,或者将base 继承到rate 中.
+											rateList1.get(j).setPRid(pRate.getRId()); //用于查找上个报价,例如发送报价成功时,通过rateList 找到对应的cRate,在修改数据库中的过期时间
+											baseRateService.setChangeStatus(pRate, rateList1.get(j));
+										}
+										rateList2.add(pRate);
+									}
+									else{  //第一发送 生效时间比现在大的处理方法:
+										Calendar calendar = Calendar.getInstance();  //得到日历
+										calendar.setTime(newEfTime);
+										calendar.add(Calendar.DAY_OF_MONTH, -1); // 当天+(-1) 就是得到前天;
+										Date expireDate=calendar.getTime();
+										
+										rateList1.get(j).setPRid(cRateList.get(k).getRId()); //用于发送报价成功时,通过rateList 找到对应的cRate,在修改数据库中的过期时间
+										cRateList.get(k).setExpireTime(expireDate);
+										cRateList.get(k).setIsChange("Current");
+										rateList2.add(cRateList.get(k));
 
+									}
 								}
 
 								cRateList.remove(k);
@@ -269,6 +280,8 @@ public class SendMailAction {
 			//		cRateList.addAll(rateList1);  //如果将rateList1 加到cRateList 中则rateList1 的记录会放到excel 文件的后面,所以....
 			//		rateList1.addAll(cRateList);   //这条语句会导致rateList1 被改变,循环第二次(第二个客户)的时候rateList1 已经被第一次循环所改变了.
 			//rateList1 在循环第二次(第二个客户)时,rateList1 不再是前台jsp提交的数据了.
+
+
 					List<Rate> send_rateList= new ArrayList<Rate>(); //必须用新建的List,要不会被覆盖,要不就在循环体外建send_rateList
 					if(rateList2.size()>0){
 						send_rateList.addAll(rateList2);
@@ -277,6 +290,7 @@ public class SendMailAction {
 
 					send_rateList.addAll(cRateList);
 					//A-Z 排序
+					Collections.sort(send_rateList,new BaseRateEfTimeComparator());
 					Collections.sort(send_rateList, new BaseRateCodeComparator());
 					Collections.sort(send_rateList, new BaseRateCountryComparator());
 
@@ -491,28 +505,6 @@ public class SendMailAction {
 	
 	
 	
-	//---------------------------------设定已发送的邮件为不正确----用来修正发送错误的邮件产生的数据----
-	@RequestMapping("setRateRecordIncorrect.do")
-	public String setRateRecordIncorrect(HttpServletRequest req,RedirectAttributes red){
-		
-		String strId=req.getParameter("id");  //发送记录的id,是前台选中的一个记录的id
-		int id=Integer.parseInt(strId);
-		SendRecord sr=(SendRecord)baseService.getById(SendRecord.class, id);
-		List<SendRecord> srList=srService.getSRAfterSendTime(sr.getSendTime(), sr.getCId());
-		srList.add(sr);
-		
-		wLock.lock();
-		try{
-			rateService.setMailInCorrect(srList);
-		}catch(Exception e){
-			logger.error("", e);
-			red.addFlashAttribute("Message", "设置失败");
-			return "redirect:/sendRecord/getSendRecords.do";
-		}finally{
-			wLock.unlock();
-		}
-		red.addFlashAttribute("Message", "设置成功");
-		return "redirect:/sendRecord/getSendRecords.do";
-	}
+
 	
 }

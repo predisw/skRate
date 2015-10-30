@@ -121,27 +121,7 @@ public class RateServiceImple   implements RateService{
 
 
 	
-	@Override
-	@Log
-	@Description(name="设置报价错误")
-	public void setMailInCorrect(List<SendRecord> srList) {
 
-		for(SendRecord sr:srList){
-			List<Rate> rateList=baseDao.getByField(Rate.class, "name", sr.getRateName());
-			for(Rate rate:rateList){
-				rate.setIsCorrect(false);
-				baseDao.update(rate);
-				if(rate.getPRid()!=null){
-					Rate old_rate=(Rate)baseDao.getById(Rate.class,rate.getPRid() );
-					old_rate.setExpireTime(null);
-					baseDao.update(old_rate);
-				}
-
-			}
-			sr.setIsCorrect(false);
-			baseDao.update(sr);
-		}
-	}
 
 	@Log
 	@Override

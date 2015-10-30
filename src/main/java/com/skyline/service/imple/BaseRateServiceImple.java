@@ -35,7 +35,7 @@ public class BaseRateServiceImple  implements BaseRateService{
 	
 	@Override
 	public PageInfo getRateByPage(Date sDate, Date tDate, String vosId,
-			String country, boolean is_success, PageInfo page,boolean is_correct,Class rateClazz) {
+			String country, boolean is_success,boolean is_available, boolean is_correct,PageInfo page,Class rateClazz) {
 		// TODO Auto-generated method stub
 		int  firstResult=(page.getCurPage()-1)*page.getPageSize();
 		int maxResult=page.getPageSize();
@@ -44,7 +44,7 @@ public class BaseRateServiceImple  implements BaseRateService{
 
 		if(!"all".equalsIgnoreCase(country)&&country!=null && !"".equals(country)){
 			if(sDate==null){ //如果sDate(就是没有选择sDate),则返回某个country 所有code 最新的报价记录
-				rates=baseRateDao.getLastRate(tDate,vosId, country, is_success,is_correct,rateClazz); 
+				rates=baseRateDao.getLastRate(tDate,vosId, country, is_success,is_correct,is_available,rateClazz); 
 			}else{
 				rates=baseRateDao.getRate(sDate, tDate, vosId, country, is_success,is_correct,rateClazz);  //返回一个国家的所有rate 记录
 			}
@@ -56,7 +56,7 @@ public class BaseRateServiceImple  implements BaseRateService{
 			
 			if(sDate==null){ //假如没有选择 sDate,则返回多个国家各个code最新的rate 记录
 				for(int i=0;i<countrys.size();i++){
-					tmpRates=baseRateDao.getLastRate(tDate,vosId, countrys.get(i), is_success,is_correct,rateClazz);
+					tmpRates=baseRateDao.getLastRate(tDate,vosId, countrys.get(i), is_success,is_correct,is_available,rateClazz);
 					rates.addAll(tmpRates);
 					tmpRates.clear();
 				}
@@ -159,9 +159,9 @@ public class BaseRateServiceImple  implements BaseRateService{
 
 	@Override
 	public List<BaseRate> getLastRate(Date tDate, String vosId, String country,
-			boolean is_success, boolean is_correct, Class rateClazz) {
+			boolean is_success, boolean is_correct,boolean is_available, Class rateClazz) {
 		// TODO Auto-generated method stub
-		return baseRateDao.getLastRate(tDate, vosId, country, is_success, is_correct, rateClazz);
+		return baseRateDao.getLastRate(tDate, vosId, country, is_success, is_correct,is_available, rateClazz);
 	}
 
 
@@ -180,6 +180,21 @@ public class BaseRateServiceImple  implements BaseRateService{
 	public void upAndBakVos(String old_vosId, String new_vosId, Class rateClazz) {
 		// TODO Auto-generated method stub
 		baseRateDao.upAndBakVos(old_vosId, new_vosId, rateClazz);
+	}
+
+
+
+	@Override
+	public void setChangeStatus(BaseRate oldRate, BaseRate newRate) {
+
+		double oldRateValue=oldRate.getRate();
+		double newRateValue=newRate.getRate();
+		if(newRateValue>oldRateValue){
+			newRate.setIsChange("Increase");
+		}else if(newRateValue<oldRateValue){
+			newRate.setIsChange("Decrease");
+		}else newRate.setIsChange("current");
+		
 	}
 
 	

@@ -79,11 +79,10 @@
  <aop:after pointcut-ref="log_service" method="doAfter"/>
  
 
-<!-- 
+<!-- 日志系统之一 -->
 <aop:pointcut expression="execution(* com.skyline..*.*(..)) and @annotation(com.predisw.annotation.Description)"    id="logToDb"/> 
-
 <aop:after-returning pointcut-ref="logToDb"   method="logAfterReturn"/>
--->
+
 
    </aop:aspect>
  </aop:config> 

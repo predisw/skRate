@@ -10,6 +10,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReadWriteLock;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.predisw.annotation.Description;
 import com.predisw.annotation.Log;
 import com.predisw.exception.UniException;
+import com.predisw.util.SingletonLock;
 import com.skyline.comparatorImple.CusComparator;
 import com.skyline.comparatorImple.EmpComparator;
 import com.skyline.pojo.Customer;
@@ -54,7 +57,9 @@ public class CustomerAction{
 	@Autowired
 	private CustomerService cusService;
 
-
+	// 防止在发报价的时候修改rate 表的数据.
+	private ReadWriteLock rateLock=SingletonLock.getSingletonReadWriteLock();  
+	Lock wLock=rateLock.writeLock();
 	
 	
 	//跳到客户管理页面
@@ -162,8 +167,10 @@ public class CustomerAction{
 		cus.setCcEmail(cus.getCcEmail().replace(" ", "")); //去掉所有的空格
 		cus.setBccEmail(cus.getBccEmail().replace(" ", "")); //去掉所有的空格
 		
+		
 		try{
 			baseService.updateUniCheck(cus,"vosId", cus.getVosId(),"CId");
+			wLock.lock();
 			cusService.updateCus(cus);
 		}catch(UniException e){  //vosId 已存在
 			logger.error("", e);
@@ -175,6 +182,8 @@ public class CustomerAction{
 			req.setAttribute("Message", "更新失败: "+e.getLocalizedMessage());
 			req.getRequestDispatcher("toAddCus.do").forward(req, res);
 			return;
+		}finally{
+			wLock.unlock();
 		}
 
 		req.setAttribute("Message", "更新成功");

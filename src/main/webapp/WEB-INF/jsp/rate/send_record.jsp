@@ -63,7 +63,7 @@
 				<td><input type="button" value="重发" onclick=" if(confirm('确定要重发吗?')) 
 				location.href='${pageContext.request.contextPath}/sendMail/resendEmail.do?id=${sr.id }' ">
 				<input type="button" value="错误"  onclick=" if(confirm('同一个客户之后已存在的报价都会被设置为不正确的.')) 
-				location.href='${pageContext.request.contextPath}/sendMail/setRateRecordIncorrect.do?id=${sr.id }' " />
+				location.href='${pageContext.request.contextPath}/sendRecord/setRateRecordIncorrect.do?id=${sr.id }' " />
 				</td>
 			</tr>
 		</c:forEach>

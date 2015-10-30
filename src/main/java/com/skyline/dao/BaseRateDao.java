@@ -12,7 +12,7 @@ public interface BaseRateDao {
 	public List<BaseRate> getRate(Date sDate,Date tDate,String vosId,String country,boolean is_success,boolean is_correct,Class rateClazz);
 	
 	//获取某个客户某个country 所有code 各自自最新的记录,按照sendTime 字段 排序
-	public List<BaseRate> getLastRate(Date tDate,String vosId,String country,boolean is_success,boolean is_correct,Class rateClazz);
+	public List<BaseRate> getLastRate(Date tDate,String vosId,String country,boolean is_success,boolean is_correct,boolean is_available,Class rateClazz);
 	
 	//获取所有国家数量,当firstResult 和 firstResult 都为null 时,查询所有
 	//假如sDate 是null,则 表示 没有sDate<= 只有<=tDate

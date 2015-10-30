@@ -78,6 +78,7 @@ class BaseRateAction {
 		
 		boolean is_success=true;
 		boolean is_correct=true;
+		boolean is_available=true;
 		
 		if(page==null){
 			page=new PageInfo(); //新实例化的一个page 带有默认值
@@ -89,10 +90,10 @@ class BaseRateAction {
 		List<String> countryList=new ArrayList<>();
 		if(!"all".equalsIgnoreCase(country)&&country!=null && !"".equals(country)){
 			countryList.add(country);
-			page = baseRateService.getRateByPage(sDate, tDate, vosId, country, is_success, page,is_correct,ratecCazz); //page.data 就是rList
+			page = baseRateService.getRateByPage(sDate, tDate, vosId, country, is_success, is_correct,is_available,page,ratecCazz); //page.data 就是rList
 		}else{
 			countryList=baseRateService.getCountry(sDate, tDate, vosId, is_success, firstResult, maxResult,is_correct,ratecCazz);
-			page = baseRateService.getRateByPage(sDate, tDate, vosId, country, is_success, page,is_correct,ratecCazz); //page.data 就是rList
+			page = baseRateService.getRateByPage(sDate, tDate, vosId, country, is_success,is_correct,is_available,page,ratecCazz); //page.data 就是rList
 		}
 		
 		Collections.sort(page.getData(), new BaseRateComparator());
