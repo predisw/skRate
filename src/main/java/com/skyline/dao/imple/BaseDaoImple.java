@@ -30,8 +30,6 @@ public class BaseDaoImple implements BaseDao {
 	
 
 	@Override
-	@Log
-	@Description(name="删除")
 	 public void delete(Object obj){
 		Session ss=sf.getCurrentSession();
 		ss.delete(obj);
@@ -39,8 +37,6 @@ public class BaseDaoImple implements BaseDao {
 	
 	
 	@Override
-	@Log
-	@Description(name="修改")
 	public void update(Object obj) {
 		// TODO Auto-generated method stub
 		Session ss=sf.getCurrentSession();

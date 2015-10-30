@@ -120,9 +120,6 @@ public class RateServiceImple   implements RateService{
 	
 
 
-	
-
-
 	@Log
 	@Override
 	public void delCusRates(String[] rIdArr) {

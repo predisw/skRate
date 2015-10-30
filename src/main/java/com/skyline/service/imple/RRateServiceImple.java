@@ -30,8 +30,8 @@ public class RRateServiceImple implements RRateService {
 
 
 	@Override
-	public  void SaveJsonToDb(JSONArray jsonArr) throws Exception {
-
+	public  void saveJsonToDb(JSONArray jsonArr) throws Exception {
+		Date now = new Date();
 		Calendar effectiveDate=Calendar.getInstance();
 		
 		for(int i=0;i<jsonArr.length();i++){
@@ -47,20 +47,20 @@ public class RRateServiceImple implements RRateService {
 			Date old_effectiveTime=rRate.getEffectiveTime();
 			Date new_effectiveTime=DateFormatUtil.getSdf("yyyy-MM-dd").parse(obj.getString("effect_time"), new ParsePosition(0));
 
-			
-			if(new_effectiveTime.after(old_effectiveTime)){
+/*			
+			if(new_effectiveTime.after(now)){
 				effectiveDate.setTime(new_effectiveTime);
 				effectiveDate.add(Calendar.DAY_OF_MONTH,-1);
 				rRate.setExpireTime(effectiveDate.getTime());
 				baseDao.update(rRate);
 			}
 
-
+*/
 
 			rRate.setEffectiveTime(new_effectiveTime);
 			rRate.setExpireTime(DateFormatUtil.getSdf("yyyy-MM-dd").parse(obj.getString("expire_time"), new ParsePosition(0)));
 			
-			rRate.setSendTime(new Date()); //发送时间相当于修改时间
+			rRate.setSendTime(now); //发送时间相当于修改时间
 			
 			if(NumberUtils.isNumber(obj.getString("rate"))){
 				rRate.setRate(Double.valueOf(obj.getString("rate")));

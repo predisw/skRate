@@ -11,5 +11,5 @@ import com.skyline.pojo.RRate;
 
 public interface RRateService {
 	
-	public void SaveJsonToDb(JSONArray jsonArr) throws Exception;
+	public void saveJsonToDb(JSONArray jsonArr) throws Exception;
 }

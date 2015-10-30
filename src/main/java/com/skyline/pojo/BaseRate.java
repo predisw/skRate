@@ -292,4 +292,23 @@ public class BaseRate  implements Cloneable{
 		return super.clone();
 		
 	}
+	
+	@Override
+	public String toString() {
+		StringBuffer content = new StringBuffer();
+		content.append("code:"+code);
+		content.append("rate:"+rate);
+		content.append("vosId:"+bakVosId);
+		content.append("level:"+level);
+		content.append("levelPrefix:"+levelPrefix);
+		content.append("sendTime:"+sendTime);
+		content.append("effectiveTime:"+effectiveTime);
+		content.append("expireTime:"+expireTime);
+		content.append("remark:"+remark);
+		
+		return content.toString();
+		
+
+	}
+	
 }

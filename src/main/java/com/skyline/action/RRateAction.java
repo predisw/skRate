@@ -155,7 +155,7 @@ public class RRateAction {
 		JSONObject result=new JSONObject();
 
 		try{
-			rRateService.SaveJsonToDb(jsonArr); 
+			rRateService.saveJsonToDb(jsonArr); 
 		}catch(Exception e){
 			logger.error("", e);
 			result.put("Message", "修改失败 "+e.getMessage()+" cause: "+e.getCause());

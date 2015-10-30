@@ -50,7 +50,7 @@
   <logger name="org.springframework" level="info"/>  
   <logger name="org.hibernate" level="INFO"/>  
 <!-- 将sql 也输出到日志文件 -->
- <logger name="org.hibernate.SQL" level="info"/>    <!--  debug 会显示sql 语句-->
+ <logger name="org.hibernate.SQL" level="debug"/>    <!--  debug 会显示sql 语句-->
   <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="info"/>  <!-- 显示绑定的参数 -->
 <!--   <logger name="org.hibernate.engine" level="ALL"></logger> -->
   <!--  aop 日志-->  
