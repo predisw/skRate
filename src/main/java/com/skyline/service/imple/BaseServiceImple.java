@@ -121,7 +121,7 @@ public class BaseServiceImple   implements BaseService { //通过继承来调用
 	
 	
 	@Override
-	public void save(Object obj) {
+	public void save(Object obj)  {
 		// TODO Auto-generated method stub
 		baseDao.save(obj);
 	}

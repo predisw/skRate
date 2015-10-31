@@ -7,7 +7,7 @@ import com.skyline.util.PageInfo;
 //公有数据操作接口
 public interface BaseDao {
 
-	public void save(Object obj);
+	public void save(Object obj) ;
 	public void update(Object obj);
 	public void saveOrUpdate(Object obj);
 

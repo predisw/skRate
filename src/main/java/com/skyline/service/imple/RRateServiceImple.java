@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.HibernateException;
+import org.hibernate.SessionFactory;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ public class RRateServiceImple implements RRateService {
 	@Autowired
 	private BaseDao baseDao;
 	
+	@Autowired
+	private SessionFactory sf;
 
 
 	@Override
@@ -47,19 +50,21 @@ public class RRateServiceImple implements RRateService {
 			Date old_effectiveTime=rRate.getEffectiveTime();
 			Date new_effectiveTime=DateFormatUtil.getSdf("yyyy-MM-dd").parse(obj.getString("effect_time"), new ParsePosition(0));
 
-/*			
-			if(new_effectiveTime.after(now)){
+			
+			if(new_effectiveTime.after(old_effectiveTime)){
 				effectiveDate.setTime(new_effectiveTime);
 				effectiveDate.add(Calendar.DAY_OF_MONTH,-1);
 				rRate.setExpireTime(effectiveDate.getTime());
 				baseDao.update(rRate);
+				sf.getCurrentSession().flush();   //在这个事务中,如果遇到异常也会回滚,不生效.
 			}
 
-*/
+			sf.getCurrentSession().evict(rRate);
 
 			rRate.setEffectiveTime(new_effectiveTime);
 			rRate.setExpireTime(DateFormatUtil.getSdf("yyyy-MM-dd").parse(obj.getString("expire_time"), new ParsePosition(0)));
 			
+			rRate.setBakVosId(rRate.getVosId());  //更新s的vosId 为当前的vosId.
 			rRate.setSendTime(now); //发送时间相当于修改时间
 			
 			if(NumberUtils.isNumber(obj.getString("rate"))){
@@ -73,7 +78,9 @@ public class RRateServiceImple implements RRateService {
 
 			rRate.setRemark(obj.getString("remark"));
 
+
 			baseDao.save(rRate);
+
 		}
 		
 	}
