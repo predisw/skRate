@@ -249,6 +249,7 @@ public class SendMailAction {
 											pRate =(Rate)baseService.getById(Rate.class, cRateList.get(k).getPRid());  //可以用泛型改善,或者将base 继承到rate 中.
 											rateList1.get(j).setPRid(pRate.getRId()); //用于查找上个报价,例如发送报价成功时,通过rateList 找到对应的cRate,在修改数据库中的过期时间
 											baseRateService.setChangeStatus(pRate, rateList1.get(j));
+											pRate.setIsChange("Current");
 										}
 										rateList2.add(pRate);
 									}

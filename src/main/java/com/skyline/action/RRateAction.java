@@ -146,7 +146,7 @@ public class RRateAction {
 	public void modifyrRate(HttpServletRequest req,HttpServletResponse res) throws IOException{
 		
 		String rRates_str=req.getParameter("rRates");
-		System.out.println(rRates_str);
+//		System.out.println(rRates_str);
 		JSONArray jsonArr=new JSONArray(rRates_str);
 		
 		res.setCharacterEncoding("UTF-8");

@@ -51,7 +51,7 @@ public class RRateServiceImple implements RRateService {
 			Date new_effectiveTime=DateFormatUtil.getSdf("yyyy-MM-dd").parse(obj.getString("effect_time"), new ParsePosition(0));
 
 			
-			if(new_effectiveTime.after(old_effectiveTime)){
+			if(new_effectiveTime.after(now)){
 				effectiveDate.setTime(new_effectiveTime);
 				effectiveDate.add(Calendar.DAY_OF_MONTH,-1);
 				rRate.setExpireTime(effectiveDate.getTime());
