@@ -23,19 +23,19 @@
 	<div>
 		<table style="width:80%">
 			<tr >
-				<th style="width:9%;">用户</th>
-				<th style="width:19%;">操作</th>
-				<th style="width:15%;">类型</th>
-				<th style="width:36%;">内容</th>
-				<th style="width:20%;">时间</th>
+				<th >用户</th>
+				<th>操作</th>
+				<th >类型</th>
+				<th >内容</th>
+				<th >时间</th>
 			</tr>
 			<c:forEach items="${page.data }" var="log">
 				<tr>
-					<td>${log.who }</td>
-					<td>${log.how }</td>
-					<td>${log.what }</td>
+					<td style="width:50px;">${log.who }</td>
+					<td  style="width:80px;">${log.how }</td>
+					<td style="width:80x;"> ${log.what }</td>
 					<td>${log.content }</td>
-					<td>${log.time }</td>
+					<td style="width:170px;">${log.time }</td>
 				</tr>
 			</c:forEach>
 		</table>

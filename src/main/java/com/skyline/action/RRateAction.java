@@ -1,5 +1,6 @@
 package com.skyline.action;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -73,7 +74,7 @@ public class RRateAction {
 	}
 	
 
-
+	@Log
 	@RequestMapping("importRRate.do")
 	public String importRRate(HttpServletRequest req,HttpServletResponse res,RedirectAttributes red){
 		
@@ -108,7 +109,18 @@ public class RRateAction {
 		
 		red.addFlashAttribute("Message", "导入成功 ");
 		
+		StringBuffer content=new StringBuffer();
+		content.append("文件名:");
+		content.append(fileName.substring(fileName.lastIndexOf(File.separator)+1));
+		content.append("-vosId:");
+		content.append(vosId);
 
+		try{
+			logService.logToDb("导入", "落地报价", content.toString());
+		}catch(Exception e){
+			logger.error("记录日志失败",e);
+		}
+		
 		return "redirect:toAddRRate.do";
 	}
 	

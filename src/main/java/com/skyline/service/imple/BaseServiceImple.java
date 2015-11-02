@@ -112,8 +112,6 @@ public class BaseServiceImple   implements BaseService { //通过继承来调用
 		for(int id:ids){
 			baseDao.delete(baseDao.getById(clazz, id));
 		}
-
-		
 		
 	}
 

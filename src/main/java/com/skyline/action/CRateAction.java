@@ -2,6 +2,7 @@ package com.skyline.action;
 /**
  * 和RRate 相对应.
  */
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
+
 
 
 
@@ -63,6 +65,7 @@ public class CRateAction {
 	private BaseRateService baseRateService;
 	@Autowired
 	private LogService logService;
+
 	
 	
 	private Logger logger =LoggerFactory.getLogger(this.getClass());
@@ -128,7 +131,7 @@ public class CRateAction {
 	//------------------导入rate记录----------
 	@Log
 	@RequestMapping("importRate.do")
-	public void importRate(HttpServletRequest req,HttpServletResponse res) throws ServletException, IOException, ParseException{
+	public String importRate(HttpServletRequest req,HttpServletResponse res,RedirectAttributes red) throws ServletException, IOException, ParseException{
 
 		Map<String,String> uploadInput;
 		String eNum="";
@@ -145,16 +148,15 @@ public class CRateAction {
 
 		} catch (Exception e) {
 			logger.error("上传出错", e);
-			req.setAttribute("Message", "上传出错 "+e.getMessage()+" caused:"+e.getCause());
-			req.getRequestDispatcher("getRateList.do").forward(req, res);
-			return;
+			red.addFlashAttribute("Message", "上传出错 "+e.getMessage()+" caused:"+e.getCause());
+			return "redirect:getRateList.do";
+
 		}
 
 
 		if("".equals(eNum) || "".equals(vosid)){
-			req.setAttribute("Message", "请选择客户vosId 或者上传文件");
-			req.getRequestDispatcher("getRateList.do").forward(req, res);
-			return;
+			red.addFlashAttribute("Message", "请选择客户vosId 或者上传文件");
+			return "redirect:getRateList.do";
 		}
 		//通过vosId 获取客户 id
 		int c_id=0;
@@ -175,9 +177,9 @@ public class CRateAction {
 		list=poiExcel.readByPoi(fileName, 0, tbIndex);
 		}catch(Exception e){
 			logger.error("读取上传文件失败", e);
-			req.setAttribute("Message", "读取上传文件失败 :"+e.getMessage());
-			req.getRequestDispatcher("getRateList.do").forward(req, res);
-			return;
+			red.addFlashAttribute("Message", "读取上传文件失败 :"+e.getMessage());
+
+			return "redirect:getRateList.do";
 		}
 
 		
@@ -216,30 +218,38 @@ public class CRateAction {
 			baseService.saveBulk(rateList);
 		}catch(Exception e){
 			logger.error("导入失败", e);
-			req.setAttribute("Message", "导入失败 "+e.getMessage());
-			req.getRequestDispatcher("getRateList.do").forward(req, res);
-			return;
+			red.addFlashAttribute("Message", "写入数据失败 "+e.getMessage()+" "+e.getCause());
+			return "redirect:getRateList.do";
+
 			
 		}
 
-		req.setAttribute("Message", "导入成功 ");
+		red.addFlashAttribute("Message", "导入成功 ");
 		
 		StringBuffer content=new StringBuffer();
-		content.append("工号:");
+		content.append("文件名:");
+		content.append(fileName.substring(fileName.lastIndexOf(File.separator)+1));
+		content.append("-工号:");
 		content.append(eNum);
 		content.append("-vosId:");
 		content.append(vosid);
 		content.append("-level:");
 		content.append(level);
 		
-		logService.logToDb("导入", "客户报价", content.toString());
-		
-		res.sendRedirect(req.getContextPath()+"/cRate/getRateList.do");
+		try{
+			logService.logToDb("导入", "客户报价", content.toString());
+		}catch(Exception e){
+			logger.error("记录日志失败",e);
+		}
+
+
+		return "redirect:getRateList.do";
 		
 		
 	}
 	
 	//--------------从ISR 导入客户的历史报价记录
+	@Log
 	@RequestMapping("importRateFromISR.do")
 	public String importRateFromISR(HttpServletRequest req,HttpServletResponse res,RedirectAttributes red){
 		
@@ -274,7 +284,7 @@ public class CRateAction {
 		
 		try{
 			if(!baseRateService.checkExcel(fileName, excelHeaders, vosId)){
-				red.addFlashAttribute("Message", "供应商vosId与文件内的vosId不一致 ");
+				red.addFlashAttribute("Message", "vosId与文件内的vosId不一致 ");
 				return "redirect:getRateList.do";
 			}
 			Rate rate= new Rate();
@@ -291,6 +301,24 @@ public class CRateAction {
 		
 		red.addFlashAttribute("Message", "导入成功 ");
 		
+		StringBuffer content=new StringBuffer();
+		content.append("文件名:");
+		content.append(fileName.substring(fileName.lastIndexOf(File.separator)+1));
+		content.append("-工号:");
+		content.append(eNum);
+		content.append("-vosId:");
+		content.append(vosId);
+		content.append("-level:");
+		content.append(level);
+		
+		try{
+			logService.logToDb("导入", "客户报价", content.toString());
+		}catch(Exception e){
+			logger.error("记录日志失败",e);
+		}
+
+		
+
 
 		return "redirect:getRateList.do";
 	}

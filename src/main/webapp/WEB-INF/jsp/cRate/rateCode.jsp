@@ -19,7 +19,7 @@
 		<form id="im_form"   method=post  enctype="multipart/form-data">
 			<input type="hidden" name="im_eNum"  id="im_eNUm" />
 			<input type="hidden"  name="im_vosid" id="im_vosid"  />
-			<input type="file" name="upload" value="选择文件"   /> 只支持excel 格式     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="file" name="upload" value="选择文件"   required="required" /> 只支持excel 格式     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			线路类型:
 			<select name="level">
 				<c:forEach items="${lList }" var="level">
@@ -33,7 +33,7 @@
 				<option  value="1">from Old附件</option>
 			</select>
 			
-			<input type="button"  value="上传" onclick="on_submit()"/>
+			<input type="submit"  onclick="if(check()) on_submit()" />
 		</form>
 	</div>
 	
@@ -133,6 +133,19 @@ function getCus(id){
 				}
 		}
 	}
+
+
+function check(){
+	var cus_select=document.getElementById("cus");  //属于 客户的select 元素
+	if( cus_select.value=="" || cus_select.value==null){
+		alert("请先选择客户");
+		return false;
+		}
+
+	
+	return true;
+}
+
 
 //上传部分使用:
 // 上传button 点击时,会获取select 被选元素的值,赋给上传form中对应的隐藏input 元素
