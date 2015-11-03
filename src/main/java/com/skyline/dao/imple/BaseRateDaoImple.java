@@ -23,6 +23,41 @@ import com.skyline.pojo.Rate;
 public class BaseRateDaoImple implements BaseRateDao {
 	@Autowired
 	private SessionFactory sf;
+	
+	
+	
+	private Conjunction  getAndConditions(Date sDate, Date tDate, String vosId, boolean is_success,boolean is_correct){
+		//限制条件
+				Criterion cr_vosId=Restrictions.eq("vosId", vosId);
+				Criterion time=null;
+
+				if(sDate==null && tDate!=null){
+					time=Restrictions.le("effectiveTime", tDate);
+				}
+				if(sDate!=null && tDate==null){
+					time=Restrictions.ge("effectiveTime", tDate);
+				}
+				if(sDate!=null && tDate!=null){
+					time=Restrictions.between("effectiveTime", sDate, tDate);
+				}
+			
+
+				Criterion cr_isSuccess=Restrictions.eq("isSuccess", is_success);
+				Criterion cr_isCorrect=Restrictions.eq("isCorrect", is_correct);
+				
+				Conjunction cons;
+				if(time!=null){
+					cons=Restrictions.and(cr_vosId,time,cr_isSuccess,cr_isCorrect);
+				}else{
+					cons	=Restrictions.and(cr_vosId,cr_isSuccess,cr_isCorrect);
+				}
+				return cons;
+	}
+	
+	
+	
+	
+	
 	@Override
 	public List<BaseRate> getRate(Date sDate, Date tDate, String vosId,
 			String country, boolean is_success,boolean is_correct,Class rateClazz) {
@@ -35,17 +70,10 @@ public class BaseRateDaoImple implements BaseRateDao {
 		cr.addOrder(Order.asc("sendTime"));
 		//limit 数量,分页
 		
-		//限制条件
-		Criterion cr_vosId=Restrictions.eq("vosId", vosId);
-		Criterion time;
-		if(sDate==null){
-			time=Restrictions.le("effectiveTime", tDate);
-		}else{
-			time=Restrictions.between("effectiveTime", sDate, tDate);
-		}
-		Criterion cr_isSuccess=Restrictions.eq("isSuccess", is_success);
-		Criterion cr_isCorrect=Restrictions.eq("isCorrect", is_correct);
-		Conjunction cons=Restrictions.and(cr_vosId,time,cr_isSuccess,cr_isCorrect);
+		
+		Conjunction cons=getAndConditions(sDate, tDate, vosId, is_success, is_correct);
+		
+		
 		//添加国家限制
 		cr.add(Restrictions.and(Restrictions.eq("country", country), cons));
 
@@ -64,7 +92,7 @@ public class BaseRateDaoImple implements BaseRateDao {
 			rateTable="r_rate";
 		}
 		Session ss=sf.getCurrentSession();
-		String sql="select * from (select * from "+rateTable+" where vosId=:vosId and country=:country and is_success=:is_success and is_correct=:is_correct  and is_available=:is_available and effective_time<=:tDate order by send_time desc) abc group by code";
+		String sql="select * from (select * from "+rateTable+" where vosId=:vosId and country=:country and is_success=:is_success and is_correct=:is_correct  and is_available=:is_available and effective_time<=:tDate order by send_time desc,effective_time desc) abc group by code";
 		Query query=ss.createSQLQuery(sql).addEntity(rateClazz);
 //		String hql="select *  from  ( select * from Rate  r where r.vosId=:vosId and r.country=:country and r.isSuccess=:is_success and r.isCorrect=:is_correct  and r.effectiveTime<=:tDate order by r.sendTime desc  )  r group by r.code";
 //		Query query=ss.createQuery(hql);
@@ -86,18 +114,10 @@ public class BaseRateDaoImple implements BaseRateDao {
 		Session ss =sf.getCurrentSession();
 		Criteria cr=ss.createCriteria(rateClazz);
 
-		//限制条件
-		Criterion cr_vosId=Restrictions.eq("vosId", vosId);
-		Criterion time;
-		if(sDate==null){
-			time=Restrictions.le("effectiveTime", tDate);
-		}else{
-			time=Restrictions.between("effectiveTime", sDate, tDate);
-		}
-		Criterion cr_isSuccess=Restrictions.eq("isSuccess", is_success);
-		Criterion cr_isCorrect=Restrictions.eq("isCorrect", is_correct);
-		Conjunction cons=Restrictions.and(cr_vosId,time,cr_isSuccess,cr_isCorrect);
+		Conjunction cons=getAndConditions(sDate, tDate, vosId, is_success, is_correct);
 		cr.add(cons);
+		
+
 		if(firstResult!=null && maxResult!=null){
 			cr.setFirstResult(firstResult);
 			cr.setMaxResults(maxResult);

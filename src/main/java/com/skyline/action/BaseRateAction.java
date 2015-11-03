@@ -74,7 +74,7 @@ class BaseRateAction {
 		Date sDate=sdf.parse(sDateStr, new ParsePosition(0)); //如果字符串不能被格式话则返回null.
 
 		Date tDate=sdf.parse(tDateStr, new ParsePosition(0));//如果字符串不能被格式话则返回null.
-		if(tDate==null) tDate=new Date();
+//		if(tDate==null) tDate=new Date();
 		
 		boolean is_success=true;
 		boolean is_correct=true;
