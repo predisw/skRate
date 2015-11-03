@@ -43,7 +43,7 @@ public class BaseRateServiceImple  implements BaseRateService{
 		List<String> total_c=new ArrayList<>();
 
 		if(!"all".equalsIgnoreCase(country)&&country!=null && !"".equals(country)){
-			if(sDate==null){ //如果sDate(就是没有选择sDate),则返回某个country 所有code 最新的报价记录
+			if(sDate==null && tDate!=null){ //如果sDate(就是没有选择sDate),则返回某个country 所有code 最新的报价记录
 				rates=baseRateDao.getLastRate(tDate,vosId, country, is_success,is_correct,is_available,rateClazz); 
 			}else{
 				rates=baseRateDao.getRate(sDate, tDate, vosId, country, is_success,is_correct,rateClazz);  //返回一个国家的所有rate 记录
@@ -54,7 +54,7 @@ public class BaseRateServiceImple  implements BaseRateService{
 			List tmpRates;
 			List<String> countrys=baseRateDao.getCountry(sDate, tDate, vosId, is_success, firstResult, maxResult,is_correct,rateClazz); // 返回多个国家的记录
 			
-			if(sDate==null){ //假如没有选择 sDate,则返回多个国家各个code最新的rate 记录
+			if(sDate==null  && tDate!=null){ //假如没有选择 sDate,则返回多个国家各个code最新的rate 记录
 				for(int i=0;i<countrys.size();i++){
 					tmpRates=baseRateDao.getLastRate(tDate,vosId, countrys.get(i), is_success,is_correct,is_available,rateClazz);
 					rates.addAll(tmpRates);
