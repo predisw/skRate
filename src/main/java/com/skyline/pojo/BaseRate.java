@@ -281,9 +281,7 @@ public class BaseRate  implements Cloneable{
 		return df.format(d);
 	}
 	
-	public String forLog(){
-		return "vosId:"+this.getVosId()+"-code: "+this.getCode();
-	}
+
 	
 	@Override
 	public Object clone() throws CloneNotSupportedException {
@@ -293,18 +291,18 @@ public class BaseRate  implements Cloneable{
 		
 	}
 	
-	@Override
-	public String toString() {
+
+	public String  forLog(){
 		StringBuffer content = new StringBuffer();
 		content.append("code:"+code);
-		content.append("rate:"+rate);
-		content.append("vosId:"+bakVosId);
-		content.append("level:"+level);
-		content.append("levelPrefix:"+levelPrefix);
-		content.append("sendTime:"+sendTime);
-		content.append("effectiveTime:"+effectiveTime);
-		content.append("expireTime:"+expireTime);
-		content.append("remark:"+remark);
+		content.append(",rate:"+rate);
+		content.append(",vosId:"+bakVosId);
+		content.append(",level:"+level);
+		content.append(",levelPrefix:"+levelPrefix);
+		content.append(",sendTime:"+sendTime);
+		content.append(",effectiveTime:"+effectiveTime);
+		content.append(",expireTime:"+expireTime);
+		content.append(",remark:"+remark);
 		
 		return content.toString();
 		

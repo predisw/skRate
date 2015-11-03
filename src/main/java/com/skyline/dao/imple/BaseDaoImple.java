@@ -28,7 +28,8 @@ public class BaseDaoImple implements BaseDao {
 	}
 	
 	
-
+	@Log
+	@Description(name="删除")
 	@Override
 	 public void delete(Object obj){
 		Session ss=sf.getCurrentSession();
