@@ -6,7 +6,10 @@ import javax.persistence.Enumerated;
 
 
 
+
+
 import lombok.Setter;
+import lombok.ToString;
 
 import com.predisw.annotation.Description;
 
@@ -32,8 +35,7 @@ public class Customer implements java.io.Serializable {
 	private Integer count;
 	private Boolean isOften;
 	private String rateLevel;
-	@Setter
-	private String abc;
+
 	public Customer() {
 	}
 
@@ -159,11 +161,20 @@ public class Customer implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return this.getBccEmail()+" "+this.getCcEmail();
+		StringBuffer content = new StringBuffer();
+		content.append("name:"+CName);
+		content.append(",type:"+CType);
+		content.append(",vosId:"+vosId);
+		content.append(",email:"+email);
+		content.append(",ccEmail:"+ccEmail);
+		content.append(",bccEmail:"+bccEmail);
+		return content.toString();
 	}
 	
 	public String forLog(){
 		return "name:"+this.getCName()+"-vosid:"+this.getVosId();
 	}
+	
+	
+	
 }

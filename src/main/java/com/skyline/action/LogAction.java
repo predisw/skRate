@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -137,11 +138,12 @@ public class LogAction {
 		
 		if(!"".equals(to) && to!=null){
 			tDate=DateFormatUtil.parse(to, "yyyy-MM-dd");
+			tDate.setTime(tDate.getTime()+24*3600*1000);
 		}
 
 		Map<String, Object> cons=new HashMap<String, Object>();
 		cons.put("fDate", fDate);
-		cons.put("tDate", tDate);
+		cons.put("tDate",tDate );
 		cons.put("userName", userName);
 		
 		page=logService.getPageOfOpLog(page, cons);

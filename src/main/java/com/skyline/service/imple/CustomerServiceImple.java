@@ -13,6 +13,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.predisw.annotation.Log;
 import com.predisw.util.SingletonLock;
 import com.skyline.dao.BaseDao;
 import com.skyline.dao.BaseRateDao;
@@ -23,6 +24,7 @@ import com.skyline.pojo.RRate;
 import com.skyline.pojo.Rate;
 import com.skyline.service.BaseService;
 import com.skyline.service.CustomerService;
+import com.skyline.service.LogService;
 import com.skyline.util.PoiExcel;
 
 @Service
@@ -39,6 +41,8 @@ public class CustomerServiceImple   implements CustomerService{
 	private SessionFactory sf;
 	@Autowired
 	private CustomerDao cusDao;
+	@Autowired
+	private LogService logService;
 	
 
 	
@@ -57,12 +61,12 @@ public class CustomerServiceImple   implements CustomerService{
 			 Customer cus= new Customer();  //必须.....
 
 			cus=(Customer)poiExcel.setStringArrayToObj(cus_value, cusAttributeOrder, cus, str_date);
-//			 System.out.println("xxxxxxxxxx:"+cus.getCcEmail());
+
 			baseService.saveOrReplaceIfDup(cus, "vosId");
 		}
 	}
 
-
+	@Log
 	@Override
 	public void updateCus(Customer cus){
 		
@@ -94,6 +98,12 @@ public class CustomerServiceImple   implements CustomerService{
 		}
 		
 		baseDao.update(cus);
+		
+		try{
+			String content= "before/"+db_cus.toString()+"after/"+cus.toString();
+			logService.logToDb("更新客户", "", content);
+		}catch(Exception e){
+		}
 		
 	}
 

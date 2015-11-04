@@ -84,8 +84,7 @@ sendRecord 类覆盖了clone 方法
 日志.....,把sql 去掉....,把错误打印出来.....;日志分开不同的文件,还有sql 的链接问题.
 
 1.8.6
-如何确保在修改vosId 的时候不能发送报价呢??就是如何传递锁,或者创建一个锁的单例??
-重新设置分层.
+
 
 
 
@@ -193,6 +192,5 @@ EasyUI 设计页面
  
  
  //-----------------------修改------------
-dao/src/main/java/com/skyline/dao/imple/CountryCodeDaoImple.java v1.8.1 
- 修改了dao中的setIsavailable
+
 	

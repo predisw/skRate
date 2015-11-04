@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import ch.qos.logback.classic.Logger;
 
+import com.skyline.pojo.Onliner;
 import com.skyline.pojo.User;
 import com.skyline.service.BaseService;
 import com.skyline.service.UserService;
@@ -53,8 +55,20 @@ public class UserAction {
 		
 		if(user_db!=null){
 			if( user.getPassword().equals(user_db.getPassword()) ){
+				
+				ServletContext application = req.getSession().getServletContext();
+				Map<String,Onliner> onlinerMap=(Map<String,Onliner>)application.getAttribute("onlinerMap");
+				System.out.println("count"+onlinerMap);
+				
+				Onliner onliner =(Onliner) onlinerMap.get(req.getSession().getId());
+				onliner.setIp(req.getRemoteAddr());
+				onliner.setName(user_db.getUName());
+				onliner.setBrowser(req.getHeader("User-Agent"));
+				
+				application.setAttribute("onlinerMap", onlinerMap);
+				
+				System.out.println("xxxxxxxxxx"+onliner.getBrowser());
 				req.getSession().setAttribute("user", user_db); //将登录用户保存到session 中
-
 				req.getRequestDispatcher("/index.jsp").forward(req, res);
 			}else{
 				req.setAttribute("login_error", "用户名或者密码不正确");

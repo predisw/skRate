@@ -65,8 +65,8 @@ public class PropsAction {
 		try{
 			baseService.saveOrUpdate(prop);
 			}
-		catch(StaleObjectStateException e){
-			req.setAttribute("Message", "其他人已经更新了数据,请重新更新");
+		catch(Exception e){
+			req.setAttribute("Message", "请重新尝试"+e.getMessage()+" cause:"+e.getCause());
 			logger.error("", e);
 			req.getRequestDispatcher("toAddProp.do").forward(req, res);
 			return;
