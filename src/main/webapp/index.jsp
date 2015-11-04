@@ -50,7 +50,7 @@
 					<li><a href="${pageContext.request.contextPath}/emp/toUpdateEmp.do">修改员工</a>
 				</ul>
 			</li>
-			<li><a href="#">属性</a>
+			<li><a href="#">Others</a>
 				<ul>
 					<li><a href="${pageContext.request.contextPath}/cc/getCountrys.do">地区详情</a></li>
 					<li><a href="${pageContext.request.contextPath}/props/toAddProp.do">添加属性</a></li>

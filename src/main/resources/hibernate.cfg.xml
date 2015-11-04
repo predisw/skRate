@@ -55,5 +55,7 @@
   <mapping resource="com/skyline/pojo/Log.hbm.xml"/>
   <mapping resource="com/skyline/pojo/Email.hbm.xml"/>
   <mapping resource="com/skyline/pojo/RRate.hbm.xml"/> 
+  <mapping resource="com/skyline/pojo/Powers.hbm.xml"/> 
+  <mapping resource="com/skyline/pojo/Role.hbm.xml"/> 
  </session-factory>
 </hibernate-configuration>
