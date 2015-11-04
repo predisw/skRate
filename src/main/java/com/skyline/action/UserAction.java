@@ -2,6 +2,7 @@ package com.skyline.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -64,7 +65,7 @@ public class UserAction {
 				onliner.setIp(req.getRemoteAddr());
 				onliner.setName(user_db.getUName());
 				onliner.setBrowser(req.getHeader("User-Agent"));
-				
+				onliner.setLoginTime(new Date());
 				application.setAttribute("onlinerMap", onlinerMap);
 				
 				System.out.println("xxxxxxxxxx"+onliner.getBrowser());

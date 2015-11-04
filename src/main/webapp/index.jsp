@@ -69,6 +69,7 @@
 					<li><a href="${pageContext.request.contextPath}/sys/toPerformance.do">系统性能</a></li>
 					<li><a href="${pageContext.request.contextPath}/sys/getVerInfo.do">About Us</a></li>
 					<li><a href="${pageContext.request.contextPath}/sys/toSysOperation.do">系统操作</a></li>
+					<li><a href="${pageContext.request.contextPath}/sys/getOnliner.do">在线人数</a></li>
 				</ul>
 			</li>
 			<li><a href="${pageContext.request.contextPath}/user/logout.do" onclick="return confirm('确定退出?');">Logout</a></li>

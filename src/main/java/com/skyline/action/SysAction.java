@@ -9,9 +9,15 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
+import java.util.Set;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.predisw.annotation.Description;
 import com.predisw.util.DateFormatUtil;
 import com.skyline.pojo.Log;
+import com.skyline.pojo.Onliner;
 import com.skyline.pojo.User;
 import com.skyline.service.BaseService;
 import com.skyline.service.SysService;
@@ -133,6 +140,30 @@ public class SysAction {
 		
 	}
 	
-
+	@RequestMapping("toOnliner.do")
+	public String toOnliner(HttpServletRequest req,HttpServletResponse res){
+		
+		
+		
+		return "forward:/WEB-INF/jsp/sys/onliner.jsp";
+		
+	}
+	
+	@RequestMapping("getOnliner.do")
+	public String getOnliner(HttpServletRequest req,HttpServletResponse res){
+		
+		ServletContext application = req.getServletContext();
+		Map<String, Onliner> onlinerMap=(Map<String, Onliner>)application.getAttribute("onlinerMap");
+		
+		List<Onliner> onliners = new ArrayList<>();
+		
+		for(Entry<String, Onliner> entry :onlinerMap.entrySet()){
+			onliners.add(entry.getValue());
+		}
+		
+		req.setAttribute("onliners", onliners);
+		return "forward:toOnliner.do";
+		
+	}
 	
 }
