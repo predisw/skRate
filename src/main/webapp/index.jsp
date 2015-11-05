@@ -64,6 +64,13 @@
 					
 				</ul>
 			</li>
+			<li><a href="#">权限</a>
+				<ul>
+					<li><a href="${pageContext.request.contextPath}/powers/getPowers.do">权限</a></li>
+					<li><a href="${pageContext.request.contextPath}/powers/getRoles.do">角色</a></li>
+					
+				</ul>
+			</li>
 			<li><a href="#">系统</a>
 				<ul>
 					<li><a href="${pageContext.request.contextPath}/sys/toPerformance.do">系统性能</a></li>

@@ -17,6 +17,10 @@ public class Role implements java.io.Serializable {
 
 	public Role() {
 	}
+	
+	public Role(String name){
+		this.name=name;
+	}
 
 	public Role(String name, Set powerses, Set users) {
 		this.name = name;

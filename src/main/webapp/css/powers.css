@@ -1,0 +1,20 @@
+@CHARSET "UTF-8";
+
+/*-----------------主体部分---------------------*/
+.p_body{
+	width:80%;
+	margin:20px auto;
+/* 	float:left; */
+
+/* 	 border: solid 1px blue;   */
+}
+
+.level1{
+	margin-left: 50px;
+	margin-top: 10px;
+}
+
+.level2{
+	margin-left: 100px;
+	margin-top: 10px;
+}
