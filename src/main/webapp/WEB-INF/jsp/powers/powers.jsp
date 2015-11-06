@@ -12,31 +12,41 @@
 <body>
 
 <div class="p_body">
-	<c:forEach items="${powers}" var="pl1">
-		<c:if test="${pl1.parentId==0}">
-			<div class="level1">
-			<input type="checkbox" id="${pl1.id }" value="${pl1.id }"    /> ${pl1.name }
-			</div>
-			<c:forEach items="${powers }" var="pl2" >
-				<c:if test="${pl2.parentId==pl1.id }">
-					<div class="level2">
-					<input type="checkbox" id="${pl2.id }"  value="${pl2.id }" />${pl2.name }
-					</div>
-				</c:if>
-			</c:forEach>
-		
-		
-		
-		
-		
-		</c:if>
 
+	<form  action ="${pageContext.request.contextPath}/powers/savePowers.do"  method ="post">
+		<input type ="text"  name="role_id"   value="${role.id}" />
+		
+		<c:forEach items="${powers}" var="pl1">
+			<c:if test="${pl1.parentId==0}">
+				<div class="level1">
+					<input type="checkbox" id="${pl1.id }" value="${pl1.id }"  name ="power_id"  /> ${pl1.name }
+				</div>
+				<c:forEach items="${powers }" var="pl2" >
+					<c:if test="${pl2.parentId==pl1.id }">
+						<div class="level2">
+							<input type="checkbox" id="${pl2.id }"  value="${pl2.id }"   name ="power_id"  />${pl2.name }
+						</div>
+					</c:if>
+				</c:forEach>
+			</c:if>
+		</c:forEach>
+
+		<input type="submit" value="确定"/> 
+	</form>
+
+</div>
+
+
+
+<script type="text/javascript">
+
+	<c:forEach items="${role.powerses}" var="power">
+			document.getElementById("${power.id}").checked=true;
 	
 	</c:forEach>
 
 
-</div>
-
+</script>
 
 
 

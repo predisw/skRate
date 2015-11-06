@@ -66,8 +66,8 @@
 			</li>
 			<li><a href="#">权限</a>
 				<ul>
-					<li><a href="${pageContext.request.contextPath}/powers/getPowers.do">权限</a></li>
-					<li><a href="${pageContext.request.contextPath}/powers/getRoles.do">角色</a></li>
+					<li><a href="${pageContext.request.contextPath}/powers/toUserRole.do">用户权限</a></li>
+					<li><a href="${pageContext.request.contextPath}/powers/getRoles.do">配置权限</a></li>
 					
 				</ul>
 			</li>

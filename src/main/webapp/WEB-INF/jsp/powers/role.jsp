@@ -5,12 +5,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link href="${pageContext.request.contextPath}/css/common.css"  rel="stylesheet" type="text/css" /> 
 <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js" ></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>角色页面</title>
 </head>
 <body>
-<div>
+<div class="main_body">
 	<div >
 		<button type="button"  onclick="showInput('add_role')">添加 </button>
 		<button type="button" onclick = "if(confirm('删除??')) delRole()" >删除 </button>
@@ -30,10 +31,10 @@
 			<tr >
 				
 
-				<td><input type="radio" name="role_name"  value="${role.id }" ></td>
+				<td><input type="radio" name="role_id"  value="${role.id }" ></td>
 
-				<td><input type="text"  value="${role.name}"   ></td>
-				<td><a href="${pageContext.request.contextPath }/powers/getPowers.do">赋权限</a></td>
+				<td>${role.name}</td>
+				<td><a href=" ${pageContext.request.contextPath }/powers/getPowers.do?role_id=${role.id }" >赋权限</a></td>
 
 			</tr>
 			</c:forEach>
@@ -41,7 +42,7 @@
 		 	<tr style="display:none" id="add_role">
 				<td><input type="radio"></td>
 				<td><input type="text"  id="role_name"    onblur="if(check())addRole()"></td>
-				<td><a href="${pageContext.request.contextPath }/powers/getPowers.do"></a></td>
+				<td><a href="#"></a></td>
 			</tr> 
 			
 		</table>
@@ -86,11 +87,11 @@ function addRole(){
 }
 
 function delRole(){
-	var role_names=document.getElementsByName("role_name");
+	var role_ids=document.getElementsByName("role_id");
 	var role_id="";
-	for(var i=0;i<role_names.length;i++){
-		if(role_names[i].checked){
-			role_id=role_names[i].value;
+	for(var i=0;i<role_ids.length;i++){
+		if(role_ids[i].checked){
+			role_id=role_ids[i].value;
 			break;
 			}
 		}
@@ -110,7 +111,14 @@ function delRole(){
 	});
 }
 
+function toPowers(id){
+	var role_id=document.getElementById(id);
+	$(function(){
+		$.post("${pageContext.request.contextPath}/powers/getPowers.do",{"role_id":role_id},null);
 
+		});
+	
+}
 
 </script>
 

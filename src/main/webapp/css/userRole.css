@@ -1,0 +1,23 @@
+@CHARSET "UTF-8";
+.ur_body {
+ width:80%; /*设定宽度*/
+/*  position:absolute; */
+/*  float:left;  */
+  margin:8px auto;  /*居中*/
+/*  border:1px solid red; */
+}
+
+.leftfloat {
+
+width:25%;
+height:500px; 
+text-align:left; /*文字左对齐*/
+ float:left; /*浮动居左*/
+/*  clear:left; 不允许左侧存在浮动 */
+ overflow:auto; /*超出宽度部分隐藏*/
+ border:1px solid blue;
+ margin:10px;
+
+}
+
+

@@ -73,7 +73,7 @@
 <aop:config  >
  <aop:aspect ref="logAop"  id="serviceLogAop" >
  
- <aop:pointcut expression="execution(* com.skyline..*.*(..)) "       id="log_service"/>
+ <aop:pointcut expression="execution(* com.skyline.service.*.*(..)) "       id="log_service"/>
  
 <aop:before pointcut-ref="log_service" method="doBefore"/>
 <aop:after-returning pointcut-ref="log_service"  returning="returnObj" method="doAfterReturn"/>
