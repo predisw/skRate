@@ -61,7 +61,7 @@ public class CustomerServiceImple   implements CustomerService{
 			 Customer cus= new Customer();  //必须.....
 
 			cus=(Customer)poiExcel.setStringArrayToObj(cus_value, cusAttributeOrder, cus, str_date);
-
+			cus.setVosId(cus.getVosId().trim());
 			baseService.saveOrReplaceIfDup(cus, "vosId");
 		}
 	}

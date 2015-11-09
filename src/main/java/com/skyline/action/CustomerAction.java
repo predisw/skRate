@@ -79,6 +79,7 @@ public class CustomerAction{
 		cus.setEmail(cus.getEmail().replace(" ", "")); //去掉所有的空格
 		cus.setCcEmail(cus.getCcEmail().replace(" ", "")); //去掉所有的空格
 		cus.setBccEmail(cus.getBccEmail().replace(" ", "")); //去掉所有的空格
+		cus.setVosId(cus.getVosId().trim());
 		
 		try{
 			baseService.addUniCheck(cus, "vosId", cus.getVosId());
@@ -166,7 +167,7 @@ public class CustomerAction{
 		cus.setEmail(cus.getEmail().replace(" ", "")); //去掉所有的空格
 		cus.setCcEmail(cus.getCcEmail().replace(" ", "")); //去掉所有的空格
 		cus.setBccEmail(cus.getBccEmail().replace(" ", "")); //去掉所有的空格
-		
+		cus.setVosId(cus.getVosId().trim());
 		
 		try{
 			baseService.updateUniCheck(cus,"vosId", cus.getVosId(),"CId");
