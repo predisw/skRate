@@ -52,6 +52,9 @@ public class SysAction {
 	
 	@RequestMapping("getVerInfo.do")
 	public void getVerInfo(HttpServletRequest req,HttpServletResponse res) throws ServletException, IOException{
+		String version = req.getServletContext().getInitParameter("version");
+		req.setAttribute("version", version);
+		
 		req.getRequestDispatcher("/WEB-INF/jsp/sys/version.jsp").forward(req, res);
 	}
 

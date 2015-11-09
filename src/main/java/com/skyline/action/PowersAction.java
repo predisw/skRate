@@ -9,6 +9,10 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +31,8 @@ public class PowersAction {
 	
 	@Autowired
 	private BaseService baseService;
+
+	
 	
 	@RequestMapping("toPowers.do")
 	public String  toPowers(HttpServletRequest req,HttpServletResponse res){
@@ -138,15 +144,65 @@ public class PowersAction {
 		
 		List<User> users=baseService.getByClass(User.class);
 		List<Role> roles = baseService.getByClass(Role.class);
-
-		
-		
 		
 		req.setAttribute("roles", roles);
 		req.setAttribute("users", users);
 		
-		
 		return "forward:/WEB-INF/jsp/powers/userRole.jsp";
 	}
+
+	@RequestMapping("getRolesByUser.do")
+	public void getRolesByUser(HttpServletRequest req,HttpServletResponse res) throws IOException{
+		String id = req.getParameter("id");
+		User user =(User) baseService.getById(User.class, Integer.valueOf(id));
+		Set<Role> roles =user.getRoles();
+		JSONArray  roleNames= new JSONArray();
+		JSONObject jsonRole=new JSONObject();
+		for(Role role:roles){
+			jsonRole.put("value",role.getId());
+			jsonRole.put("name", role.getName());
+
+			roleNames.put(jsonRole);
+		}
+		
+		res.setCharacterEncoding("UTF-8");
+		PrintWriter out =res.getWriter();
+		out.print(roleNames.toString());
+
+	}
+
+	@RequestMapping("saveOrUpdateRolesToUser.do")
+	public String saveOrUpdateRolesToUser(HttpServletRequest req,HttpServletResponse res){
+		String[] ids=req.getParameterValues("used_roles");
+		Set<Role> roles=new HashSet<>();
+		String Message="Success";
+		try{
+			for(String id:ids){
+				roles.add((Role) baseService.getById(Role.class, Integer.valueOf(id)));
+			}
+		}catch(Exception e){
+			logger.error("获取Role失败",e);
+			Message="获取role失败 "+e.getMessage()+" Cause: "+e.getCause();
+			return "forward:toUserRole.do";
+		}
+
+		String uId=req.getParameter("user");
+		User user =(User) baseService.getById(User.class, Integer.valueOf(uId));
+		
+		try{
+			user.setRoles(roles);
+			baseService.saveOrUpdate(user);
+		}catch(Exception e){
+			logger.error("更新role失败",e);
+			Message="更新role失败 "+e.getMessage()+" Cause: "+e.getCause();
+			return "forward:toUserRole.do";
+		}
+		
+		return "forward:toUserRole.do";
+//		baseService.sav
+		
+		
+	}
+	
 
 }

@@ -20,4 +20,8 @@ text-align:left; /*文字左对齐*/
 
 }
 
-
+.selectM{
+	width:100%;
+	height:85%;
+	margin-top: 10px;
+}

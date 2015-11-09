@@ -170,8 +170,9 @@ public class CustomerAction{
 		cus.setVosId(cus.getVosId().trim());
 		
 		try{
-			baseService.updateUniCheck(cus,"vosId", cus.getVosId(),"CId");
 			wLock.lock();
+			baseService.updateUniCheck(cus,"vosId", cus.getVosId(),"CId");
+
 			cusService.updateCus(cus);
 		}catch(UniException e){  //vosId 已存在
 			logger.error("", e);

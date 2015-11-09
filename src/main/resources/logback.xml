@@ -48,7 +48,7 @@
     <logger name="com.skyline" level="info"/>  
   <!-- 管理spring 的日志-->  
   <logger name="org.springframework" level="info"/>  
-  <logger name="org.hibernate" level="INFO"/>  
+  <logger name="org.hibernate" level="info"/>  
 <!-- 将sql 也输出到日志文件 -->
  <logger name="org.hibernate.SQL" level="debug"/>    <!--  debug 会显示sql 语句-->
   <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="info"/>  <!-- trace 级别显示绑定的参数 -->

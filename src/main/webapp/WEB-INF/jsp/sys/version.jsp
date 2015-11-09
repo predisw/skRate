@@ -11,17 +11,17 @@
 <body>
 <div class="main_body">
 	<div>
-<h2>SkylineRate System</h2>
+<h2>SkylineRate System <span style="font-size: small;">version ${version}</span></h2>
 
-
-version 1.8.7 <br />
-2015-11-3 :<br />
-添加了在线人数 <br />
-完善记录操作日志功能 <br />
- 2015-11-9: <br />
+ 2015-11-9 <br />
  添加404 页面<br />
 记录jsp 页面错误到日志文件<br />
 记录客户vosId 时去掉vosId 两边的空格<br />
+
+2015-11-3 :<br />
+添加了在线人数 <br />
+完善记录操作日志功能 <br />
+
  version 1.8.6-2<br />
  2015-11-3 <br /> 
 1.落地历史报价添加了查询"ALL" 功能,可以查询所有报价.<br /> 

@@ -59,16 +59,16 @@
 <script type="text/javascript">
 
 function mvSelected(rm,mvTo){
-	var cus=document.getElementById(rm);
-	var beSelected=document.getElementById(mvTo);
+	var rm=document.getElementById(rm);
+	var mvTo=document.getElementById(mvTo);
 //	alert(cus.length);
-	for(var i=0;i<cus.length;i++){
-			if(cus.options[i].selected){  //如果有被选中的
+	for(var i=0;i<rm.length;i++){
+			if(rm.options[i].selected){  //如果有被选中的
 				var op=document.createElement("option"); //创建一个select 的option 元素
-				op.value=cus.options[i].value; //给这个元素添加一个value属性
-				op.innerHTML=cus.options[i].innerHTML; //将select1 的显示text赋给select2这个元素
-				beSelected.appendChild(op); //将这个元素添加到select2 中
-				cus.removeChild(cus.options[i]);  //从原来的select1 中移除添加到select2中的option 元素
+				op.value=rm.options[i].value; //给这个元素添加一个value属性
+				op.innerHTML=rm.options[i].innerHTML; //将select1 的显示text赋给select2这个元素
+				mvTo.appendChild(op); //将这个元素添加到select2 中
+				rm.removeChild(rm.options[i]);  //从原来的select1 中移除添加到select2中的option 元素
 				i=-1; //因为每次移除一个option 元素，select1的长度都会改变，而且i 也会递增，所以要重置i的值到0，才可以重新历 遍。
 				//设置为-1 是因为 返回for 的时候，i 会执行 i++;
 				}

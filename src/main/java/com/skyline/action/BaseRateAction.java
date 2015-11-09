@@ -88,14 +88,16 @@ class BaseRateAction {
 		int maxResult=page.getPageSize();
 		
 		List<String> countryList=new ArrayList<>();
-		if(!"all".equalsIgnoreCase(country)&&country!=null && !"".equals(country)){
-			countryList.add(country);
+		if(!"all".equalsIgnoreCase(country.trim())&&country!=null && !"".equals(country)){
+			countryList.add(country.trim());
 			page = baseRateService.getRateByPage(sDate, tDate, vosId, country, is_success, is_correct,is_available,page,ratecCazz); //page.data 就是rList
 		}else{
 			countryList=baseRateService.getCountry(sDate, tDate, vosId, is_success, firstResult, maxResult,is_correct,ratecCazz);
 			page = baseRateService.getRateByPage(sDate, tDate, vosId, country, is_success,is_correct,is_available,page,ratecCazz); //page.data 就是rList
 		}
 		
+		
+		Collections.sort(countryList);
 		Collections.sort(page.getData(), new BaseRateComparator());
 		
 

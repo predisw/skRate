@@ -14,6 +14,12 @@
          <param-name>contextConfigLocation</param-name>
          <param-value>classpath:app*.xml</param-value>
  </context-param>
+
+<context-param>
+<param-name>version</param-name>
+<param-value>1.8.7</param-value>
+</context-param>
+
  
  <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -76,7 +82,7 @@
 
  
 <!--  openSessionInViewFilter 只要是用来解决赖加载问题，在懒加载完成之前让session 一直保持打开-->
-<!--  <filter>  
+  <filter>  
      <filter-name>openSessionInViewFilter</filter-name>  
     <filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>  
    	<init-param>  
@@ -87,10 +93,10 @@
  
   <filter-mapping>  
      <filter-name>openSessionInViewFilter</filter-name>  
-      <url-pattern>*.do,*.action</url-pattern>  
+      <url-pattern>/powers/*</url-pattern>  
   </filter-mapping>
   
- -->
+
   
   <error-page>
   <error-code>404</error-code>

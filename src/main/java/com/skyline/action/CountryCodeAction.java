@@ -164,7 +164,8 @@ public class CountryCodeAction {   //如果要使用spring 的自动注入，那
 	//添加单个 country_code 记录，如果是修改，不能用hibernate 自带的save，save 是新添加多一个，而不是在原来的基础上修改
 	@RequestMapping(value="/saveCountryCode.do")
 	public String save(CountryCode cc ,RedirectAttributes red) throws IOException{
-			
+			cc.setCountry(cc.getCountry().trim());
+			cc.setCode(cc.getCode().trim());
 		try{
 			baseService.addUniCheck(cc,"code", cc.getCode()); 		//检查是否唯一
 			baseService.save(cc);
@@ -190,6 +191,8 @@ public class CountryCodeAction {   //如果要使用spring 的自动注入，那
 		red.addFlashAttribute("scode",code);
 		red.addFlashAttribute("curPage",curPage);
 		
+		cc.setCountry(cc.getCountry().trim());
+		cc.setCode(cc.getCode().trim());
 		try{
 			baseService.updateUniCheck(cc, "code", cc.getCode(),"ccId");   //检查code是否唯一
 			baseService.update(cc);
