@@ -59,7 +59,6 @@ public class UserAction {
 				
 				ServletContext application = req.getSession().getServletContext();
 				Map<String,Onliner> onlinerMap=(Map<String,Onliner>)application.getAttribute("onlinerMap");
-				System.out.println("count"+onlinerMap);
 				
 				Onliner onliner =(Onliner) onlinerMap.get(req.getSession().getId());
 				onliner.setIp(req.getRemoteAddr());
@@ -68,7 +67,7 @@ public class UserAction {
 				onliner.setLoginTime(new Date());
 				application.setAttribute("onlinerMap", onlinerMap);
 				
-				System.out.println("xxxxxxxxxx"+onliner.getBrowser());
+
 				req.getSession().setAttribute("user", user_db); //将登录用户保存到session 中
 				req.getRequestDispatcher("/index.jsp").forward(req, res);
 			}else{
