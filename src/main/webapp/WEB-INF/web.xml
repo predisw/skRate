@@ -92,6 +92,16 @@
   
  -->
   
+  <error-page>
+  <error-code>404</error-code>
+  <location>/error/to404.do</location>
+  </error-page>
+  
+  <error-page>
+  <exception-type>javax.servlet.ServletException</exception-type>
+  <location>/error/logJspExceptionToFile.do</location>
+  </error-page>
+
   
   
   <welcome-file-list>

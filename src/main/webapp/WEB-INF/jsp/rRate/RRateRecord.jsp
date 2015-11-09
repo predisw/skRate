@@ -95,7 +95,7 @@
 								<td>${r.bakVosId }</td>
 								<td>${r.operator } </td>
 								<td>${r.code } </td>
-								<td ><input type="text"  name="${r.country}rate"   id="${r.id}rate"  style="width:90%;" value="<c:if test='${r.rate!=NULL}'> ${r.doubleF(r.rate) }</c:if>"/> </td>
+								<td ><input type="text"  name="${r.country}rate"   id="${r.id}rate"  style="width:90%;" value="${r.doubleF(r.rate) }"/> </td>
 								
 								<td style="width:8px;"> 
 									<select name="${r.country}billing_unit"  style="width:100%;" id="${r.id}billing_unit">
