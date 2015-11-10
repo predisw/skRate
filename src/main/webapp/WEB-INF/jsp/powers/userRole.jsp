@@ -91,13 +91,6 @@ function addOptionToSelect(id,dataArr){
 	
 }
 
-function setAllOption(selectId,selectValue){
-	var select = document.getElementById(selectId);
-	for(var i=0;i<select.length;i++){
-		select.options[i].selected=selectValue;
-	}
-
-}
 
 function updateUserRole(user,selectId){
 	var user= document.getElementById(user);

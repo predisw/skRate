@@ -219,5 +219,17 @@ public class PowersAction {
 		out.print(Message);
 	}
 	
+	
+	/**
+	 * 获取用户所有角色加起来的权限.
+	 */
+	public void getPowersOfUser(HttpServletRequest req,HttpServletResponse res){
+		
+		
+		
+		
+	}
+	
+	
 
 }

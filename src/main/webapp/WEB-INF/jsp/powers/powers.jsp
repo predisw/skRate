@@ -14,7 +14,7 @@
 <div class="p_body">
 
 	<form  action ="${pageContext.request.contextPath}/powers/savePowers.do"  method ="post">
-		<input type ="text"  name="role_id"   value="${role.id}" />
+		<input type ="hidden"  name="role_id"   value="${role.id}" />
 		
 		<c:forEach items="${powers}" var="pl1">
 			<c:if test="${pl1.parentId==0}">

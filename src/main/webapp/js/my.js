@@ -60,7 +60,14 @@ function rmSelected(id){
 		}
 
 }
+//设置select 所有的option 为被选true,或者都不选false
+function setAllOption(selectId,selectValue){
+	var select = document.getElementById(selectId);
+	for(var i=0;i<select.length;i++){
+		select.options[i].selected=selectValue;
+	}
 
+}
 
 
 
