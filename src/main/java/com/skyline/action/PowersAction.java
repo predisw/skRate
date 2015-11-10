@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.skyline.pojo.Powers;
 import com.skyline.pojo.Role;
@@ -142,6 +145,11 @@ public class PowersAction {
 	@RequestMapping("toUserRole.do")
 	public String toUserRole(HttpServletRequest req,HttpServletResponse res){
 		
+		Map<String,?> map=RequestContextUtils.getInputFlashMap(req);
+		if(map!=null){
+			req.setAttribute("Message",map.get("Message"));
+		}
+		
 		List<User> users=baseService.getByClass(User.class);
 		List<Role> roles = baseService.getByClass(Role.class);
 		
@@ -157,8 +165,9 @@ public class PowersAction {
 		User user =(User) baseService.getById(User.class, Integer.valueOf(id));
 		Set<Role> roles =user.getRoles();
 		JSONArray  roleNames= new JSONArray();
-		JSONObject jsonRole=new JSONObject();
+
 		for(Role role:roles){
+			JSONObject jsonRole=new JSONObject();
 			jsonRole.put("value",role.getId());
 			jsonRole.put("name", role.getName());
 
@@ -172,10 +181,19 @@ public class PowersAction {
 	}
 
 	@RequestMapping("saveOrUpdateRolesToUser.do")
-	public String saveOrUpdateRolesToUser(HttpServletRequest req,HttpServletResponse res){
-		String[] ids=req.getParameterValues("used_roles");
+	public void saveOrUpdateRolesToUser(HttpServletRequest req,HttpServletResponse res) throws IOException{
+		String idsStr=req.getParameter("ids");
+		String[] ids=idsStr.split(",");
+		if("".equals(idsStr)){
+			ids=new String[0];
+		}
+
 		Set<Role> roles=new HashSet<>();
 		String Message="Success";
+		
+		res.setCharacterEncoding("UTF-8");
+		PrintWriter out = res.getWriter();
+		
 		try{
 			for(String id:ids){
 				roles.add((Role) baseService.getById(Role.class, Integer.valueOf(id)));
@@ -183,10 +201,10 @@ public class PowersAction {
 		}catch(Exception e){
 			logger.error("获取Role失败",e);
 			Message="获取role失败 "+e.getMessage()+" Cause: "+e.getCause();
-			return "forward:toUserRole.do";
+			out.print(Message);
 		}
 
-		String uId=req.getParameter("user");
+		String uId=req.getParameter("uId");
 		User user =(User) baseService.getById(User.class, Integer.valueOf(uId));
 		
 		try{
@@ -195,13 +213,10 @@ public class PowersAction {
 		}catch(Exception e){
 			logger.error("更新role失败",e);
 			Message="更新role失败 "+e.getMessage()+" Cause: "+e.getCause();
-			return "forward:toUserRole.do";
+			out.print(Message);
 		}
 		
-		return "forward:toUserRole.do";
-//		baseService.sav
-		
-		
+		out.print(Message);
 	}
 	
 

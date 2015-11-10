@@ -50,7 +50,7 @@ public class EmployeeAction  {
 	//使用了spring mvc 来传递post参数到pojo
 	@RequestMapping(value="addEmp.do")
 	public void save(Employee emp,HttpServletRequest req,HttpServletResponse res) throws IOException, ServletException{
-			
+		emp.setENum(emp.getENum().trim());
 		emp.setEStatus(true); //默认设置新增员工为在职状态
 		try{
 			baseService.addUniCheck(emp, "ENum", emp.getENum());

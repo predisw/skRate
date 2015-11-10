@@ -11,7 +11,7 @@ function selectCheckbox(id,name)
 }
 
 
-//在两个select 之间移动option
+//在两个select 之间移动被选的option
 function mvSelected(rm,mvTo){
 	var rm=document.getElementById(rm);
 	var mvTo=document.getElementById(mvTo);
@@ -29,6 +29,51 @@ function mvSelected(rm,mvTo){
 		}
 
 }
+
+
+
+//在两个select 之间复制被选的option
+function cpSelected(from,to){
+	var from=document.getElementById(from);
+	var to=document.getElementById(to);
+//	alert(cus.length);
+	for(var i=0;i<from.length;i++){
+			if(from.options[i].selected){  //如果有被选中的
+				var op=document.createElement("option"); //创建一个select 的option 元素
+				op.value=from.options[i].value; //给这个元素添加一个value属性
+				op.innerHTML=from.options[i].innerHTML; //将select1 的显示text赋给select2这个元素
+				to.appendChild(op); //将这个元素添加到select2 中
+				}
+		}
+
+}
+
+//删除被选的option
+function rmSelected(id){
+	var select=document.getElementById(id);
+//	alert(cus.length);
+	for(var i=0;i<select.length;i++){
+			if(select.options[i].selected){  //如果有被选中的
+				select.removeChild(select.options[i]);
+				i=-1;
+				}
+		}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //

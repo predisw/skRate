@@ -98,11 +98,17 @@ public class BaseRateServiceImple  implements BaseRateService{
 				code +=rateArr[4];
 			}
 		
-			rate.setVosId(rateArr[0]);
-			rate.setBakVosId(rateArr[0]);
-			rate.setCountry(rateArr[1]);
+			
+			String vosId=rateArr[0]!=null?rateArr[0].trim():null;
+			String country=rateArr[1]!=null?rateArr[1].trim():null;
+			code=(code!=null?code.trim():null);
+			String operator = rateArr[2]!=null?rateArr[2].trim():null;
+			
+			rate.setVosId(vosId);
+			rate.setBakVosId(vosId);
+			rate.setCountry(country);
 			rate.setCode(code);
-			rate.setOperator(rateArr[2]);
+			rate.setOperator(operator);
 			rate.setBillingType(billingUnit);
 			
 			

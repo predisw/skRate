@@ -14,29 +14,30 @@
 <body>
 <div class="ur_body">
 
-	<form action="${pageContext.request.contextPath }/powers/saveOrUpdateRolesToUser.do"  method="post">
+
 	<div class="leftfloat">
 		用户列表
-
-		<select size="30"  class="selectM" id="user" name="user">
+		<div  >
+		<select class="selectS"    id="user" name="user"   onchange="getRolesByUser('user')" >
+			<option></option>
 			<c:forEach items="${users }" var="user">
-				<option  id="${user.UId }"  value="${user.UId}"  onclick="getRolesByUser(${user.UId})">${user.UName }</option>
+				<option  id="${user.UId }"  value="${user.UId}" >${user.UName }</option>
 			
 			</c:forEach>
 		</select>
-	
+		</div>
 	</div>
 
 
 		<div class="leftfloat">
 		用户拥有的角色
 			<select multiple="multiple"    class="selectM"  id="used_roles"  name="used_roles">
-	
+
 			</select>
-			<input type="button" value="移除" onclick="mvSelected('used_roles','all_roles')">
-			<input type="submit" value="添加" onclick="">
+			<input type="button" value="移除" onclick="rmSelected('used_roles')">
+			<input type="button" value="修改" onclick="if(confirm('确定修改?'))updateUserRole('user','used_roles')">
 		</div>
-	</form>
+
 	
 	<div class="leftfloat">
 		所有可用角色
@@ -45,7 +46,7 @@
 				<option value="${role.id}">${role.name }</option>
 			</c:forEach>
 		</select>
-		<input type="button" value="选择" onclick="mvSelected('all_roles','used_roles')">
+		<input type="button" value="选择" onclick="cpSelected('all_roles','used_roles')">
 		
 	</div>
 
@@ -57,23 +58,21 @@
 
 function getRolesByUser(id){
 	var user = document.getElementById(id);
-	var url="${pageContext.request.contextPath}/powers/getRolesByUser.do";
 
+	var id=user.options[user.selectedIndex].value;
+
+	var url="${pageContext.request.contextPath}/powers/getRolesByUser.do";
 	
 	$( function(){
-		$.post(url, {"id":user.value}, function(data,status){
+		$.post(url, {"id":id}, function(data,status){
 			if(status=="success"){
 				var roleNames =JSON.parse(data);
 //				alert(data);
 				addOptionToSelect('used_roles',roleNames);
 
 				}
-
-
 			});	
 		});
-	
-
 	
 }
 
@@ -91,6 +90,40 @@ function addOptionToSelect(id,dataArr){
 		}
 	
 }
+
+function setAllOption(selectId,selectValue){
+	var select = document.getElementById(selectId);
+	for(var i=0;i<select.length;i++){
+		select.options[i].selected=selectValue;
+	}
+
+}
+
+function updateUserRole(user,selectId){
+	var user= document.getElementById(user);
+	var uId=user.value;
+
+	
+	var url="${pageContext.request.contextPath }/powers/saveOrUpdateRolesToUser.do";
+	var select = document.getElementById(selectId);
+	var ids="";
+	for(var i=0;i<select.length;i++){
+		ids=ids+select.options[i].value;
+		if((i+1)<select.length){
+			ids+=",";
+		}
+	}
+	$(function(){
+			$.post(url,{"ids":ids,"uId":uId},function(data){
+					alert(data);
+	
+			});
+		});
+}
+	
+
+	
+
 
 
 

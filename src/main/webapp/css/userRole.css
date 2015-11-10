@@ -25,3 +25,9 @@ text-align:left; /*文字左对齐*/
 	height:85%;
 	margin-top: 10px;
 }
+
+.selectS{
+	width:80%;
+	margin:10px auto;
+	margin-left: 10%;
+}
