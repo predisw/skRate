@@ -2,6 +2,7 @@ package com.skyline.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +43,6 @@ public class UserAction {
 	@Autowired
 	private PowersService powersService;
 	
-	
 	private org.slf4j.Logger logger =LoggerFactory.getLogger(this.getClass());
 	
 	@Description("登录")
@@ -70,8 +70,8 @@ public class UserAction {
 				
 				//设置目录到Session 中去
 				setMenuPowersToSS(req, user_db);
-				//设置页面上的权限状态到session 中
-				setNMPowersToSS(req, user_db);
+				//设置所有非目录的权限状态到session 中
+				setNMPowersStatusToSS(req, user_db);
 				//设置用户所有权限的url 到session 中
 				setNoPowersUrlToSS(req, user_db);
 
@@ -101,23 +101,50 @@ public class UserAction {
 		application.setAttribute("onlinerMap", onlinerMap);
 	}
 	
-	
+	//index.jsp 中使用
 	private void setMenuPowersToSS(HttpServletRequest req,User user){
-		Set<Powers> mPowers=powersService.getMenuInUser(user);
+		Set<Powers> mPowers;
+		
+		if(isSuperAdmin(req, user)){
+			mPowers=powersService.getAllMenuPowers();
+		}else{
+			mPowers=powersService.getMenuInUser(user);
+		}
+		
 		req.getSession().setAttribute("menu", mPowers);
 	}
 	
-	
-	private void setNMPowersToSS(HttpServletRequest req,User user){
-		 Map<String,Boolean> pStatus = powersService.getNotMenuPowersStatus(user);
+	//在jsp 中使用
+	private void setNMPowersStatusToSS(HttpServletRequest req,User user){
+		Map<String,Boolean> pStatus;
+		if(isSuperAdmin(req, user)){
+			pStatus = powersService.getAllNMPowersStatus(true);
+		}else{
+			pStatus = powersService.getNotMenuPowersStatus(user);
+		}
+
 		 req.getSession().setAttribute("pStatus", pStatus);
 		
 	}
-	
+	//powersCheck 中使用,即不允许使用的url
 	private void setNoPowersUrlToSS(HttpServletRequest req,User user){
-		List<String> noPUrls=powersService.getNoPowersUrl(user);
+		List<String> noPUrls;
+		if(isSuperAdmin(req, user)){
+			noPUrls=new ArrayList<>();   //即所有url 都允许
+		}else{
+			noPUrls=powersService.getNoPowersUrl(user);
+		}
+
 		req.getSession().setAttribute("noPUrls", noPUrls);
-		
+	}
+	
+	
+	private boolean  isSuperAdmin(HttpServletRequest req,User user){
+		String superAdmin=req.getServletContext().getInitParameter("superAdmin");
+		if(user.getUName().equals(superAdmin)){
+			return true;
+		}
+		return false;
 	}
 	
 	

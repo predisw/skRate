@@ -1,6 +1,7 @@
 package com.skyline.service.imple;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -100,6 +101,23 @@ public class PowersServiceImple implements PowersService {
 	
 	}
 	
+	
+	@Override
+	public Set<Powers> getAllMenuPowers(){
+		List<Powers> powers=baseDao.getByField(Powers.class, "isMenu", true);
+		Set<Powers> nPowers=new TreeSet<>(powers);
+		return nPowers;
+	}
+	
+	@Override
+	public Map<String,Boolean> getAllNMPowersStatus(Boolean status){
+		List<Powers> allNMPowers=baseDao.getByField(Powers.class, "isMenu", false);
+		Map<String,Boolean> pStatus=new TreeMap<>();
+		for(Powers power:allNMPowers){
+			pStatus.put(power.getKeyName(), status);
+		}
+		return pStatus;
+	}
 	
 	
 }

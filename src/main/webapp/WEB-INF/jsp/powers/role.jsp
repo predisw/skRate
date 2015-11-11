@@ -13,8 +13,14 @@
 <body>
 <div class="main_body">
 	<div >
-		<button type="button"  onclick="showInput('add_role')">添加 </button>
-		<button type="button" onclick = "if(confirm('删除??')) delRole()" >删除 </button>
+				<!-- 权限控制 -->
+		<c:if test="${pStatus['role-add']==true }">
+			<button type="button"  onclick="showInput('add_role')">添加 </button>
+		</c:if>
+				<!-- 权限控制 -->
+		<c:if test="${pStatus['role-del']==true }">
+			<button type="button" onclick = "if(confirm('删除??')) delRole()" >删除 </button>
+		</c:if>
 	</div>
 	<div>
 		<table>

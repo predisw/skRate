@@ -49,6 +49,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
+
 import org.hibernate.StaleObjectStateException;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -66,6 +67,7 @@ import com.skyline.comparatorImple.BaseRateComparator;
 import com.skyline.comparatorImple.BaseRateCountryComparator;
 import com.skyline.comparatorImple.BaseRateOperatorComparator;
 import com.skyline.comparatorImple.CcComparator;
+import com.skyline.comparatorImple.CusComparator;
 import com.skyline.pojo.CountryCode;
 import com.skyline.pojo.Customer;
 import com.skyline.pojo.Email;
@@ -143,6 +145,7 @@ public class RateAction {
 			cusList.addAll(tmpList);
 			tmpList.clear();
 		}
+		Collections.sort(cusList,new CusComparator());
 		req.setAttribute("cusList", cusList);
 		req.getRequestDispatcher("getEmps.do").forward(req, res);
 	}

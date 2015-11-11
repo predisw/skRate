@@ -22,11 +22,9 @@ public class SessionListener implements HttpSessionListener {
 	public void sessionCreated(HttpSessionEvent se) {
 		// TODO Auto-generated method stub
 		HttpSession ss =se.getSession();
-
 		ServletContext application = ss.getServletContext();
 		Onliner onliner = new Onliner();
 		onlinerMap.put(ss.getId()	, onliner);
-		
 		application.setAttribute("onlinerMap", onlinerMap);
 	}
 

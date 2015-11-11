@@ -15,11 +15,16 @@
 
 <div >
 
-<form action="<%=request.getContextPath()%>/cc/importCountry.do"  method=post  enctype="multipart/form-data">
+	<form action="<%=request.getContextPath()%>/cc/importCountry.do"  method=post  enctype="multipart/form-data">
 上传文件: 
-<input type="file"  name="upload" value="选择文件"  required/> 只支持excel 格式     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input type=submit value="上传"/>要判断excel 中 destination 之类是否存在 
-</form>
+		<input type="file"  name="upload" value="选择文件"  required/> 只支持excel 格式     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		
+		<!-- 权限控制 -->
+		<c:if test="${pStatus['cc-import']==true }">
+			<input type=submit value="上传"/>     要判断excel 中 destination 之类是否存在
+		 </c:if>
+		 
+	</form>
 </div>
 
 <div >
@@ -33,8 +38,10 @@
 <input type="text" name="operator"/>
 code:
 <input type="text"  name="code" class="num_input" required/>
-
-<input type="submit"  value="添加"/>
+		<!-- 权限控制 -->
+	<c:if test="${pStatus['cc-add']==true }">
+	<input type="submit"  value="添加"/>
+	</c:if>
 </form>
 
 
@@ -45,9 +52,10 @@ code:
 或者
 code:
 <input type="text"  name="scode" value="${scode}"/>
-
-<input type="submit"  value="搜索"/>
-
+		<!-- 权限控制 -->
+	<c:if test="${pStatus['cc-search']==true }">
+		<input type="submit"  value="搜索"/>
+	</c:if>
 </form>
 
 
@@ -90,7 +98,10 @@ code:
 <input type="hidden" name="curP" value="${page.curPage}"/>
 
 <input type=button value="激活"  onclick =" return editorEnable( ${c.ccId})" />
-<input type="submit"  value="修改"  onClick="return checkUpdate(${c.ccId})"/>
+		<!-- 权限控制 -->
+	<c:if test="${pStatus['cc-update']==true }">
+		<input type="submit"  value="修改"  onClick="return checkUpdate(${c.ccId})"/>
+	</c:if>
 </td>
 
 </tr>
@@ -113,10 +124,12 @@ code:
 <input type="hidden" name="curP" value="${page.curPage}"/>
 <input type="hidden"  name="ids" id="del_ids" />
 
+		<!-- 权限控制 -->
+<c:if test="${pStatus['cc-del']==true }">
 <tr>
 <td><input type=button  value="删除"' onclick="  selectCheck('del_ids')"/></td>
 </tr>
-
+</c:if>
 </form>
  
 </table>

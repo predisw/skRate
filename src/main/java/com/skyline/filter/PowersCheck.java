@@ -26,7 +26,7 @@ public class PowersCheck implements Filter {
 	
 		String url =req.getRequestURI();   // example :"/SkylineRate/powers/toUserRole.do"
 		String contextPath=req.getContextPath();   //example :"/SkylineRate"
-		String pUrl=url.substring(contextPath.length()+1, url.lastIndexOf("."));
+		String pUrl=url.substring(contextPath.length(), url.lastIndexOf("."));
 		
 		if(excludeUrls!=null && excludeUrls.size()>0){
 			if(excludeUrls.contains(pUrl)){
@@ -55,7 +55,7 @@ public class PowersCheck implements Filter {
 		if(StringUtils.isNotEmpty(excludeUrl)){
 			excludeUrls=new ArrayList<>();
 			for(String url:excludeUrl.split(",")){
-				excludeUrls.add(url);
+				excludeUrls.add(url.substring(0,url.lastIndexOf(".")));
 			}
 			
 		}

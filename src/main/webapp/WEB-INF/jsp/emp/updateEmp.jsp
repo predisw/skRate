@@ -39,8 +39,13 @@
 		<span class="input_notice">职称:</span><input type="text" name="ETitle"  value="${emp.ETitle }" /> <br />
 		<span class="input_notice">状态:</span>在职:<input type="radio"  name="EStatus"  ${emp.EStatus==true?"checked":null }  value="true" /> 
 		离职:<input type="radio"  name="EStatus"  ${emp.EStatus!=true?"checked":null }  value="false" />   
-		<span style="display:inline-block;margin-left:50px;color:red;">设置为离职,则发送报价处不可选</span> 
-		<br /><input type="submit" value="修改">
+		<span style="display:inline-block;margin-left:50px;color:red;">设置为离职,则发送报价处不可选</span> <br />
+		
+		<!-- 权限控制 -->
+		<c:if test="${pStatus['emp-update']==true }">
+				<input type="submit" value="修改">
+		</c:if>
+
 	</form>
 	
 	</div>

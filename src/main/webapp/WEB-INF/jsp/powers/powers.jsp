@@ -42,8 +42,13 @@
 				</c:forEach>
 			</c:if>
 		</c:forEach>
+		
+		<!-- 权限控制 -->
+		<c:if test="${pStatus['powers-add']==true }">
+				<input type="submit" value="确定"/> 
+		</c:if>
 
-		<input type="submit" value="确定"/> 
+		
 	</form>
 
 </div>

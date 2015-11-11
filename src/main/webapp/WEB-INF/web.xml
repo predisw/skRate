@@ -20,6 +20,11 @@
 <param-value>1.8.7</param-value>
 </context-param>
 
+
+<context-param>
+<param-name>superAdmin</param-name>
+<param-value>admin</param-value>
+</context-param>
  
  <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -73,7 +78,7 @@
    		<filter-class>com.skyline.filter.PowersCheck</filter-class>
    		<init-param>  
 		<param-name>excludeUrl</param-name>  
-		<param-value>user/login,user/logout</param-value>  
+		<param-value>/user/login.do,/user/logout.do</param-value>  
 </init-param>  
 
    		

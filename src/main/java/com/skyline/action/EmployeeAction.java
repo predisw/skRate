@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.predisw.exception.UniException;
+import com.skyline.comparatorImple.EmpComparator;
 import com.skyline.pojo.Employee;
 import com.skyline.service.BaseService;
 import com.skyline.service.EmployeeService;
@@ -109,6 +111,8 @@ public class EmployeeAction  {
 	@RequestMapping("toUpdateEmp.do")
 	public void toModifyEmp(HttpServletRequest req,HttpServletResponse res) throws ServletException, IOException{
 		List<Employee> empList=baseService.getByClass(Employee.class);
+		Collections.sort(empList,new EmpComparator());
+		
 		req.setAttribute("empList", empList);
 		req.getRequestDispatcher("/WEB-INF/jsp/emp/updateEmp.jsp").forward(req, res);
 	}
@@ -132,6 +136,7 @@ public class EmployeeAction  {
 			return;
 		}
 		Employee db_emp=(Employee)baseService.getById(Employee.class, emp.getEId());
+		
 		if(!db_emp.getENum().equals(emp.getENum())){
 			if(!baseService.isUnique(Employee.class, "ENum", emp.getENum())){
 				req.setAttribute("Message", emp.getENum()+"已存在");

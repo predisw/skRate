@@ -17,5 +17,9 @@ public interface PowersService {
 
 	//获取用户没有的权限的url
 	List<String> getNoPowersUrl(User user);
+
+	Set<Powers> getAllMenuPowers();
+
+	Map<String, Boolean> getAllNMPowersStatus(Boolean status);
 	
 }

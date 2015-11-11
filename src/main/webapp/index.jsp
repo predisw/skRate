@@ -29,7 +29,7 @@
  					<ul>
 					<c:forEach items="${menu }" var="m2">
 						<c:if test="${m2.parentId==mTop.id}">
-							<li><a href="${pageContext.request.contextPath}/${m2.url}.do">${m2.name }</a>
+							<li><a href="${pageContext.request.contextPath}${m2.url}.do">${m2.name }</a>
 
 						</c:if>	
 					</c:forEach>
