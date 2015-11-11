@@ -16,7 +16,6 @@
 		<button type="button"  onclick="showInput('add_role')">添加 </button>
 		<button type="button" onclick = "if(confirm('删除??')) delRole()" >删除 </button>
 	</div>
-	
 	<div>
 		<table>
 			<tr>
@@ -51,8 +50,6 @@
 
 
 <script type="text/javascript">
-
-
 
 function check(){
 	var role_name=document.getElementById('role_name');

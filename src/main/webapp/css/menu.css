@@ -15,21 +15,23 @@
 /* 	border: solid 1px blue;   */
 }
 
+
 .menu{
 
-	width:80%;
+	width:800px;  /* 给定宽度ul才可以居中 */
 	height:100%;
 	margin:0px auto;
     background: #008B8B;
 	background: linear-gradient(to top, #008B8B 0%,#058B8B 100%);
 	border-radius: 5px;
+/*  	border: solid 1px red;   */
 }
 
 .menu li {
 	list-style: none;  /* 去掉li 的小圆点 */
 	position:relative;
 	height: 40px;
-	 float:left;  /* li 元素变成水平 */
+	float:left;  /* li 元素变成水平 */
 	dislplay:block;
 
 }

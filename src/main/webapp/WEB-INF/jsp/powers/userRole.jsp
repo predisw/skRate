@@ -34,8 +34,14 @@
 			<select multiple="multiple"    class="selectM"  id="used_roles"  name="used_roles">
 
 			</select>
-			<input type="button" value="移除" onclick="rmSelected('used_roles')">
+			<!--  权限控制-->
+			<c:if test="${pStatus['userRole-rm']==true}">
+				<input type="button" value="移除" onclick="rmSelected('used_roles')">
+			</c:if>
+			<!--  权限控制-->
+			<c:if test="${pStatus['userRole-update']==true}">
 			<input type="button" value="修改" onclick="if(confirm('确定修改?'))updateUserRole('user','used_roles')">
+			</c:if>
 		</div>
 
 	
@@ -46,7 +52,12 @@
 				<option value="${role.id}">${role.name }</option>
 			</c:forEach>
 		</select>
-		<input type="button" value="选择" onclick="cpSelected('all_roles','used_roles')">
+		
+		<!--  权限控制-->
+		<c:if test="${pStatus['userRole-add']==true}">
+				<input type="button" value="增加" onclick="cpSelected('all_roles','used_roles')">
+		</c:if>
+
 		
 	</div>
 

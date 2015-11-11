@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
 <link href="${pageContext.request.contextPath}/skyline.ico" type="image/x-icon" rel="shortcut icon">
 <link href="${pageContext.request.contextPath}/css/menu.css"  rel="stylesheet" type="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -19,7 +21,28 @@
 </div>
 
 <div class="menu_part">
-		<ul class="menu">
+	<div>
+	<ul   class="menu">
+		<c:forEach items="${menu }"  var="mTop" >
+ 			<c:if test="${mTop.parentId==0}"> 
+				<li><a href="${pageContext.request.contextPath}">${mTop.name }</a>
+ 					<ul>
+					<c:forEach items="${menu }" var="m2">
+						<c:if test="${m2.parentId==mTop.id}">
+							<li><a href="${pageContext.request.contextPath}/${m2.url}.do">${m2.name }</a>
+
+						</c:if>	
+					</c:forEach>
+					</ul> 
+				</li>
+			</c:if>
+
+		</c:forEach>
+		<li><a href="${pageContext.request.contextPath}/user/logout.do" onclick="return confirm('确定退出?');">Logout</a></li>
+	</ul>
+	</div>
+
+		<%-- <ul class="menu">
 			<li><a href="${pageContext.request.contextPath}/getEmps.do">邮件报价</a>
 				<ul>
 					<li><a href="${pageContext.request.contextPath}/getEmps.do">发送报价</a></li>
@@ -81,7 +104,7 @@
 			</li>
 			<li><a href="${pageContext.request.contextPath}/user/logout.do" onclick="return confirm('确定退出?');">Logout</a></li>
 		</ul>
-
+ --%>
 	</div>
 </div>	
 </body>

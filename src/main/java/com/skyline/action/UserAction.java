@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -25,8 +26,10 @@ import org.springframework.web.servlet.view.RedirectView;
 import ch.qos.logback.classic.Logger;
 
 import com.skyline.pojo.Onliner;
+import com.skyline.pojo.Powers;
 import com.skyline.pojo.User;
 import com.skyline.service.BaseService;
+import com.skyline.service.PowersService;
 import com.skyline.service.UserService;
 
 @Controller
@@ -36,6 +39,9 @@ public class UserAction {
 	private UserService userService;
 	@Autowired
 	private BaseService baseService;
+	@Autowired
+	private PowersService powersService;
+	
 	
 	private org.slf4j.Logger logger =LoggerFactory.getLogger(this.getClass());
 	
@@ -56,19 +62,19 @@ public class UserAction {
 		
 		if(user_db!=null){
 			if( user.getPassword().equals(user_db.getPassword()) ){
+				//将登录用户保存到session 中
+				req.getSession().setAttribute("user", user_db); 
 				
-				ServletContext application = req.getSession().getServletContext();
-				Map<String,Onliner> onlinerMap=(Map<String,Onliner>)application.getAttribute("onlinerMap");
+				//设置登录用户为在线用户
+				setOnliner(req, user_db);
 				
-				Onliner onliner =(Onliner) onlinerMap.get(req.getSession().getId());
-				onliner.setIp(req.getRemoteAddr());
-				onliner.setName(user_db.getUName());
-				onliner.setBrowser(req.getHeader("User-Agent"));
-				onliner.setLoginTime(new Date());
-				application.setAttribute("onlinerMap", onlinerMap);
-				
+				//设置目录到Session 中去
+				setMenuPowersToSS(req, user_db);
+				//设置页面上的权限状态到session 中
+				setNMPowersToSS(req, user_db);
+				//设置用户所有权限的url 到session 中
+				setNoPowersUrlToSS(req, user_db);
 
-				req.getSession().setAttribute("user", user_db); //将登录用户保存到session 中
 				req.getRequestDispatcher("/index.jsp").forward(req, res);
 			}else{
 				req.setAttribute("login_error", "用户名或者密码不正确");
@@ -79,6 +85,42 @@ public class UserAction {
 			req.getRequestDispatcher("/login.jsp").forward(req, res);
 		}
 	}
+	
+	
+	
+	private void setOnliner(HttpServletRequest req,User user){
+		
+		ServletContext application = req.getSession().getServletContext();
+		Map<String,Onliner> onlinerMap=(Map<String,Onliner>)application.getAttribute("onlinerMap");
+		
+		Onliner onliner =(Onliner) onlinerMap.get(req.getSession().getId());
+		onliner.setIp(req.getRemoteAddr());
+		onliner.setName(user.getUName());
+		onliner.setBrowser(req.getHeader("User-Agent"));
+		onliner.setLoginTime(new Date());
+		application.setAttribute("onlinerMap", onlinerMap);
+	}
+	
+	
+	private void setMenuPowersToSS(HttpServletRequest req,User user){
+		Set<Powers> mPowers=powersService.getMenuInUser(user);
+		req.getSession().setAttribute("menu", mPowers);
+	}
+	
+	
+	private void setNMPowersToSS(HttpServletRequest req,User user){
+		 Map<String,Boolean> pStatus = powersService.getNotMenuPowersStatus(user);
+		 req.getSession().setAttribute("pStatus", pStatus);
+		
+	}
+	
+	private void setNoPowersUrlToSS(HttpServletRequest req,User user){
+		List<String> noPUrls=powersService.getNoPowersUrl(user);
+		req.getSession().setAttribute("noPUrls", noPUrls);
+		
+	}
+	
+	
 	
 	//注销登录
 	 @RequestMapping("logout.do")

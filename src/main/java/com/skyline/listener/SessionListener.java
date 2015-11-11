@@ -28,8 +28,6 @@ public class SessionListener implements HttpSessionListener {
 		onlinerMap.put(ss.getId()	, onliner);
 		
 		application.setAttribute("onlinerMap", onlinerMap);
-		
-		
 	}
 
 	@Override

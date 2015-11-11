@@ -26,6 +26,18 @@
 						<div class="level2">
 							<input type="checkbox" id="${pl2.id }"  value="${pl2.id }"   name ="power_id"  />${pl2.name }
 						</div>
+						
+						<c:forEach items="${powers }" var="pl3">
+							<c:if test="${pl3.parentId==pl2.id }" >
+								<div class="level3">
+									<input type="checkbox" id="${pl3.id }"  value="${pl3.id }"   name ="power_id"  />${pl3.name }
+								</div>
+							
+							</c:if>
+						</c:forEach>
+
+							
+						
 					</c:if>
 				</c:forEach>
 			</c:if>
