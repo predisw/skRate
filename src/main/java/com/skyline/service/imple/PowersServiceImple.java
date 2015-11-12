@@ -25,6 +25,7 @@ public class PowersServiceImple implements PowersService {
 
 	@Autowired
 	private BaseDao baseDao;
+
 	
 	@Override
 	public Set<Powers> getUserPowers(User user) {
@@ -75,7 +76,6 @@ public class PowersServiceImple implements PowersService {
 			if(ownedNMPowers.contains(power)){
 				status=true;
 			}
-			System.out.println("xxxxxxxxxxxx第三级权限的value: "+status+"/key: "+power.getKeyName());
 			pStatus.put(power.getKeyName(), status);
 		}
 
@@ -119,5 +119,21 @@ public class PowersServiceImple implements PowersService {
 		return pStatus;
 	}
 	
+	@Override
+	public List<Powers> getChildPowers(Integer id){
+		
+		List<Powers> powers=baseDao.getByClass(Powers.class);
+		List<Powers> childPowers=new ArrayList<>();
+		
+		for(Powers power:powers){
+			if(power.getParentId().equals(id)){
+				childPowers.add(power);
+			}
+		}
+		return childPowers;
+		
+	}
 	
+	
+
 }

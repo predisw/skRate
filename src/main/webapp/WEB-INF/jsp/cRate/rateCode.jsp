@@ -13,7 +13,11 @@
 <body>
 <div class="rate_body">
 
+
 	<!--  import the history rateRecord function block-->
+				
+	<!-- 权限控制 -->
+<c:if test="${pStatus['crate-import']==true }">
 	<div>
 	导入历史记录<br /><br />
 		<form id="im_form"   method=post  enctype="multipart/form-data">
@@ -37,7 +41,7 @@
 		</form>
 	</div>
 	
-
+</c:if>
 
 	<!--  选择业务员和客户的功能块-->
 	<div>
@@ -66,7 +70,10 @@
 	<!--  form 是用来移除rate 的记录的,table用来显示,这个form 只提交rate 记录的id-->
 		<form method="post" action="${pageContext.request.contextPath}/cRate/delCusRate.do">
 			<input type="hidden" name="cus_vosid" value="${vosId }"/>
-			<div style=" border:none;margin:4px 0px 10px 90%;" ><input type="submit"  value="删除"   onclick="return confirm('确定删除吗')"/> </div> 
+				<!-- 权限控制 -->
+			<c:if test="${pStatus['crateCode-del']==true }">
+				<div style=" border:none;margin:4px 0px 10px 90%;" ><input type="submit"  value="删除"   onclick="return confirm('确定删除吗')"/> </div> 
+			</c:if>
 			<table>
 				<tr>
 					<th style="text-align:left;width:20px;"><input  type="checkbox"  id="pCheckbox" onclick="selectCheckbox('pCheckbox','rateId')"/></th>

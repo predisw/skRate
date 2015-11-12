@@ -2,6 +2,7 @@ package com.skyline.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,7 @@ import com.skyline.pojo.Powers;
 import com.skyline.pojo.Role;
 import com.skyline.pojo.User;
 import com.skyline.service.BaseService;
+import com.skyline.service.PowersService;
 
 @Controller
 @RequestMapping("/powers")
@@ -34,7 +36,8 @@ public class PowersAction {
 	
 	@Autowired
 	private BaseService baseService;
-
+	@Autowired
+	private PowersService powersService;
 	
 	
 	@RequestMapping("toPowers.do")
@@ -220,13 +223,38 @@ public class PowersAction {
 	}
 	
 	
-	/**
-	 * 获取用户所有角色加起来的权限.
-	 */
-	public void getPowersOfUser(HttpServletRequest req,HttpServletResponse res){
+	@RequestMapping("getChildPowersId.do")
+	public void getChildPowersId(HttpServletRequest req,HttpServletResponse res) throws IOException{
 		
+		String idstr = req.getParameter("id");
+		List<Powers> childPowers= new ArrayList<>();
+		String Message = "success";
+		try{
+			childPowers=powersService.getChildPowers(Integer.valueOf(idstr));
+		}catch(Exception e){
+			logger.error("",e);
+			Message=e.getMessage();
+		}
 		
+		if(childPowers.size()==0){
+			return;
+		}
 		
+		JSONObject data =new JSONObject();
+		JSONArray ids= new JSONArray();
+		
+		for(Powers power:childPowers){
+			ids.put(power.getId());
+		}
+		
+		data.put("Message", Message);
+		data.put("ids",ids);
+		
+		res.setCharacterEncoding("UTF-8");
+		PrintWriter out = res.getWriter();
+		System.out.println(data.toString());
+		
+		out.print(data.toString());
 		
 	}
 	

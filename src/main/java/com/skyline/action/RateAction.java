@@ -137,6 +137,11 @@ public class RateAction {
 		}else{
 			emps=(String[])req.getSession().getAttribute("emps");
 		}
+		
+		if(emps==null){
+			res.sendRedirect("getEmps.do");
+			return;
+		}
 		//通过员工工号获取这些工号的客户
 		List<Customer> cusList=new ArrayList<Customer>();
 		List<Customer> tmpList=null;

@@ -38,6 +38,8 @@ public class PowersCheck implements Filter {
 		List<String> noPUrls=(List<String>)req.getSession().getAttribute("noPUrls");
 	
 		if(noPUrls.contains(pUrl)){
+			res.setCharacterEncoding("UTF-8");
+			res.getWriter().write("<script>alert('没权限')</script>");
 			return;
 		}
 		

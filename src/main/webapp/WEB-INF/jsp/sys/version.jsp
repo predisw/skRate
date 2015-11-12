@@ -13,6 +13,10 @@
 	<div>
 <h2>SkylineRate System <span style="font-size: small;">version ${version}</span></h2>
 
+2015-11-12<br />
+添加权限功能模块.<br />
+修复不能发送超过256条报价的bug <br />
+
  2015-11-9 <br />
  添加404 页面<br />
 记录jsp 页面错误到日志文件<br />

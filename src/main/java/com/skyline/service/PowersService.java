@@ -21,5 +21,7 @@ public interface PowersService {
 	Set<Powers> getAllMenuPowers();
 
 	Map<String, Boolean> getAllNMPowersStatus(Boolean status);
+
+	List<Powers> getChildPowers(Integer id);
 	
 }

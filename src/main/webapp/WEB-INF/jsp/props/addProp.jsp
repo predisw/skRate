@@ -13,6 +13,7 @@
 </head>
 <body>
 <div class="prop_body">
+
 	<div style="width:49%;float:left;">
 		添加可选属性:<br />
 		<form action="${pageContext.request.contextPath}/props/addProp.do" method="post">
@@ -23,9 +24,15 @@
 			</select>
 			属性值:
 			<input type="text" name="value" />
+				
+			<!-- 权限控制 -->
+			<c:if test="${pStatus['props-add']==true }">
 			<input type="submit" value="添加"/>
+			</c:if>
+				
 		</form>
 	</div>
+
 	
 	<div class="del_props">
 		删除可选属性:
@@ -42,7 +49,10 @@
 				
 				</c:forEach> --%>
 			</select>
-			<input type="button" value="删除" onclick="if(confirm('sure to delete ?'))delProps()"/>
+			<!-- 权限控制 -->
+			<c:if test="${pStatus['props-del']==true }">
+				<input type="button" value="删除" onclick="if(confirm('sure to delete ?'))delProps()"/>
+			</c:if>
 		</form>
 	
 	</div>
@@ -58,8 +68,10 @@
 	<input style="width:230px;" type="hidden" name="name"  value="bccAddr"/> <!--  属性名-->
 	<input style="width:230px;" type="text" name="value"   value="${bccAddr.value}"/> <!--  属性值-->
 	
-	<input type="submit"  value="添加"/>
-	
+	<!-- 权限控制 -->
+	<c:if test="${pStatus['global-email']==true }">
+		<input type="submit"  value="添加"/>
+	</c:if>
 	</form>
 	
 	</div>
@@ -72,7 +84,11 @@
 			<input type="hidden" name="name"  value="default_mail_content"/>
 			<textarea id="defualt_mail_content" name="value" >
 			</textarea>
-			<input type="submit"  value="确定"/>
+			
+			<!-- 权限控制 -->
+			<c:if test="${pStatus['email-content']==true }">
+				<input type="submit"  value="确定"/>
+			</c:if>
 		</form>
 	</div>
 	

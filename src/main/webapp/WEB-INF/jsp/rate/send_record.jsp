@@ -60,10 +60,17 @@
 					<c:otherwise><td>${sr.isCorrect}</td></c:otherwise>
 				</c:choose>
 				
-				<td><input type="button" value="重发" onclick=" if(confirm('确定要重发吗?')) 
+				<td>
+				<!-- 权限控制 -->
+				<c:if test="${pStatus['email-resend']==true }">
+				<input type="button" value="重发" onclick=" if(confirm('确定要重发吗?')) 
 				location.href='${pageContext.request.contextPath}/sendMail/resendEmail.do?id=${sr.id }' ">
+				</c:if>
+				<!-- 权限控制 -->
+				<c:if test="${pStatus['email-error']==true }">
 				<input type="button" value="错误"  onclick=" if(confirm('同一个客户之后已存在的报价都会被设置为不正确的.')) 
 				location.href='${pageContext.request.contextPath}/sendRecord/setRateRecordIncorrect.do?id=${sr.id }' " />
+				</c:if>
 				</td>
 			</tr>
 		</c:forEach>

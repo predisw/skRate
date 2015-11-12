@@ -44,9 +44,15 @@
 			
 			<input type="submit" value="查询"/>
 			<input type="submit" value="ALL"  onclick="setDateNull()"/>
-			<input type="button" style="position: absolute;right: 10%;" value="修改"  onclick="if(check())if(confirm('确定修改?'))submit_rRates()"/>
 			
-			<input type="button" style="position: absolute;left: 10%;" value="删除"  onclick="if(check())if(confirm('确定删除?删除!'))submit_del()"/>
+			<!-- 权限控制 -->
+			<c:if test="${pStatus['rrate-modify']==true }">
+				<input type="button" style="position: absolute;right: 10%;" value="修改"  onclick="if(check())if(confirm('确定修改?'))submit_rRates()"/>
+			</c:if>
+						<!-- 权限控制 -->
+			<c:if test="${pStatus['rrate-del']==true }">
+				<input type="button" style="position: absolute;left: 10%;" value="删除"  onclick="if(check())if(confirm('确定删除?删除!'))submit_del()"/>
+			</c:if>
 		</form>
 
 	</div>
