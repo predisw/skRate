@@ -44,11 +44,11 @@ public class HttpTest {
 		User user=new User();
 		user.setPassword("admin");
 		user.setUName("admin");
-		userAction.login(user, req, res);
+//		userAction.login(user, req, res);
 		
-		System.out.println(req.getServletContext().getAttribute("WebApplicationContext.ROOT")); //为null
+	//	System.out.println(req.getServletContext().getAttribute("WebApplicationContext.ROOT")); //为null
 		
-		System.out.println(req.getContextPath());  //为 空字符串"";
+		//System.out.println(req.getContextPath());  //为 空字符串"";
 		
 	}
 }

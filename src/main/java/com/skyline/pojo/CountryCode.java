@@ -97,6 +97,7 @@ public class CountryCode implements java.io.Serializable {
 	public void setCodeCount(Integer codeCount) {
 		this.codeCount = codeCount;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		// TODO Auto-generated method stub
@@ -104,6 +105,12 @@ public class CountryCode implements java.io.Serializable {
 			return this.ccId.equals( ((CountryCode)obj ).ccId);  //用== 不行，有些还是不相等，改用equal 就ok
 		}
 		return super.equals(obj);
+	}
+
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return this.ccId.hashCode();
 	}
 	
 	public String forLog(){

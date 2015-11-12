@@ -5,7 +5,7 @@
 <html>
 <head>
 <link href="${pageContext.request.contextPath}/css/performance.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="http://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.min.js" ></script>
 <script src="http://code.highcharts.com/stock/highstock.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>系统性能</title>

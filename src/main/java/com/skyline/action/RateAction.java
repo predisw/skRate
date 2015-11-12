@@ -10,6 +10,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -18,6 +19,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock.ReadLock;
@@ -50,6 +53,11 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
+
+
+
+
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.StaleObjectStateException;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -115,7 +123,7 @@ public class RateAction {
 	
 	IOhelp iohelp=new IOhelp();
 
-	
+
 	
 //--------------------------获取发报价时显示业务员----------------------------------------------------
 	
@@ -285,21 +293,100 @@ public class RateAction {
 			return "redirect:/getcc.do";
 		}
 		
+
+		//---------------------------
+		//下面这个方法中的用到了重写的countryCode 的equals,为了在set 中去重复
+		@RequestMapping("getOperators.do")
+		public void getOperators(HttpServletRequest req,HttpServletResponse res) throws IOException{
+			String countryIds =req.getParameter("countryIds");
+			String[]  ccIds = countryIds.split(",");
+			if(StringUtils.isEmpty(countryIds)){
+				ccIds = new String[0]; 
+			}
+			
+			String operatorIds = req.getParameter("opListIds");
+			String[] 	opIds=operatorIds.split(",");
+			
+			if(StringUtils.isEmpty(operatorIds)){
+				opIds=new String[0];
+			}
+
+			
+			//所有选择的运营商
+			Set<CountryCode> ccSet = new HashSet<>();
+			
+			List<CountryCode> tmpList=new ArrayList<CountryCode>();
+			
+			String Message="success";
+			
+			res.setCharacterEncoding("UTF-8");
+			PrintWriter out = res.getWriter();
+			
+			JSONObject data = new JSONObject();
+
+			
+			try{
+				//根据选择的国家获取这个国家的运营商
+				for(String ccid:ccIds){
+					CountryCode cc=(CountryCode) baseService.getById(CountryCode.class, Integer.parseInt(ccid));
+					tmpList = ccService.getOperators(cc.getCountry());
+					ccSet.addAll(tmpList);
+					tmpList.clear();
+				}
+
+				//已选择的运营商
+				for(String opId:opIds){
+					CountryCode cc=(CountryCode) baseService.getById(CountryCode.class, Integer.parseInt(opId));
+					ccSet.add(cc);
+				}
+
+			}catch(Exception e){
+				logger.error("",e);
+				Message=e.getClass().getSimpleName()+": "+e.getMessage();
+				data.put("Message", Message);
+				out.write(data.toString());
+				return;
+			}
+
+
+
+			JSONArray ccArr=new JSONArray();
+			
+			for(CountryCode cc:ccSet){
+				JSONObject ccObj= new JSONObject();
+				ccObj.put("operator", cc.getOperator());
+				ccObj.put("code", cc.getCode());
+				ccObj.put("id",cc.getCcId());
+				ccArr.put(ccObj);
+			}
+			data.put("Message", Message);
+			data.put("ccArr", ccArr);
+			
+
+//			System.out.println(data);
+			out.write(data.toString());
+			
+			
+		}
+		
+		
+		
+		
+		
+		
 	
-	
-	//------------------------------------------------------------------------------
+/*	//------------------------------------------------------------------------------
 	//显示所有选择的国家的运营商，用session 保存不同时期的request提交的运营商。同时用session 同步来保证线程安全
 	//下面这个方法中的remove() 用到了重写的countryCode 的equals
 	//将选择的countryCode加到http session 中
-	
 	@RequestMapping("getOperators.do")
 	public void getOperators(HttpServletRequest req,HttpServletResponse res) throws ServletException, IOException{
 		String[] ccids=req.getParameterValues("oftenCC");
 
 		CountryCode cc=null;
 		List<CountryCode> ccList=new ArrayList<CountryCode>();
-		List tmpList=null;  
-		List ssList=null;////将之前保存到session 中的 国家code id 添加到list 中,
+		List<CountryCode> tmpList=null;  
+		List<CountryCode> ssList=null;////将之前保存到session 中的 国家code id 添加到list 中,
 		ssList= (List)(req.getSession().getAttribute("cl"));
 //只是要判断两个情况，1个小时都没搞定。。
 		//1.session 为空
@@ -331,26 +418,14 @@ public class RateAction {
 		req.getRequestDispatcher("/getRate.do").forward(req, res);
 
 	}
-	
-	//------------------------------------------------------------------------------
-	//从http session 移除选中的运营商
-	@RequestMapping("rmOperators.do")
-	public void rmOperators(HttpServletRequest req,HttpServletResponse res) throws ServletException, IOException{
-		List<CountryCode> ssList=(List<CountryCode>)req.getSession().getAttribute("cl");
-		String ccid=req.getParameter("rmOp");
-		String[] ccids=ccid.split(";");
-		for(int i=0;i<ccids.length;i++){
-			CountryCode cc = (CountryCode) baseService.getById(CountryCode.class, Integer.parseInt(ccids[i]));
-			ssList.remove(cc);
-		}
-		logger.debug("there are  [{}] operators are removed from targeted Operators ",ccids.length);
-		res.sendRedirect(req.getContextPath()+"/getRate.do");
-	}
+	*/
 
 	//-----------------------	显示选择的countrycode 对应的历史rate记录-------------------------------------------------------
 
 	@RequestMapping("/getRate.do")
 	public void getRate(HttpServletRequest req,HttpServletResponse res) throws ServletException, IOException{
+		
+		//---------------------------------获得客户-----------------------
 		
 		String[] cusIds=(String[])req.getSession().getAttribute("cusIds"); //客户customer的id 列表
 		//通过客户的id 将客户对象遍历出来放到cusList 中
@@ -385,8 +460,16 @@ public class RateAction {
 		}
 		
 		
-		//从当前的回话中获取CountryCode list 下来，就是 getOperators 放到session 中的ccList
-		List<CountryCode> ccList=(List<CountryCode>)req.getSession().getAttribute("cl");
+		// -------------------------------获取被选择的运营商-----------------------------
+		
+		String[] ccids= req.getParameterValues("opList");
+		List<CountryCode> ccList=new ArrayList<>();
+	
+		for(String ccid:ccids){
+			CountryCode cc=(CountryCode) baseService.getById(CountryCode.class, Integer.parseInt(ccid));
+			ccList.add(cc);
+		}
+		
 		
 		//从rate 表中获取选中的客户的某些code 的记录
 		List<Rate> rateList=new ArrayList<Rate>();
@@ -438,7 +521,7 @@ public class RateAction {
 //		Collections.sort(rateList, new BaseRateOperatorComparator());
 //		Collections.sort(rateList, new BaseRateCodeComparator());
 		
-		
+		req.setAttribute("cl", ccList);
 		req.setAttribute("rateList", rateList);
 		req.getRequestDispatcher("/getcc.do").forward(req, res);
 

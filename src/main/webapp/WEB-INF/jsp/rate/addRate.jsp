@@ -5,6 +5,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<script src="${pageContext.request.contextPath}/js/jquery.min.js" ></script>
+<script src="${pageContext.request.contextPath}/js/my.js" ></script>
 <link href="${pageContext.request.contextPath}/css/progress.css" rel="stylesheet" type="text/css"/>
 <link href="${pageContext.request.contextPath}/css/addRate.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/ckeditor/ckeditor.js"></script>
@@ -40,7 +42,7 @@
 </c:forEach>
   </select>
 <input type="button"  value="移除"   onclick="if(is_selected('oftenCC'))location.href='${pageContext.request.contextPath}/rmOften.do?rmCC='+selected('oftenCC')" >
-<input type="submit"  value="确定"   onclick=" return is_selected('oftenCC') "> <!-- 这里必须有return，否则还是会提交到action 中 -->
+<input type="button"  value="确定"   onclick=" if(is_selected('oftenCC')) getOperators('oftenCC','opList') "> <!-- 这里必须有return，否则还是会提交到action 中 -->
 </form>
 
 </div>
@@ -55,7 +57,7 @@
 </c:forEach>
   </select>
  
-<input type="button"  value="移除"   onclick="if(is_selected('opList'))location.href='${pageContext.request.contextPath}/rmOperators.do?rmOp='+selected('opList')" >
+<input type="button"  value="移除"   onclick="if(is_selected('opList'))rmOperator('opList')" >
 <input type="submit"    value="确定"   />
 </form>
 </div>
@@ -489,6 +491,7 @@ function loading(){
 	  }
 	 }
 
+  
 //获取rate list 中的部分域的key 和value的json 格式.
 function getRateArray(){
 
@@ -544,7 +547,56 @@ function getRateArray(){
 }
 
  
+//获取选择的地区的运营商.
+function getOperators(oftenCC,opList){
+	var url = "${pageContext.request.contextPath}/getOperators.do";
 
+	var oftenCC=document.getElementById(oftenCC);
+	var opList=document.getElementById(opList);
+
+	
+	var countryIds = getSelected(oftenCC);
+	setAllOption(opList, true);
+	var opListIds=getSelected(opList);
+	
+//	alert(countryIds);
+//	alert(opListIds);
+	
+	$(function(){
+		$.post(url,{"countryIds":countryIds,"opListIds":opListIds},function(data,status){
+			if(status=="success"){
+				var content = JSON.parse(data);
+				if(content.Message=="success"){
+
+					appendOpToSelect(content.ccArr, opList);
+				}else{
+					alert("m"+content.Message);
+				}
+
+			}
+		});
+	});
+	
+	
+}
+
+function appendOpToSelect(dataArr,select){
+	select.options.length=0;
+
+	for(var i=0;i<dataArr.length;i++){
+		var op=document.createElement("option"); 
+		op.value=dataArr[i].id
+		op.innerHTML=dataArr[i].operator+"--"+dataArr[i].code;
+		select.appendChild(op);
+	}
+}
+
+
+function rmOperator(id){
+	rmSelected(id);
+	
+	
+}
 
 
 </script>

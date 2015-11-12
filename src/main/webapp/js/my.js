@@ -60,9 +60,10 @@ function rmSelected(id){
 		}
 
 }
+
 //设置select 所有的option 为被选true,或者都不选false
-function setAllOption(selectId,selectValue){
-	var select = document.getElementById(selectId);
+function setAllOption(select,selectValue){
+
 	for(var i=0;i<select.length;i++){
 		select.options[i].selected=selectValue;
 	}
@@ -70,7 +71,21 @@ function setAllOption(selectId,selectValue){
 }
 
 
+//返回一串字符串(如: 1,2,3,4  )或者空字符串.
+function getSelected(select){
 
+	var values="";
+	for(var i=0;i<select.length;i++){
+		if(select.options[i].selected){
+			if(values.length>0){
+				values+=",";
+			}
+			values+=select.options[i].value;
+		}
+	}
+		
+	return values;
+}
 
 
 

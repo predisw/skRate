@@ -6,7 +6,7 @@
 <html>
 <head>
 <link href="${pageContext.request.contextPath}/css/common.css"  rel="stylesheet" type="text/css" /> 
-<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js" ></script>
+<script src="${pageContext.request.contextPath}/js/jquery.min.js" ></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>角色页面</title>
 </head>
