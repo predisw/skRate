@@ -114,6 +114,12 @@ text-align:left; /*文字左对齐*/
 /* 	color:blue; */
 }
 
+.time_input{
+	width:120px;
+	height:20px;
+	border-style: none;
+}
+
 .mail_subject{
 	width:70%;
 	height:20px;

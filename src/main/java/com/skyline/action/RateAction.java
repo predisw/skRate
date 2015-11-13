@@ -57,6 +57,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
+
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.StaleObjectStateException;
 import org.json.JSONArray;
@@ -70,6 +71,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.predisw.exception.NotSameException;
+import com.predisw.util.DateFormatUtil;
 import com.skyline.comparatorImple.BaseRateCodeComparator;
 import com.skyline.comparatorImple.BaseRateComparator;
 import com.skyline.comparatorImple.BaseRateCountryComparator;
@@ -371,55 +373,6 @@ public class RateAction {
 		
 		
 		
-		
-		
-		
-	
-/*	//------------------------------------------------------------------------------
-	//显示所有选择的国家的运营商，用session 保存不同时期的request提交的运营商。同时用session 同步来保证线程安全
-	//下面这个方法中的remove() 用到了重写的countryCode 的equals
-	//将选择的countryCode加到http session 中
-	@RequestMapping("getOperators.do")
-	public void getOperators(HttpServletRequest req,HttpServletResponse res) throws ServletException, IOException{
-		String[] ccids=req.getParameterValues("oftenCC");
-
-		CountryCode cc=null;
-		List<CountryCode> ccList=new ArrayList<CountryCode>();
-		List<CountryCode> tmpList=null;  
-		List<CountryCode> ssList=null;////将之前保存到session 中的 国家code id 添加到list 中,
-		ssList= (List)(req.getSession().getAttribute("cl"));
-//只是要判断两个情况，1个小时都没搞定。。
-		//1.session 为空
-		//2.session 不是空的情况，ccList 的数据不能重复
-		
-		if(ssList!=null){
-			ccList.addAll(ssList);
-			logger.debug("ccList {}",ccList.size());
-		}
-			for(String ccid:ccids){
-				cc=(CountryCode) baseService.getById(CountryCode.class, Integer.parseInt(ccid));
-				tmpList=ccService.getOperators(cc.getCountry());
-				ccList.addAll(tmpList);
-				tmpList.clear();
-
-		}
-		//	去重复
-		for(int i=0;i<ccList.size();i++){
-			for(int j=ccList.size()-1;j>i;j--){
-				if(ccList.get(i).equals(ccList.get(j))){
-					ccList.remove(j);
-				}
-			}
-		}	
-		
-		logger.debug("there are [{}] country and [{}] operators are choosed and returned ",ccids.length,ccList.size());
-		
-		req.getSession().setAttribute("cl", ccList);   //注意，这个是添加到ssesion 中，有可能会有 线程安全问题！
-		req.getRequestDispatcher("/getRate.do").forward(req, res);
-
-	}
-	*/
-
 	//-----------------------	显示选择的countrycode 对应的历史rate记录-------------------------------------------------------
 
 	@RequestMapping("/getRate.do")
@@ -435,8 +388,8 @@ public class RateAction {
 			cus=(Customer) baseService.getById(Customer.class, Integer.parseInt(cusIds[k]));
 			cusList.add(cus);
 		}
-		//添加客户之前自定义的邮件内容,主题,和附件名称,假如存在多个客户,则不再返回自定义的邮件内容.
 		
+		//添加客户之前自定义的邮件内容,主题,和附件名称,假如存在多个客户,则不再返回自定义的邮件内容.
 		if(cusList.size()==1){
 			SendRecord sr=srService.getLastExcelTp(cusList.get(0).getVosId());
 			if(sr!=null){
@@ -494,11 +447,12 @@ public class RateAction {
 				tmpList.clear();
 			}
 			
+			
 			Rate rate=null;
 			try {
 				rate = rateService.doBeforeGetRate(cusList);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+
 				logger.error("", e);
 				req.setAttribute("Message", e.getMessage()+"cause: "+e.getCause());
 				req.getRequestDispatcher("/getcc.do").forward(req, res);
@@ -566,7 +520,6 @@ public class RateAction {
 		JSONObject jsonObject=new JSONObject(json_str);
 		String dflevel=(String) jsonObject.get("dfLevel");
 		JSONArray jsonArray=jsonObject.getJSONArray("array");
-	
 		StringBuffer Message=new StringBuffer();
 		String isTrue="false";
 		String rate_m=null;
@@ -593,6 +546,24 @@ public class RateAction {
 				}
 				Message.append(ef_m);
 			}
+			
+			if(ef_m==null && json.get("ef_time")!=null ){
+				
+				SimpleDateFormat sdf =DateFormatUtil.getSdf("yyyy-MM-dd");
+				sdf.setLenient(false);
+				try{
+					sdf.parse(json.getString("ef_time"));
+				}catch(ParseException e){
+					
+					ef_m="日期值或日期格式不正确";
+					if(Message.length()>0){
+						Message.append(",");
+					}
+					Message.append(ef_m);
+				}
+			}
+			
+			
 			if(!"error".equals(dflevel) && level_m==null && !dflevel.equals(json.get("level"))){
 				level_m="客户或多个客户之间的线路类型不一致";
 				if(Message.length()>0){

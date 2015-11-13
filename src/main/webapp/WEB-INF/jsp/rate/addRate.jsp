@@ -131,22 +131,22 @@ ${cus.vosId}/${cus.CId}
 </select>
 </td>
 
-<td  class="num_input">
-<select id="a_level" onChange="fill_all('a_level','level')">
+<td  class="num_input" >
+<select id="a_level" onChange="fill_all('a_level','level')"  >
 <c:forEach items="${lList}" var="level">
 <option ${dfLevel==level?"selected":null}>${level}</option>
 </c:forEach>
 </select>
 </td>
 
-<td>
+<td >
 <input type="text"  name="a_level_prefix"  value="${dfPrefix}" id="a_level_prefix" class="num_input" onChange="fill_all('a_level_prefix','levelPrefix')"/>
 </td>
-<td>
-<input type="date" name="effect_time"  id="effect_time"  onChange="fill_all('effect_time','effectiveTime')" />
+<td style="width:120px;">
+<input type="date" name="effect_time"  id="effect_time"  onChange="fill_all('effect_time','effectiveTime')"  style="width:120px;" />
 </td>
-<td>
-<input type="date" name="expire_time"  id="expire_time"  onChange="fill_all('expire_time','expireTime')" />
+<td style="width:120px;">
+<input type="date" name="expire_time"  id="expire_time"  onChange="fill_all('expire_time','expireTime')"  style="width:120px;" />
 </td>
 <td >
 <input type="text" name="remark_h"  id="remark_h"  onChange="fill_all('remark_h','remark')"  class="input"/>
@@ -178,7 +178,7 @@ ${cus.vosId}/${cus.CId}
 </td>
 
 <td name="level">
-<select name="RateList[${i.index }].level" >
+<select name="RateList[${i.index }].level"  >
 <c:forEach items="${lList}" var="level">
 <option <c:if test="${level==dfLevel}"> selected="selected" </c:if> >${level}</option>
 </c:forEach>
@@ -186,8 +186,8 @@ ${cus.vosId}/${cus.CId}
 
 </td>
 <td name="levelPrefix"><input type="text"  class="num_input"  name="RateList[${i.index }].levelPrefix"   value="${dfPrefix}"  style="color:red;font-weight: bolder;"/></td>
-<td name="effectiveTime"><input type="date"   name="RateList[${i.index }].effectiveTime"    value="${rate.effectiveTime }"   /></td>
-<td name="expireTime"><input type="date"   name="RateList[${i.index }].expireTime"    value="${rate.expireTime }"/></td>
+<td name="effectiveTime" ><input type="text"  class="time_input"   name="RateList[${i.index }].effectiveTime"    value="${rate.effectiveTime }"   /></td>
+<td name="expireTime"><input type="date"  class="time_input"   name="RateList[${i.index }].expireTime"    value="${rate.expireTime }"/></td>
 <td name="remark"><input type="text"   name="RateList[${i.index }].remark"  /></td>
 </tr>
 </c:forEach>
