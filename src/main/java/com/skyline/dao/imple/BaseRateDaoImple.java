@@ -93,7 +93,7 @@ public class BaseRateDaoImple implements BaseRateDao {
 		}
 		Session ss=sf.getCurrentSession();
 
-		String sql="select * from (select * from "+rateTable+" where vosId=:vosId and country=:country and is_success=:is_success and is_correct=:is_correct  and is_available=:is_available and effective_time<=:tDate order by send_time desc,effective_time desc) abc group by code";
+		String sql="select * from (select * from "+rateTable+" where   vosId=:vosId and country=:country   and is_success=:is_success and is_correct=:is_correct  and is_available=:is_available and effective_time<=:tDate order by send_time desc,effective_time desc) abc group by code";
 
 		Query query=ss.createSQLQuery(sql).addEntity(rateClazz);
 //		String hql="select *  from  ( select * from Rate  r where r.vosId=:vosId and r.country=:country and r.isSuccess=:is_success and r.isCorrect=:is_correct  and r.effectiveTime<=:tDate order by r.sendTime desc  )  r group by r.code";

@@ -79,6 +79,7 @@ public class RateDaoImple implements RateDao {
 		List<Rate> list=query.list();
 		return list;
 	}
+	
 	@Override
 	public List<Rate> getLastRateByCid(int cid, boolean is_available,
 			boolean is_success,boolean is_correct) {
