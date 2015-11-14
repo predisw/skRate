@@ -70,6 +70,19 @@ function setAllOption(select,selectValue){
 
 }
 
+//返回mutil select 所有的option 的值 组成的字符串 ,如: "1,2,3,4";
+function getAllOption(select){
+	var value="";
+	for(var i=0;i<select.length;i++){
+		value=value+select.options[i].value;
+		if((i+1)<select.length){
+			value+=",";
+		}
+	}
+	return values;
+}
+
+
 
 //返回一串字符串(如: 1,2,3,4  )或者空字符串.
 function getSelected(select){

@@ -17,7 +17,7 @@
 
 <context-param>
 <param-name>version</param-name>
-<param-value>1.8.7</param-value>
+<param-value>1.8.8</param-value>
 </context-param>
 
 

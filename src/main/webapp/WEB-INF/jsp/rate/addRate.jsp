@@ -58,7 +58,7 @@
   </select>
  
 <input type="button"  value="移除"   onclick="if(is_selected('opList'))rmOperator('opList')" >
-<input type="submit"    value="确定"   />
+<input type="submit"    value="确定"    /> <!-- onclick="getAllOption('opList')" -->
 </form>
 </div>
 
@@ -596,6 +596,11 @@ function rmOperator(id){
 	rmSelected(id);
 	
 	
+}
+
+function getAllOption(id){
+	var select =document.getElementById(id);
+	setAllOption(select,true);
 }
 
 
