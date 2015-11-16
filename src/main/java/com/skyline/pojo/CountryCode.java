@@ -110,7 +110,7 @@ public class CountryCode implements java.io.Serializable {
 	@Override
 	public int hashCode() {
 		// TODO Auto-generated method stub
-		return this.ccId.hashCode();
+		return this.ccId==null ?super.hashCode():this.ccId.hashCode();
 	}
 	
 	public String forLog(){
