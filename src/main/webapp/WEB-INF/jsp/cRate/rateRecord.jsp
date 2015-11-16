@@ -47,6 +47,38 @@
 		
 	</div>
 
+	
+<div style="display: none;"  id="page_div"  >
+		    <form action="${pageContext.request.contextPath}/cRate/getSuccessRate.do" method="post" name="frmData"  style="text-align: center">
+
+											共<b><font color="red">${page.totalPage}</font> </b>页 - 这是第
+											<b><font color="red">${page.curPage} </font> </b>页&nbsp; | &nbsp;
+											<a onClick="first()" href="#">首页</a>&nbsp;
+											<a onClick="prev()" href="#">前一页</a>&nbsp;
+											<a onClick="next()" href="#">后一页</a>&nbsp;
+											<a onClick="last()" href="#">末页</a>&nbsp; | &nbsp; 到第
+											<input id="page.curPage" name="curPage" type="text"
+												size="4" maxlength="4" style='width: 30px; height: 18px;'
+												value="${page.curPage}"
+												onKeyUp="onlyNum();">
+											<input type="submit" value="跳转" class=mmBtn />
+											<input type="hidden" name="pageSize"
+												value="${page.pageSize }" />
+											<input type="hidden" name="totalPage"
+												value="${page.totalPage }" />
+											
+			
+											<input type="hidden"  name="vosId"  value="${vosId }"/>	
+											<input type="hidden"  name="country" value="${country }"/>	
+											<input type="date"  name="sDate" value="${sDate }"  style="display: none"/>
+											<input type="date" name="tDate" value="${tDate }" style="display: none"/>
+											<input type="button" value="toBottom" onclick="toBottom()">
+											</form>
+						<script type="text/javascript" src="${pageContext.request.contextPath}/js/list.js"></script>
+  
+	</div>
+
+
 	<!-- 对应客户的rate 记录List-->
 	<div class="content">
 		<c:forEach items="${cList }" var="c" > <!--根据国家获取对应rate的记录  -->
@@ -85,7 +117,7 @@
 	</div>
 			<!--  分页代码-->
 	<div >
-		    <form action="${pageContext.request.contextPath}/cRate/getSuccessRate.do" method="post" name="frmData"  style="text-align: center">
+		    <form action="${pageContext.request.contextPath}/cRate/getSuccessRate.do" method="post"  style="text-align: center">
 
 											共<b><font color="red">${page.totalPage}</font> </b>页 - 这是第
 											<b><font color="red">${page.curPage} </font> </b>页&nbsp; | &nbsp;
@@ -108,8 +140,9 @@
 											<input type="hidden"  name="country" value="${country }"/>	
 											<input type="date"  name="sDate" value="${sDate }"  style="display: none"/>
 											<input type="date" name="tDate" value="${tDate }" style="display: none"/>
-												</form>
-						<script type="text/javascript" src="${pageContext.request.contextPath}/js/list.js"></script>
+											<input type="button" value="toTop" onclick="toTop()">
+											</form>
+
   
 	</div>
 		
@@ -132,7 +165,12 @@ if('${Message}'!=null && '${Message}'!=""){
 	location.href="${pageContext.request.contextPath}/cRate/getRateRecord.do";
 }
 
-
+onload=function isScrolled(){
+		if(isScrolledBar()){
+			var page_div =  document.getElementById('page_div');
+			page_div.style.display="";
+		}
+}
 
 </script>
 

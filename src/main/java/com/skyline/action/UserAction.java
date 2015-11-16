@@ -245,6 +245,12 @@ public class UserAction {
 	@RequestMapping("updateCheck.do")
 	public String updateCheck(HttpServletRequest req,HttpServletResponse res,User user1,RedirectAttributes red){
 		User db_user = (User)baseService.getById(User.class, user1.getUId());
+		
+		if(isSuperAdmin(req, db_user)){
+			red.addFlashAttribute("Message","不能修改超级管理员账号");
+			return "redirect:toUser.do";
+		}
+		
 		//是否重命名
 		if(!user1.getUName().equals(db_user.getUName())){
 			if(!baseService.isUnique(User.class, "UName", user1.getUName())){
@@ -266,6 +272,10 @@ public class UserAction {
 			return "redirect:toUser.do";
 		}
 		
+		
+		
+		
+		
 		//更新用户
 		try{
 			baseService.update(user1);
@@ -284,5 +294,43 @@ public class UserAction {
 		return "redirect:toUser.do";
 
 	}
+	
+	@RequestMapping("delUser.do")
+	public void delUser(HttpServletRequest req,HttpServletResponse res) throws IOException{
+		String user_id=req.getParameter("id");
+		User user = (User) baseService.getById(User.class,Integer.valueOf(user_id));
+		
+		res.setCharacterEncoding("UTF-8");
+		PrintWriter out =res.getWriter();
+		String Message = "success";
+		if(isSuperAdmin(req, user)){
+			Message="不能删除超级管理员账号";
+			out.write(Message);
+			out.flush();
+			return;
+		}
+		
+		String pass=req.getParameter("pass");
+		if(!user.getPassword().equals(pass)){
+			Message="密码不正确";
+			out.print(Message);
+			return;
+		}
+		
+		
+		try{
+			baseService.delete(user);
+		}catch(Exception e){
+			logger.error("",e);
+			Message=e.getMessage();
+
+		}
+		
+		out.write(Message);
+
+	}
+	
+	
+	
 	
 }

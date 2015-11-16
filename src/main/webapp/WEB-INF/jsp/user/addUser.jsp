@@ -1,10 +1,11 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@include file="/index.jsp" %>    
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<script src="${pageContext.request.contextPath}/js/jquery.min.js" ></script>
 <link href="${pageContext.request.contextPath}/css/common.css"  rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/my.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -35,14 +36,14 @@
 			<input type="hidden"  name="UId"  id="UId"  value="${user.UId }" />
 			<input type="hidden"  name="version"  id="version"  value="${user.version}" />
 			<br />用户名:<input type="text" name="UName"  id="UName"  value="${user.UName}"  required/>	 
-			<br />原密码:<input type="password" name="old_pass" onInput="getUser('AllUName')"/>	
+			<br />密码:<input type="password" name="old_pass"  id="old_pass"  onInput="getUser('AllUName')"/>	
 			<br />新密码:<input type="password" name="new_pass"/>	
-			<br />确认密码:<input type="password" name="password" required/>	
-			<br /><input type="submit" value="修改"/>
+			<br />确认密码:<input type="password" name="password" required/>			<br />
+			<input type="submit" value="修改"/>  
+			
+			<input type="button" value="删除" onclick="delUser()"/>
+			
 		</form>
-	
-	
-	
 	</div>
 </div>
 
@@ -132,7 +133,31 @@ function getAllUName(id){
 	}
 
 
+
+function delUser(){
+	var user_id =document.getElementById('UId').value;
+	var pass=document.getElementById('old_pass').value;
+
+	if(pass==""){
+		alert('请输入密码');
+		return false;
+	}
 	
+	var url = "${pageContext.request.contextPath}/user/delUser.do";
+
+	$(function(){
+		$.post(url,{"id":user_id,"pass":pass},function(data,status){
+			if(status=="success"){
+				
+				alert(data);
+			}
+		});
+	});
+	
+}
+
+
+
 </script>
 
 </body>

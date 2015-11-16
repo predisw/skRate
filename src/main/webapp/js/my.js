@@ -152,8 +152,26 @@ function  loadAjax(method,url,data,callback){
 		return xmlHttp;
 }
 
+//判断页面是否出现进度条
+function isScrolledBar(){
 
+	var offsetHeight=document.documentElement.offsetHeight;
+	var clientHeight = document.documentElement.clientHeight;
+	if(offsetHeight>clientHeight){
+		return true;
+	}
+	return false;
+}
 
+function toTop(){
+//	var scrollTop=document.body.scrollTop+document.documentElement.scrollTop;
+	window.scrollTo(0,0);
+}
 
-
-
+function toBottom(){
+	var scrollTop=document.body.scrollTop+document.documentElement.scrollTop;
+	var offsetHeight=document.documentElement.offsetHeight;
+	var clientHeight = document.documentElement.clientHeight;
+	scrollTop=offsetHeight-clientHeight;
+	scrollTo(0,scrollTop);
+}

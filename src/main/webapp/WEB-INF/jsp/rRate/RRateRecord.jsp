@@ -1,8 +1,9 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/index.jsp" %>        
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
 <head>
 <link href="${pageContext.request.contextPath}/css/rateRecord.css"  rel="stylesheet" type="text/css" />
@@ -56,6 +57,40 @@
 		</form>
 
 	</div>
+
+
+		<!--  数据头部 --分页代码-->
+	<div style="display: none;"  id="page_div"  >
+		    <form action="${pageContext.request.contextPath}/rRate/getRRateRecord.do" method="post" name="frmData"  style="text-align: center" id="pageForm">
+
+											共<b><font color="red">${page.totalPage}</font> </b>页 - 这是第
+											<b><font color="red">${page.curPage} </font> </b>页&nbsp; | &nbsp;
+											<a onClick="first()" href="#">首页</a>&nbsp;
+											<a onClick="prev()" href="#">前一页</a>&nbsp;
+											<a onClick="next()" href="#">后一页</a>&nbsp;
+											<a onClick="last()" href="#">末页</a>&nbsp; | &nbsp; 到第
+											<input id="page.curPage" name="curPage" type="text"
+												size="4" maxlength="4" style='width: 30px; height: 18px;'
+												value="${page.curPage}"
+												onKeyUp="onlyNum();">
+											<input type="submit" value="跳转" class=mmBtn />
+											<input type="hidden" name="pageSize"
+												value="${page.pageSize }" />
+											<input type="hidden" name="totalPage"
+												value="${page.totalPage }" />
+											
+			
+											<input type="hidden"  name="vosId"  value="${vosId }"/>	
+											<input type="hidden"  name="country" value="${country }"/>	
+											<input type="date"  name="sDate" value="${sDate }"  style="display: none"/>
+											<input type="date" name="tDate" value="${tDate }" style="display: none"/>
+											
+											<input type="button" value="toBottom" onclick="toBottom()">
+												</form>
+						<script type="text/javascript" src="${pageContext.request.contextPath}/js/list.js"></script>
+  
+	</div>
+
 
 	<!-- 对应供应商的rate 记录List-->
 	<div class="content">
@@ -125,7 +160,7 @@
 	</div>
 			<!--  分页代码-->
 	<div >
-		    <form action="${pageContext.request.contextPath}/rRate/getRRateRecord.do" method="post" name="frmData"  style="text-align: center" id="pageForm">
+		    <form action="${pageContext.request.contextPath}/rRate/getRRateRecord.do" method="post"   style="text-align: center" >
 
 											共<b><font color="red">${page.totalPage}</font> </b>页 - 这是第
 											<b><font color="red">${page.curPage} </font> </b>页&nbsp; | &nbsp;
@@ -148,13 +183,14 @@
 											<input type="hidden"  name="country" value="${country }"/>	
 											<input type="date"  name="sDate" value="${sDate }"  style="display: none"/>
 											<input type="date" name="tDate" value="${tDate }" style="display: none"/>
+											
+											<input type="button" value="toTop" onclick="toTop()">
+					
 												</form>
-						<script type="text/javascript" src="${pageContext.request.contextPath}/js/list.js"></script>
-  
-	</div>
+		</div>
+		
 		
 </div>
-
 
 <script type="text/javascript">
 
@@ -294,8 +330,12 @@ function setDateNull(){
 
 
 
- 
-
+onload=function isScrolled(){
+		if(isScrolledBar()){
+			var page_div =  document.getElementById('page_div');
+			page_div.style.display="";
+		}
+}
 
 </script>
 
