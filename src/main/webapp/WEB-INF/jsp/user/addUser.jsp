@@ -150,6 +150,7 @@ function delUser(){
 			if(status=="success"){
 				
 				alert(data);
+				location="${pageContext.request.contextPath}/user/toUser.do";
 			}
 		});
 	});
