@@ -8,8 +8,17 @@ public class CcComparator implements Comparator<CountryCode> {
 
 	@Override
 	public int compare(CountryCode cc1, CountryCode cc2) {
-		// TODO Auto-generated method stub
-		return cc1.getCountry().compareToIgnoreCase(cc2.getCountry());
+		int	cpr= cc1.getCountry().compareToIgnoreCase(cc2.getCountry());
+		 if(cpr==0){
+			cpr=cc1.getOperator().compareToIgnoreCase(cc2.getOperator());
+			if(cpr==0){
+				cpr=cc1.getCode().compareTo(cc2.getCode());
+			}
+		 }
+		 
+		 return cpr;
 	}
+
+
 
 }

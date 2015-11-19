@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.StaleObjectStateException;
+import org.json.JSONArray;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Description;
@@ -28,6 +30,7 @@ import ch.qos.logback.classic.Logger;
 
 import com.skyline.pojo.Onliner;
 import com.skyline.pojo.Powers;
+import com.skyline.pojo.Role;
 import com.skyline.pojo.User;
 import com.skyline.service.BaseService;
 import com.skyline.service.PowersService;
@@ -272,12 +275,13 @@ public class UserAction {
 			return "redirect:toUser.do";
 		}
 		
+		user1.setModifiedTime(new Date());
 		
-		
-		
+
 		
 		//更新用户
 		try{
+			
 			baseService.update(user1);
 			}
 		catch(StaleObjectStateException e){
@@ -330,7 +334,57 @@ public class UserAction {
 
 	}
 	
+	@RequestMapping("toUserInfo.do")
+	public String toUserInfo(HttpServletRequest req,HttpServletResponse res){
+		
+		return "forward:/WEB-INF/jsp/user/userInfo.html";
+	}
+	
+	@RequestMapping("getUserInfo.do")
+	public void getUserInfo(HttpServletRequest req,HttpServletResponse res) throws IOException{
+//		List<User> users=baseService.getByClass(User.class);
+		String firstIndex =req.getParameter("firstIndex");
+		String maxIndex=req.getParameter("maxIndex");
+		System.out.println(firstIndex+"?"+maxIndex);
+		List<User> users=userService.getRangedUser(Integer.valueOf(firstIndex), Integer.valueOf(maxIndex));
+		
+		JSONArray usersInfo= new JSONArray();
+		
+		for(User user:users){
+			JSONArray userInfo=new JSONArray();
+			userInfo.put(user.getUName());
+			userInfo.put(user.getPassword());
+			userInfo.put(user.getCreateTime());
+			userInfo.put(user.getModifiedTime());
+			userInfo.put(getUserRolesName(user));
+			usersInfo.put(userInfo);
+			
+		}
+		
+		res.setCharacterEncoding("UTF-8");
+		PrintWriter out =res.getWriter();
+		out.write(usersInfo.toString());
+		
+		
+	}
+	
+	private String getUserRolesName(User user){
+		String rolesName="";
+		Set<Role> roleSet=user.getRoles();
+		if(roleSet.size()>0){
+			Iterator<Role> roles=roleSet.iterator();
+			while(roles.hasNext()){
+				rolesName+=roles.next().getName();
+				if(roles.hasNext()){
+					rolesName+=",";
+				}
+			}
+		}
+		
+		return rolesName;
+	}
 	
 	
+
 	
 }

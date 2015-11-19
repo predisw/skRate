@@ -2,6 +2,8 @@ package com.skyline.dao;
 
 import java.util.List;
 
+import org.hibernate.criterion.DetachedCriteria;
+
 import com.skyline.pojo.Log;
 import com.skyline.util.PageInfo;
 //公有数据操作接口
@@ -34,7 +36,7 @@ public interface BaseDao {
 	public PageInfo getByPage(String hql,PageInfo page);
 
 
-
-	
+//	public <T> List<T> getByDetachedCriteria(final DetachedCriteria detachedCriteria);
+	public <T> List<T> getRanged(final DetachedCriteria criteria,int firstIndex,int maxIndex);
 	
 }

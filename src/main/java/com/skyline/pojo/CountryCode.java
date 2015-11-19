@@ -102,7 +102,7 @@ public class CountryCode implements java.io.Serializable {
 	public boolean equals(Object obj) {
 		// TODO Auto-generated method stub
 		if(obj instanceof CountryCode){
-			return this.ccId.equals( ((CountryCode)obj ).ccId);  //用== 不行，有些还是不相等，改用equal 就ok
+			return this.ccId.equals( ((CountryCode)obj ).getCcId());  //用== 不行，有些还是不相等，改用equal 就ok
 		}
 		return super.equals(obj);
 	}
@@ -116,4 +116,6 @@ public class CountryCode implements java.io.Serializable {
 	public String forLog(){
 		return "code:"+this.code;
 	}
+
+
 }

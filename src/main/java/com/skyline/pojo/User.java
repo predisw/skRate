@@ -2,6 +2,7 @@ package com.skyline.pojo;
 
 // Generated 2015-11-4 17:24:19 by Hibernate Tools 4.3.1
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,9 +18,12 @@ public class User implements java.io.Serializable {
 	private Integer version;
 	private String UName;
 	private String password;
+	private Date createTime;
+	private Date modifiedTime;
 	private Set roles = new HashSet(0);
 
 	public User() {
+		createTime=new Date();
 	}
 
 	public User(String UName, String password, Set roles) {
@@ -70,6 +74,34 @@ public class User implements java.io.Serializable {
 
 	public String forLog(){
 		return "用户名:"+this.UName;
+	}
+
+	/**
+	 * @return the createTime
+	 */
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	/**
+	 * @param createTime the createTime to set
+	 */
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	/**
+	 * @return the modifiedTime
+	 */
+	public Date getModifiedTime() {
+		return modifiedTime;
+	}
+
+	/**
+	 * @param modifiedTime the modifiedTime to set
+	 */
+	public void setModifiedTime(Date modifiedTime) {
+		this.modifiedTime = modifiedTime;
 	}
 
 }

@@ -315,7 +315,7 @@ public class RateAction {
 
 			
 			//所有选择的运营商
-			Set<CountryCode> ccSet = new HashSet<>();
+			Set<CountryCode> ccSet = new TreeSet<>(new CcComparator());
 			
 			List<CountryCode> tmpList=new ArrayList<CountryCode>();
 			
@@ -351,7 +351,7 @@ public class RateAction {
 			}
 
 
-
+			
 			JSONArray ccArr=new JSONArray();
 			
 			for(CountryCode cc:ccSet){

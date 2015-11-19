@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.util.Collection;
+import java.util.List;
 
 import com.predisw.exception.UniException;
 import com.skyline.dao.BaseDao;
@@ -40,4 +41,7 @@ public interface BaseService extends BaseDao {
 	
 	
 	public void delBulkByids(Class clazz ,int[] ids);
+	
+
+	
 }

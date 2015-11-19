@@ -1,10 +1,162 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="/SkylineRate/css/common.css"  rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/SkylineRate/js/jquery.min.js"></script>
+<script type="text/javascript" src="/SkylineRate/js/my.js"></script>
 <meta charset="UTF-8">
 <title>用户信息</title>
 </head>
-<body>
+<body  onload=(getIndex(),firstLoadUserInfo()); >
+<div id="index"></div>
+
+<div class="main_body" >
+	<div style="border-bottom: none">
+	<table id="userInfo"  >
+		<tr>
+			<th>用户名</th>
+			<th>密码</th>
+			<th>创建时间</th>
+			<th>修改时间</th>
+			<th>权限角色</th>
+		</tr>
+		
+		
+	</table>
+	</div>
+</div>
+
+
+
+
+
+
 
 </body>
+
+<script type="text/javascript">
+var firstIndex=0;
+var maxIndex=20;
+var dataLength;
+var isAll=false;
+
+
+
+//加载主页导航
+function getIndex(){
+	var index=document.getElementById("index");
+	var url="/SkylineRate/index.jsp";
+	$(function(){
+		$.get(url,function(data,status){
+			if(status="success"){
+				index.innerHTML=data;
+			}
+		});
+	});
+	
+}
+//加载用户信息
+function appendUserInfo(){
+	var url="/SkylineRate/user/getUserInfo.do";
+
+	$(function(){
+		$.get(url,function(data,status){
+			var usersInfoArr=JSON.parse(data);
+	//		console.log(status);
+			for(var j=0;j<usersInfoArr.length;j++){
+				var tr=createUserInfoTr(usersInfoArr[j]);
+				$("#userInfo").append(tr);
+			}
+		});	
+	});
+	
+	
+	
+}
+
+function createUserInfoTr(userInfoArr){
+	var tr=document.createElement("tr");
+	for(var i=0;i<userInfoArr.length;i++){
+	 	var td = document.createElement("td");
+	 	td.innerHTML=userInfoArr[i];
+	 	tr.appendChild(td);
+	}
+	return tr;	
+}
+
+
+
+function loadUserInfo(){
+	var url="/SkylineRate/user/getUserInfo.do";
+	$(function(){
+		$.ajax({type:"POST",url:url,data:{"firstIndex":firstIndex,"maxIndex":maxIndex},success:function(data,status){
+				var usersInfoArr=JSON.parse(data);
+				dataLength=usersInfoArr.length;
+				for(var j=0;j<usersInfoArr.length;j++){
+					var tr=createUserInfoTr(usersInfoArr[j]);
+					$("#userInfo").append(tr);
+				}
+				firstIndex+=maxIndex;
+		}, 
+		async: false
+		});
+
+	});
+
+}
+
+function	firstLoadUserInfo(){
+	loadUserInfo();
+	//console.log(dataLength);
+ 	while(!isScrolledBar() && !(dataLength<maxIndex) ){
+		loadUserInfo();
+
+	} 
+	setIsAll(); 
+}
+
+
+//是否已经获取所有的数据
+function setIsAll(){
+	if(dataLength<maxIndex ){
+		isAll=true;
+	}
+	
+}
+
+window.onscroll=scrollLoadUserInfo;
+window.onresize = function () {
+	firstLoadUserInfo();
+}
+
+function scrollLoadUserInfo(){
+	if(checkIfScroll()){
+		if(!isAll){
+			loadUserInfo();
+			console.log(dataLength);
+			setIsAll(); 
+		}
+
+	}
+
+}
+
+
+function checkIfScroll(){
+	var offsetHeight=document.documentElement.offsetHeight;
+	var clientHeight = document.documentElement.clientHeight;
+	var scrollTotalHeight=offsetHeight-clientHeight;
+	var scrollTop=document.body.scrollTop+document.documentElement.scrollTop;
+	if( scrollTotalHeight-scrollTop<scrollTotalHeight*0.1 ){
+		return true;
+	}
+	return false;
+	
+}
+
+
+</script>
+
+
+
 </html>

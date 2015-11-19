@@ -58,7 +58,7 @@
   </select>
  
 <input type="button"  value="移除"   onclick="if(is_selected('opList'))rmOperator('opList')" >
-<input type="submit"    value="确定"    /> <!-- onclick="getAllOption('opList')" -->
+<input type="submit"    value="确定"  onclick="getAllOption('opList')"  />
 </form>
 </div>
 

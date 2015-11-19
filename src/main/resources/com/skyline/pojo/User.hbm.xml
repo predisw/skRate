@@ -12,10 +12,16 @@
             <column name="version" />
         </version>
         <property name="UName" type="string">
-            <column name="u_name" unique="true" />
+            <column name="u_name" unique="true"  length="100" />
         </property>
         <property name="password" type="string">
             <column name="password" />
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="create_time" length="19" not-null="true" />
+        </property>
+        <property name="modifiedTime" type="timestamp">
+            <column name="modified_time" length="19"  />
         </property>
         <set name="roles" table="user_role" inverse="false" lazy="true" fetch="select">
             <key>

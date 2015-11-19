@@ -17,7 +17,7 @@
 
 <context-param>
 <param-name>version</param-name>
-<param-value>1.8.8-1</param-value>
+<param-value>1.8.8-2</param-value>
 </context-param>
 
 
@@ -129,7 +129,7 @@
   
     <filter-mapping>  
      <filter-name>openSessionInViewFilter</filter-name>  
-      <url-pattern>/user/login.do</url-pattern>  
+      <url-pattern>/user/*</url-pattern>  
   </filter-mapping>
 
   

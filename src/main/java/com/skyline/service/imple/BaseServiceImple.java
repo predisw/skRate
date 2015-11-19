@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.predisw.exception.UniException;
@@ -188,4 +189,15 @@ public class BaseServiceImple   implements BaseService { //通过继承来调用
 		// TODO Auto-generated method stub
 		return baseDao.getByPage(hql, page);
 	}
+
+	@Override
+	public <T> List<T> getRanged(DetachedCriteria criteria, int firstIndex,
+			int maxIndex) {
+		// TODO Auto-generated method stub
+		return baseDao.getRanged(criteria, firstIndex,maxIndex);
+	}
+
+
+
+
 }

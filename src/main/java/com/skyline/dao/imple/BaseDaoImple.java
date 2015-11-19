@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -158,6 +159,18 @@ public class BaseDaoImple implements BaseDao {
 		query.setParameter("field_value", field_value);
 		query.executeUpdate();
 	}
+
+
+	@Override
+	public <T> List<T> getRanged(DetachedCriteria criteria, int firstIndex,
+			int maxIndex) {
+		// TODO Auto-generated method stub
+		return (List<T>)criteria.getExecutableCriteria(sf.getCurrentSession()).setFirstResult(firstIndex).setMaxResults(maxIndex).list();
+		
+	}
+
+
+
 
 
 
