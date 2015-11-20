@@ -248,7 +248,7 @@ public class UserAction {
 	@RequestMapping("updateCheck.do")
 	public String updateCheck(HttpServletRequest req,HttpServletResponse res,User user1,RedirectAttributes red){
 		User db_user = (User)baseService.getById(User.class, user1.getUId());
-		
+		//是否为超级管理员
 		if(isSuperAdmin(req, db_user)){
 			red.addFlashAttribute("Message","不能修改超级管理员账号");
 			return "redirect:toUser.do";

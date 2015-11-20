@@ -15,6 +15,8 @@
 
 <div class="main_body">
 
+<!-- 权限控制 -->
+<c:if test="${pStatus['user-add']==true }">
 	<div>
 		添加用户<br />
 		<form method="post" action="<%=request.getContextPath()%>/user/addUser.do" >
@@ -26,6 +28,7 @@
 			
 		</form>
 	</div>
+</c:if>	
 <span style="color:red;">${Message}</span>
 	<div>
 	修改用户
@@ -39,10 +42,15 @@
 			<br />密码:<input type="password" name="old_pass"  id="old_pass"  onInput="getUser('AllUName')"/>	
 			<br />新密码:<input type="password" name="new_pass"/>	
 			<br />确认密码:<input type="password" name="password" required/>			<br />
+						
+			<!-- 权限控制 -->
+			<c:if test="${pStatus['user-update']==true }">
 			<input type="submit" value="修改"/>  
-			
+			</c:if>
+			<!-- 权限控制 -->
+			<c:if test="${pStatus['user-del']==true }">
 			<input type="button" value="删除" onclick="delUser()"/>
-			
+			</c:if>
 		</form>
 	</div>
 </div>

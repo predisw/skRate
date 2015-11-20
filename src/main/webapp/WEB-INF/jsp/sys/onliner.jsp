@@ -12,6 +12,7 @@
 </head>
 <body>
 <div class="main_body" >
+	<span style="text-align:left;">总登陆人数是 ${onliners.size()}</span>
 	<div style="border-bottom:none;">
 		<table >
 			<tr>
@@ -19,7 +20,6 @@
 				<th>IP</th>
 				<th>浏览器</th>
 				<th>登录时间</th>
-
 			</tr>
 			<c:forEach items="${onliners }"  var="onliner">
 				<tr>
