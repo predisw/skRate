@@ -141,4 +141,18 @@ public class BaseRateDaoImple implements BaseRateDao {
 		query.executeUpdate();
 	}
 
+
+
+
+
+	@Override
+	public List<BaseRate> getAllLastRate(String vosId,Class<? extends BaseRate> clazz) {
+		
+		
+		
+		
+		
+		return null;
+	}
+
 }

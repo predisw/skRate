@@ -20,7 +20,7 @@
 			客户:
 			<select   name="vosId">
 				<c:forEach items="${cusList }" var="cus">
-					<option value="${cus.vosId }"  ${vosId==cus.vosId?"selected":null }>${cus.vosId }</option>
+					<option value="${cus.vosId }"   ${vosId==cus.vosId?"selected":null } >${cus.vosId }</option>
 				</c:forEach>
 			</select>
 

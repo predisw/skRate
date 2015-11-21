@@ -21,5 +21,8 @@ public interface BaseRateDao {
 	//当修改客户的vosId时,需要同步修改rate 中对应的vosId 和,设置old_vosId
 	//只修改vosId而不修改bak_vosId,bak_vosId初始值就是等于第一次写入的vosId值.新发的报价生成的bak_vosid 会替换旧的
 	void upAndBakVos(String old_vosId, String new_vosId, Class rateClazz);
+	
+	
+	public List<BaseRate> getAllLastRate(String vosId,Class<? extends BaseRate> clazz);
 
 }
