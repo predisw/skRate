@@ -345,7 +345,6 @@ public class UserAction {
 //		List<User> users=baseService.getByClass(User.class);
 		String firstIndex =req.getParameter("firstIndex");
 		String maxIndex=req.getParameter("maxIndex");
-		System.out.println(firstIndex+"?"+maxIndex);
 		List<User> users=userService.getRangedUser(Integer.valueOf(firstIndex), Integer.valueOf(maxIndex));
 		
 		JSONArray usersInfo= new JSONArray();
