@@ -275,14 +275,15 @@ public class UserAction {
 			return "redirect:toUser.do";
 		}
 		
-		user1.setModifiedTime(new Date());
+		db_user.setModifiedTime(new Date());
+		db_user.setPassword(user1.getPassword());
+		db_user.setUName(user1.getUName());
 		
-
 		
 		//更新用户
 		try{
 			
-			baseService.update(user1);
+			baseService.update(db_user);
 			}
 		catch(StaleObjectStateException e){
 			red.addFlashAttribute("Message", "其他人已经更新了数据,请重新更新");

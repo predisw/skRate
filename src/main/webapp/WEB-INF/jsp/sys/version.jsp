@@ -12,7 +12,9 @@
 <div class="main_body">
 	<div>
 <h2>SkylineRate System <span style="font-size: small;">version ${version}</span></h2>
-
+2015-11-21 <br />
+修复不能更新用户信息的bug <br />
+细分用户管理的权限 <br />
 2015-11-19 <br />
 添加用户信息页面(含密码),当用户信息可以滚动,并滚动到页面底部时会自动加载剩余的信息.使用了无限滚动翻页技术.<br />
 2015-11-16 <br />
