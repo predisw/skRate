@@ -3,6 +3,7 @@ package com.skyline.service.imple;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -201,6 +202,14 @@ public class BaseRateServiceImple  implements BaseRateService{
 			newRate.setIsChange("Decrease");
 		}else newRate.setIsChange("current");
 		
+	}
+
+
+
+	@Override
+	public List<BaseRate> getAllLastRate(String vosId,Class<? extends BaseRate> clazz) {
+		// TODO Auto-generated method stub
+		return baseRateDao.getAllLastRate(vosId, clazz);
 	}
 
 	

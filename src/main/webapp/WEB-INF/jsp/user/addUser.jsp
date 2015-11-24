@@ -158,7 +158,8 @@ function delUser(){
 			if(status=="success"){
 				
 				alert(data);
-				location="${pageContext.request.contextPath}/user/toUser.do";
+				window.location.reload();//刷新页面数据  
+//				location="${pageContext.request.contextPath}/user/toUser.do";
 			}
 		});
 	});

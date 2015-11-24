@@ -51,7 +51,10 @@ public class ExcelTpAction {
 		String filePathName=upload.get("upload");
 		logger.debug("upload filepath is [{}]",filePathName);
 		String fileName=filePathName.substring(filePathName.lastIndexOf(File.separator)+1, filePathName.lastIndexOf("."));
+		System.out.println(filePathName);
+		System.out.println(fileName);
 		String download_path=filePathName.substring(filePathName.indexOf(req.getContextPath()));
+
 		ExcelTp tp=new ExcelTp();
 		tp.setName(fileName);
 		tp.setFilePathName(filePathName);

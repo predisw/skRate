@@ -143,16 +143,22 @@ public class BaseRateDaoImple implements BaseRateDao {
 
 
 
-
-
 	@Override
 	public List<BaseRate> getAllLastRate(String vosId,Class<? extends BaseRate> clazz) {
 		
+		String rateTable="";
+		if(clazz==Rate.class){
+			rateTable="rate";
+		}
+		if(clazz==RRate.class){
+			rateTable="r_rate";
+		}
 		
+		Session ss=sf.getCurrentSession();
+		String sql="call getLastRate('"+rateTable+"','"+vosId+"')";   //存储过程
+		Query query =ss.createSQLQuery(sql).addEntity(clazz);
 		
-		
-		
-		return null;
+		return query.list();
 	}
 
 }

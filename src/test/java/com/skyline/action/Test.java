@@ -11,7 +11,9 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.skyline.dao.BaseRateDao;
+import com.skyline.pojo.BaseRate;
 import com.skyline.pojo.RRate;
+import com.skyline.pojo.Rate;
 
 @Transactional
 @TransactionConfiguration(defaultRollback=true)
@@ -24,10 +26,9 @@ public class Test {
 	@org.junit.Test
 	public void test(){
 		
-		
-		List list=baseRateDao.getCountry(null, null, "0039R013", true, 1, 10,true, RRate.class);
-		List rList = baseRateDao.getRate(null, null, "0039R013", "Afghanistan", true, true, RRate.class);
-		
+//	List<BaseRate> rateList=baseRateDao.getAllLastRate("0072R003CLI", RRate.class);
+	//System.out.println(rateList.get(0).forLog());
+	
 
 	}
 	

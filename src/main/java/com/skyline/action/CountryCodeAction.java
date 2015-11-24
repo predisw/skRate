@@ -1,10 +1,14 @@
 package com.skyline.action;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.predisw.exception.UniException;
+import com.predisw.util.DateFormatUtil;
 import com.skyline.comparatorImple.CcComparator;
 import com.skyline.pojo.CountryCode;
 import com.skyline.service.BaseService;
@@ -28,6 +33,7 @@ import com.skyline.service.CountryCodeService;
 import com.skyline.util.HttpUpAndDownload;
 import com.skyline.util.PageInfo;
 import com.skyline.util.PoiExcel;
+import com.skyline.util.SingletonProps;
 
 
 @Controller
@@ -208,8 +214,29 @@ public class CountryCodeAction {   //如果要使用spring 的自动注入，那
 		
 	}
 	
-	
-	
+	@RequestMapping("exportAllCC.do")
+	public void exportAllCC(HttpServletRequest req,HttpServletResponse res) throws IOException{
+		List<CountryCode> ccList=baseService.getByClass(CountryCode.class);
+		
+		if(ccList.size()==0){
+			res.setContentType("text/html;charset=UTF-8");
+			res.getWriter().write("<script>alert('不存在');history.back();</script>");
+			return;
+			
+		}
+		Properties props = SingletonProps.getInstance().getProperties(); 
+		String[] db_header =props.getProperty("cc_db_header").split(",");
+		String[] excel_header =props.getProperty("cc_excel_header").split(",");
+		SimpleDateFormat date_fomat=DateFormatUtil.getSdf("yyyy-MM-dd");
+		String filePath=req.getServletContext().getRealPath(props.getProperty("excel_export")); //生产环境下的excel 导出绝对路径
+		String fileName="AllCodes_"+date_fomat.format(new Date())+".xls";  //excel2003
+		String fullPathName=filePath+File.separator+fileName;
+		
+		poiExcel.export(ccList, fullPathName, db_header, excel_header, date_fomat);
+		HttpUpAndDownload.downLoadFile(fullPathName, res);
+		
+		
+	}
 
 	
 	

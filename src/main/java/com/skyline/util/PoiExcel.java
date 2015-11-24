@@ -67,7 +67,7 @@ public class PoiExcel {
 
             String fileType=fileName.substring(fileName.lastIndexOf(".")+1,fileName.length());  
                 if (fileType.equals("xls")) {    
-                    workbook = new HSSFWorkbook(new FileInputStream(fileName));  
+                    workbook = new HSSFWorkbook();  
                 }    
                 else if(fileType.equals("xlsx"))    
                 {    
@@ -438,9 +438,9 @@ public class PoiExcel {
             }    
      
         //创建标题行
-        Sheet sheet = workbook.getSheetAt(0);
+        Sheet sheet = workbook.createSheet();
 
-		int firstRow = sheet.getLastRowNum()+2;
+		int firstRow = sheet.getLastRowNum()+1;
 	
 	    CellStyle style = workbook.createCellStyle(); //标题行的单元格格式 
 		Font font = workbook.createFont();
