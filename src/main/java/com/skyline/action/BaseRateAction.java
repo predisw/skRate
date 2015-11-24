@@ -1,5 +1,6 @@
 package com.skyline.action;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParsePosition;
@@ -8,7 +9,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -28,23 +31,27 @@ import com.skyline.service.BaseRateService;
 import com.skyline.service.BaseService;
 import com.skyline.service.CountryCodeService;
 import com.skyline.service.RateService;
+import com.skyline.util.HttpUpAndDownload;
 import com.skyline.util.PageInfo;
 import com.skyline.util.PoiExcel;
+import com.skyline.util.SingletonProps;
 
 /**
  * 被CRAteAction 和rateAction 共用的Action
  * @author predisw
  *
  */
+@RequestMapping("/baseRate")
 @Controller
 class BaseRateAction {
 	@Autowired
 	private CountryCodeService ccService;
 	@Autowired
 	private BaseRateService baseRateService;
-
+	@Autowired
+	private PoiExcel poiExcel;
 	
-	@RequestMapping("getBaseRatePageInfo.do")
+
 	public HttpServletRequest  getBaseRatePageInfo(HttpServletRequest req,HttpServletResponse res){
 		
 
@@ -112,7 +119,36 @@ class BaseRateAction {
 		return req;
 	}
 	
+	@RequestMapping("exportLastRate.do")
+	public void exportToExcelFromDb(HttpServletRequest req,HttpServletResponse res) throws IOException, ClassNotFoundException, ServletException{
 
+		String vosId=req.getParameter("vosId");
+		String className=req.getParameter("className");
+		Class clazz=Class.forName(className);
+
+		List<BaseRate> rateList=baseRateService.getAllLastRate(vosId, clazz);
+//		System.out.println(rateList.size());
+		if(rateList.size()==0){
+			res.setContentType("text/html;charset=UTF-8");
+			res.getWriter().write("<script>alert('不存在报价');history.back();</script>");
+			return;
+		}
+		
+		Properties props = SingletonProps.getInstance().getProperties(); 
+		String[] db_header =props.getProperty("export_db_header").split(",");
+		String[] excel_header =props.getProperty("export_excel_header").split(",");
+		SimpleDateFormat date_fomat=DateFormatUtil.getSdf("yyyy-MM-dd");
+		String filePath=req.getServletContext().getRealPath(props.getProperty("excel_export")); //生产环境下的excel 导出绝对路径
+		String fileName=vosId+"_"+date_fomat.format(new Date())+".xls";  //excel2003
+		String fullPathName=filePath+File.separator+fileName;
+		
+		Collections.sort(rateList, new BaseRateComparator());
+		poiExcel.export(rateList, fullPathName, db_header, excel_header, date_fomat);
+		
+		HttpUpAndDownload.downLoadFile(fullPathName, res);
+	}
+	
+	
 	
 	
 }

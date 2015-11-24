@@ -43,6 +43,22 @@
 	
 </c:if>
 
+	<!-- 权限控制 -->
+<c:if test="${pStatus['crate-export']==true }">
+<div >
+	<span style="float:left;margin-right: 30px;">下载客户最新报价                  </span>
+	<form action="${pageContext.request.contextPath }/baseRate/exportLastRate.do" method="post"  id="exportRate"    >
+		<input  type="hidden" name="vosId"  id="export_vosId""/>
+		<input type="hidden" name="className"  value="com.skyline.pojo.Rate"/>
+		<input type="button"  value=" 导出" onclick="if(check()) exportRate()" />
+	</form>	
+	</div>
+</c:if>
+
+
+
+
+
 	<!--  选择业务员和客户的功能块-->
 	<div>
 		<form method="post" action="${pageContext.request.contextPath}/cRate/getRateListOfEmp.do">
@@ -174,6 +190,18 @@ function on_submit(){
 
 	form.submit();
 	
+}
+
+
+function exportRate(){
+	
+	 var vosId=document.getElementById('cus').value; 
+	 
+	 document.getElementById('export_vosId').value=vosId;
+	 
+	 var form=document.getElementById('exportRate');
+	 form.submit();
+	 
 }
 
 

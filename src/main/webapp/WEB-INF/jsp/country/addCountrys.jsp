@@ -7,7 +7,7 @@
 <head>
 <link href="${pageContext.request.contextPath}/css/common.css"  rel="stylesheet" type="text/css" />
 <meta http-equiv="Content-Type" content="text/html charset=UTF-8">
-<title>添加国家code参照</title>
+<title>国家code参照</title>
 </head>
 <body>
 
@@ -67,7 +67,12 @@ code:
 
 <!-- 以下是数据list -->
 <div>
-已添加的国家code 对照表    <!-- 更新错误提示:-->   <span style="color:red;display:inline-block;margin-left:5%;">${Message}</span> 
+<span style="display:inline-block;margin-right: 30px;">已添加的国家code 对照表</span>
+	<!-- 权限控制 -->
+	<c:if test="${pStatus['cc-export']==true }">
+		<input type="button" value="导出"  onclick="exportAllCC()" />
+	</c:if> 
+<!-- 更新错误提示:-->   <span style="color:red;display:inline-block;margin-left:5%;">${Message}</span> 
 <table  style="margin-left:0px;">
 <tr>
 <th style="width:20px;"></th>
@@ -229,6 +234,10 @@ function	checkUpdate(id){
 }
 
 
+function exportAllCC(){
+	
+	location="${pageContext.request.contextPath}/cc/exportAllCC.do";
+}
 
 
 </script>

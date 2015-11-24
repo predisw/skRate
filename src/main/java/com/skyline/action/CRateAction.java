@@ -102,13 +102,14 @@ public class CRateAction {
 		String vosId=req.getParameter("cus_vosid");
 		List<Customer> cusList=baseService.getByField(Customer.class, "vosId",vosId);
 		
-		List<Rate> rateList=null;
+		List<Rate> rateList=new ArrayList<>();
 		if(cusList.size()>0){
 			Customer cus =cusList.get(0);
 			rateList=rateService.getLastRateByCid(cus.getCId(), true, true,true);
 		}  
-
+		
 		Collections.sort(rateList, new BaseRateComparator());
+		
 		req.setAttribute("vosId", vosId); //在html上显示选择的vosId
 		req.setAttribute("rateList", rateList);
 		req.getRequestDispatcher("getRateList.do").forward(req, res);
@@ -352,5 +353,14 @@ public class CRateAction {
 	}
 	
 
+	public void exportRate(HttpServletRequest req,HttpServletResponse res){
+		
+		String vosId = req.getParameter("vosId");
+
+		
+		
+	}
+	
+	
 	
 }

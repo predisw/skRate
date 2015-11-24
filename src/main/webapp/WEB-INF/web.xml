@@ -17,7 +17,7 @@
 
 <context-param>
 <param-name>version</param-name>
-<param-value>1.8.8-3</param-value>
+<param-value>1.8.9</param-value>
 </context-param>
 
 
@@ -144,6 +144,7 @@
   <location>/error/to404.do</location>
   </error-page>
   
+  <!--  	http 抛出的异常如果没有被单独处理则被web.xml 中配置的logJspExceptionToFile.jsp页面被统一处理-->
   <error-page>
   <exception-type>javax.servlet.ServletException</exception-type>
   <location>/error/logJspExceptionToFile.do</location>

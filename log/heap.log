@@ -1,0 +1,46 @@
+
+using thread-local object allocation.
+Parallel GC with 13 thread(s)
+
+Heap Configuration:
+   MinHeapFreeRatio = 0
+   MaxHeapFreeRatio = 100
+   MaxHeapSize      = 1073741824 (1024.0MB)
+   NewSize          = 1048576 (1.0MB)
+   MaxNewSize       = 4294901760 (4095.9375MB)
+   OldSize          = 4194304 (4.0MB)
+   NewRatio         = 2
+   SurvivorRatio    = 8
+   PermSize         = 16777216 (16.0MB)
+   MaxPermSize      = 67108864 (64.0MB)
+   G1HeapRegionSize = 0 (0.0MB)
+
+Heap Usage:
+PS Young Generation
+Eden Space:
+   capacity = 357564416 (341.0MB)
+   used     = 0 (0.0MB)
+   free     = 357564416 (341.0MB)
+   0.0% used
+From Space:
+   capacity = 262144 (0.25MB)
+   used     = 0 (0.0MB)
+   free     = 262144 (0.25MB)
+   0.0% used
+To Space:
+   capacity = 262144 (0.25MB)
+   used     = 0 (0.0MB)
+   free     = 262144 (0.25MB)
+   0.0% used
+PS Old Generation
+   capacity = 715653120 (682.5MB)
+   used     = 62674856 (59.771400451660156MB)
+   free     = 652978264 (622.7285995483398MB)
+   8.757714351891599% used
+PS Perm Generation
+   capacity = 67108864 (64.0MB)
+   used     = 67108832 (63.999969482421875MB)
+   free     = 32 (3.0517578125E-5MB)
+   99.99995231628418% used
+
+36642 interned Strings occupying 4156432 bytes.

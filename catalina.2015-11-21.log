@@ -1,0 +1,476 @@
+21-Nov-2015 11:42:18.196 INFO [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.core.StandardContext.reload Reloading Context with name [/SkylineRate] has started
+21-Nov-2015 11:42:18.258 WARNING [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [SkylineRate] registered the JDBC driver [com.mysql.jdbc.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+21-Nov-2015 11:42:18.258 WARNING [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [SkylineRate] appears to have started a thread named [Abandoned connection cleanup thread] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.lang.Object.wait(Native Method)
+ java.lang.ref.ReferenceQueue.remove(Unknown Source)
+ com.mysql.jdbc.AbandonedConnectionCleanupThread.run(AbandonedConnectionCleanupThread.java:43)
+21-Nov-2015 11:42:18.260 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [org.apache.poi.hssf.usermodel.HSSFCellStyle$1] (value [org.apache.poi.hssf.usermodel.HSSFCellStyle$1@1557e9d]) and a value of type [java.lang.Short] (value [49]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.260 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [com.predisw.util.DateFormatUtil$1] (value [com.predisw.util.DateFormatUtil$1@1eb857d]) and a value of type [java.text.SimpleDateFormat] (value [java.text.SimpleDateFormat@ac880840]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.260 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [org.apache.xmlbeans.impl.store.CharUtil$1] (value [org.apache.xmlbeans.impl.store.CharUtil$1@188e4fe]) and a value of type [java.lang.ref.SoftReference] (value [java.lang.ref.SoftReference@71e495]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.260 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [com.predisw.util.DateFormatUtil$1] (value [com.predisw.util.DateFormatUtil$1@1563100]) and a value of type [java.text.SimpleDateFormat] (value [java.text.SimpleDateFormat@f67a0200]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.260 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [org.apache.xmlbeans.XmlBeans$1] (value [org.apache.xmlbeans.XmlBeans$1@1ab1da4]) and a value of type [java.lang.ref.SoftReference] (value [java.lang.ref.SoftReference@126fdea]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.261 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [java.lang.ThreadLocal] (value [java.lang.ThreadLocal@e848b6]) and a value of type [java.util.ArrayList] (value [[[FORMAT]
+    .indexcode       = 0x0005
+    .isUnicode       = true
+    .formatstring    = "￥"#,##0;"￥"\-#,##0
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0006
+    .isUnicode       = true
+    .formatstring    = "￥"#,##0;[Red]"￥"\-#,##0
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0007
+    .isUnicode       = true
+    .formatstring    = "￥"#,##0.00;"￥"\-#,##0.00
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0008
+    .isUnicode       = true
+    .formatstring    = "￥"#,##0.00;[Red]"￥"\-#,##0.00
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x002A
+    .isUnicode       = true
+    .formatstring    = _ "￥"* #,##0_ ;_ "￥"* \-#,##0_ ;_ "￥"* "-"_ ;_ @_ 
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0029
+    .isUnicode       = true
+    .formatstring    = _ * #,##0_ ;_ * \-#,##0_ ;_ * "-"_ ;_ @_ 
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x002C
+    .isUnicode       = true
+    .formatstring    = _ "￥"* #,##0.00_ ;_ "￥"* \-#,##0.00_ ;_ "￥"* "-"??_ ;_ @_ 
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x002B
+    .isUnicode       = true
+    .formatstring    = _ * #,##0.00_ ;_ * \-#,##0.00_ ;_ * "-"??_ ;_ @_ 
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0017
+    .isUnicode       = true
+    .formatstring    = \$#,##0_);\(\$#,##0\)
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0018
+    .isUnicode       = true
+    .formatstring    = \$#,##0_);[Red]\(\$#,##0\)
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0019
+    .isUnicode       = true
+    .formatstring    = \$#,##0.00_);\(\$#,##0.00\)
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x001A
+    .isUnicode       = true
+    .formatstring    = \$#,##0.00_);[Red]\(\$#,##0.00\)
+[/FORMAT]
+]]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.261 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [org.apache.xmlbeans.impl.schema.SchemaTypeLoaderImpl$SchemaTypeLoaderCache$1] (value [org.apache.xmlbeans.impl.schema.SchemaTypeLoaderImpl$SchemaTypeLoaderCache$1@1fda73e]) and a value of type [java.util.ArrayList] (value [[java.lang.ref.SoftReference@1eeef08]]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.261 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [com.predisw.util.DateFormatUtil$1] (value [com.predisw.util.DateFormatUtil$1@18f2b86]) and a value of type [java.text.SimpleDateFormat] (value [java.text.SimpleDateFormat@88c7dd60]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.262 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [org.apache.xmlbeans.impl.store.Locale$1] (value [org.apache.xmlbeans.impl.store.Locale$1@72a7bc]) and a value of type [java.lang.ref.SoftReference] (value [java.lang.ref.SoftReference@1625501]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.262 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [com.predisw.util.DateFormatUtil$1] (value [com.predisw.util.DateFormatUtil$1@1563100]) and a value of type [java.text.SimpleDateFormat] (value [java.text.SimpleDateFormat@f67a0200]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.262 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [com.predisw.util.DateFormatUtil$1] (value [com.predisw.util.DateFormatUtil$1@1eb857d]) and a value of type [java.text.SimpleDateFormat] (value [java.text.SimpleDateFormat@ac880840]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.262 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [com.predisw.util.DateFormatUtil$1] (value [com.predisw.util.DateFormatUtil$1@18f2b86]) and a value of type [java.text.SimpleDateFormat] (value [java.text.SimpleDateFormat@88c7dd60]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.263 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [com.predisw.util.DateFormatUtil$1] (value [com.predisw.util.DateFormatUtil$1@1563100]) and a value of type [java.text.SimpleDateFormat] (value [java.text.SimpleDateFormat@f67a0200]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.263 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [com.predisw.util.DateFormatUtil$1] (value [com.predisw.util.DateFormatUtil$1@18f2b86]) and a value of type [java.text.SimpleDateFormat] (value [java.text.SimpleDateFormat@88c7dd60]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.264 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [org.apache.poi.hssf.usermodel.HSSFCellStyle$1] (value [org.apache.poi.hssf.usermodel.HSSFCellStyle$1@1557e9d]) and a value of type [java.lang.Short] (value [49]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.264 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [com.predisw.util.DateFormatUtil$1] (value [com.predisw.util.DateFormatUtil$1@1eb857d]) and a value of type [java.text.SimpleDateFormat] (value [java.text.SimpleDateFormat@ac880840]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.264 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [com.predisw.util.DateFormatUtil$1] (value [com.predisw.util.DateFormatUtil$1@1563100]) and a value of type [java.text.SimpleDateFormat] (value [java.text.SimpleDateFormat@f67a0200]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.264 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [java.lang.ThreadLocal] (value [java.lang.ThreadLocal@e848b6]) and a value of type [java.util.ArrayList] (value [[[FORMAT]
+    .indexcode       = 0x0005
+    .isUnicode       = true
+    .formatstring    = "￥"#,##0;"￥"\-#,##0
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0006
+    .isUnicode       = true
+    .formatstring    = "￥"#,##0;[Red]"￥"\-#,##0
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0007
+    .isUnicode       = true
+    .formatstring    = "￥"#,##0.00;"￥"\-#,##0.00
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0008
+    .isUnicode       = true
+    .formatstring    = "￥"#,##0.00;[Red]"￥"\-#,##0.00
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x002A
+    .isUnicode       = true
+    .formatstring    = _ "￥"* #,##0_ ;_ "￥"* \-#,##0_ ;_ "￥"* "-"_ ;_ @_ 
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0029
+    .isUnicode       = true
+    .formatstring    = _ * #,##0_ ;_ * \-#,##0_ ;_ * "-"_ ;_ @_ 
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x002C
+    .isUnicode       = true
+    .formatstring    = _ "￥"* #,##0.00_ ;_ "￥"* \-#,##0.00_ ;_ "￥"* "-"??_ ;_ @_ 
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x002B
+    .isUnicode       = true
+    .formatstring    = _ * #,##0.00_ ;_ * \-#,##0.00_ ;_ * "-"??_ ;_ @_ 
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0017
+    .isUnicode       = true
+    .formatstring    = \$#,##0_);\(\$#,##0\)
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0018
+    .isUnicode       = true
+    .formatstring    = \$#,##0_);[Red]\(\$#,##0\)
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0019
+    .isUnicode       = true
+    .formatstring    = \$#,##0.00_);\(\$#,##0.00\)
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x001A
+    .isUnicode       = true
+    .formatstring    = \$#,##0.00_);[Red]\(\$#,##0.00\)
+[/FORMAT]
+]]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.265 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [com.predisw.util.DateFormatUtil$1] (value [com.predisw.util.DateFormatUtil$1@18f2b86]) and a value of type [java.text.SimpleDateFormat] (value [java.text.SimpleDateFormat@88c7dd60]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.265 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [com.predisw.util.DateFormatUtil$1] (value [com.predisw.util.DateFormatUtil$1@1563100]) and a value of type [java.text.SimpleDateFormat] (value [java.text.SimpleDateFormat@f67a0200]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.265 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [org.apache.poi.hssf.usermodel.HSSFCellStyle$1] (value [org.apache.poi.hssf.usermodel.HSSFCellStyle$1@1557e9d]) and a value of type [java.lang.Short] (value [0]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.266 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [com.predisw.util.DateFormatUtil$1] (value [com.predisw.util.DateFormatUtil$1@1eb857d]) and a value of type [java.text.SimpleDateFormat] (value [java.text.SimpleDateFormat@ac880840]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.266 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [java.lang.ThreadLocal] (value [java.lang.ThreadLocal@e848b6]) and a value of type [java.util.ArrayList] (value [[[FORMAT]
+    .indexcode       = 0x0005
+    .isUnicode       = true
+    .formatstring    = "￥"#,##0;"￥"\-#,##0
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0006
+    .isUnicode       = true
+    .formatstring    = "￥"#,##0;[Red]"￥"\-#,##0
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0007
+    .isUnicode       = true
+    .formatstring    = "￥"#,##0.00;"￥"\-#,##0.00
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0008
+    .isUnicode       = true
+    .formatstring    = "￥"#,##0.00;[Red]"￥"\-#,##0.00
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x002A
+    .isUnicode       = true
+    .formatstring    = _ "￥"* #,##0_ ;_ "￥"* \-#,##0_ ;_ "￥"* "-"_ ;_ @_ 
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0029
+    .isUnicode       = true
+    .formatstring    = _ * #,##0_ ;_ * \-#,##0_ ;_ * "-"_ ;_ @_ 
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x002C
+    .isUnicode       = true
+    .formatstring    = _ "￥"* #,##0.00_ ;_ "￥"* \-#,##0.00_ ;_ "￥"* "-"??_ ;_ @_ 
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x002B
+    .isUnicode       = true
+    .formatstring    = _ * #,##0.00_ ;_ * \-#,##0.00_ ;_ * "-"??_ ;_ @_ 
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0017
+    .isUnicode       = true
+    .formatstring    = \$#,##0_);\(\$#,##0\)
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0018
+    .isUnicode       = true
+    .formatstring    = \$#,##0_);[Red]\(\$#,##0\)
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0019
+    .isUnicode       = true
+    .formatstring    = \$#,##0.00_);\(\$#,##0.00\)
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x001A
+    .isUnicode       = true
+    .formatstring    = \$#,##0.00_);[Red]\(\$#,##0.00\)
+[/FORMAT]
+]]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.266 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [com.predisw.util.DateFormatUtil$1] (value [com.predisw.util.DateFormatUtil$1@18f2b86]) and a value of type [java.text.SimpleDateFormat] (value [java.text.SimpleDateFormat@88c7dd60]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.267 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [org.apache.poi.hssf.usermodel.HSSFCellStyle$1] (value [org.apache.poi.hssf.usermodel.HSSFCellStyle$1@1557e9d]) and a value of type [java.lang.Short] (value [0]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.267 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [com.predisw.util.DateFormatUtil$1] (value [com.predisw.util.DateFormatUtil$1@1eb857d]) and a value of type [java.text.SimpleDateFormat] (value [java.text.SimpleDateFormat@ac880840]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.267 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [com.predisw.util.DateFormatUtil$1] (value [com.predisw.util.DateFormatUtil$1@1563100]) and a value of type [java.text.SimpleDateFormat] (value [java.text.SimpleDateFormat@f67a0200]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.267 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [java.lang.ThreadLocal] (value [java.lang.ThreadLocal@e848b6]) and a value of type [java.util.ArrayList] (value [[[FORMAT]
+    .indexcode       = 0x0005
+    .isUnicode       = true
+    .formatstring    = "￥"#,##0;"￥"\-#,##0
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0006
+    .isUnicode       = true
+    .formatstring    = "￥"#,##0;[Red]"￥"\-#,##0
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0007
+    .isUnicode       = true
+    .formatstring    = "￥"#,##0.00;"￥"\-#,##0.00
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0008
+    .isUnicode       = true
+    .formatstring    = "￥"#,##0.00;[Red]"￥"\-#,##0.00
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x002A
+    .isUnicode       = true
+    .formatstring    = _ "￥"* #,##0_ ;_ "￥"* \-#,##0_ ;_ "￥"* "-"_ ;_ @_ 
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0029
+    .isUnicode       = true
+    .formatstring    = _ * #,##0_ ;_ * \-#,##0_ ;_ * "-"_ ;_ @_ 
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x002C
+    .isUnicode       = true
+    .formatstring    = _ "￥"* #,##0.00_ ;_ "￥"* \-#,##0.00_ ;_ "￥"* "-"??_ ;_ @_ 
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x002B
+    .isUnicode       = true
+    .formatstring    = _ * #,##0.00_ ;_ * \-#,##0.00_ ;_ * "-"??_ ;_ @_ 
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0017
+    .isUnicode       = true
+    .formatstring    = \$#,##0_);\(\$#,##0\)
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0018
+    .isUnicode       = true
+    .formatstring    = \$#,##0_);[Red]\(\$#,##0\)
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0019
+    .isUnicode       = true
+    .formatstring    = \$#,##0.00_);\(\$#,##0.00\)
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x001A
+    .isUnicode       = true
+    .formatstring    = \$#,##0.00_);[Red]\(\$#,##0.00\)
+[/FORMAT]
+]]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.268 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [com.predisw.util.DateFormatUtil$1] (value [com.predisw.util.DateFormatUtil$1@18f2b86]) and a value of type [java.text.SimpleDateFormat] (value [java.text.SimpleDateFormat@88c7dd60]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.268 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [com.predisw.util.DateFormatUtil$1] (value [com.predisw.util.DateFormatUtil$1@1563100]) and a value of type [java.text.SimpleDateFormat] (value [java.text.SimpleDateFormat@f67a0200]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.268 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [org.apache.poi.hssf.usermodel.HSSFCellStyle$1] (value [org.apache.poi.hssf.usermodel.HSSFCellStyle$1@1557e9d]) and a value of type [java.lang.Short] (value [0]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.269 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [java.lang.ThreadLocal] (value [java.lang.ThreadLocal@e848b6]) and a value of type [java.util.ArrayList] (value [[[FORMAT]
+    .indexcode       = 0x0005
+    .isUnicode       = true
+    .formatstring    = "￥"#,##0;"￥"\-#,##0
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0006
+    .isUnicode       = true
+    .formatstring    = "￥"#,##0;[Red]"￥"\-#,##0
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0007
+    .isUnicode       = true
+    .formatstring    = "￥"#,##0.00;"￥"\-#,##0.00
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0008
+    .isUnicode       = true
+    .formatstring    = "￥"#,##0.00;[Red]"￥"\-#,##0.00
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x002A
+    .isUnicode       = true
+    .formatstring    = _ "￥"* #,##0_ ;_ "￥"* \-#,##0_ ;_ "￥"* "-"_ ;_ @_ 
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0029
+    .isUnicode       = true
+    .formatstring    = _ * #,##0_ ;_ * \-#,##0_ ;_ * "-"_ ;_ @_ 
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x002C
+    .isUnicode       = true
+    .formatstring    = _ "￥"* #,##0.00_ ;_ "￥"* \-#,##0.00_ ;_ "￥"* "-"??_ ;_ @_ 
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x002B
+    .isUnicode       = true
+    .formatstring    = _ * #,##0.00_ ;_ * \-#,##0.00_ ;_ * "-"??_ ;_ @_ 
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0017
+    .isUnicode       = true
+    .formatstring    = \$#,##0_);\(\$#,##0\)
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0018
+    .isUnicode       = true
+    .formatstring    = \$#,##0_);[Red]\(\$#,##0\)
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0019
+    .isUnicode       = true
+    .formatstring    = \$#,##0.00_);\(\$#,##0.00\)
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x001A
+    .isUnicode       = true
+    .formatstring    = \$#,##0.00_);[Red]\(\$#,##0.00\)
+[/FORMAT]
+]]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.269 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [com.predisw.util.DateFormatUtil$1] (value [com.predisw.util.DateFormatUtil$1@1eb857d]) and a value of type [java.text.SimpleDateFormat] (value [java.text.SimpleDateFormat@ac880840]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.269 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [com.predisw.util.DateFormatUtil$1] (value [com.predisw.util.DateFormatUtil$1@18f2b86]) and a value of type [java.text.SimpleDateFormat] (value [java.text.SimpleDateFormat@88c7dd60]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.270 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [com.predisw.util.DateFormatUtil$1] (value [com.predisw.util.DateFormatUtil$1@1563100]) and a value of type [java.text.SimpleDateFormat] (value [java.text.SimpleDateFormat@f67a0200]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.270 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [com.predisw.util.DateFormatUtil$1] (value [com.predisw.util.DateFormatUtil$1@1eb857d]) and a value of type [java.text.SimpleDateFormat] (value [java.text.SimpleDateFormat@ac880840]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.270 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [com.predisw.util.DateFormatUtil$1] (value [com.predisw.util.DateFormatUtil$1@18f2b86]) and a value of type [java.text.SimpleDateFormat] (value [java.text.SimpleDateFormat@88c7dd60]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.271 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [com.predisw.util.DateFormatUtil$1] (value [com.predisw.util.DateFormatUtil$1@1563100]) and a value of type [java.text.SimpleDateFormat] (value [java.text.SimpleDateFormat@f67a0200]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.271 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [org.apache.poi.hssf.usermodel.HSSFCellStyle$1] (value [org.apache.poi.hssf.usermodel.HSSFCellStyle$1@1557e9d]) and a value of type [java.lang.Short] (value [0]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.271 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [java.lang.ThreadLocal] (value [java.lang.ThreadLocal@e848b6]) and a value of type [java.util.ArrayList] (value [[[FORMAT]
+    .indexcode       = 0x0005
+    .isUnicode       = true
+    .formatstring    = "￥"#,##0;"￥"\-#,##0
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0006
+    .isUnicode       = true
+    .formatstring    = "￥"#,##0;[Red]"￥"\-#,##0
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0007
+    .isUnicode       = true
+    .formatstring    = "￥"#,##0.00;"￥"\-#,##0.00
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0008
+    .isUnicode       = true
+    .formatstring    = "￥"#,##0.00;[Red]"￥"\-#,##0.00
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x002A
+    .isUnicode       = true
+    .formatstring    = _ "￥"* #,##0_ ;_ "￥"* \-#,##0_ ;_ "￥"* "-"_ ;_ @_ 
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0029
+    .isUnicode       = true
+    .formatstring    = _ * #,##0_ ;_ * \-#,##0_ ;_ * "-"_ ;_ @_ 
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x002C
+    .isUnicode       = true
+    .formatstring    = _ "￥"* #,##0.00_ ;_ "￥"* \-#,##0.00_ ;_ "￥"* "-"??_ ;_ @_ 
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x002B
+    .isUnicode       = true
+    .formatstring    = _ * #,##0.00_ ;_ * \-#,##0.00_ ;_ * "-"??_ ;_ @_ 
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0017
+    .isUnicode       = true
+    .formatstring    = \$#,##0_);\(\$#,##0\)
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0018
+    .isUnicode       = true
+    .formatstring    = \$#,##0_);[Red]\(\$#,##0\)
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0019
+    .isUnicode       = true
+    .formatstring    = \$#,##0.00_);\(\$#,##0.00\)
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x001A
+    .isUnicode       = true
+    .formatstring    = \$#,##0.00_);[Red]\(\$#,##0.00\)
+[/FORMAT]
+]]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.271 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [com.predisw.util.DateFormatUtil$1] (value [com.predisw.util.DateFormatUtil$1@1eb857d]) and a value of type [java.text.SimpleDateFormat] (value [java.text.SimpleDateFormat@ac880840]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.272 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [com.predisw.util.DateFormatUtil$1] (value [com.predisw.util.DateFormatUtil$1@18f2b86]) and a value of type [java.text.SimpleDateFormat] (value [java.text.SimpleDateFormat@88c7dd60]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.272 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [com.predisw.util.DateFormatUtil$1] (value [com.predisw.util.DateFormatUtil$1@1563100]) and a value of type [java.text.SimpleDateFormat] (value [java.text.SimpleDateFormat@f67a0200]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.272 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [org.apache.poi.hssf.usermodel.HSSFCellStyle$1] (value [org.apache.poi.hssf.usermodel.HSSFCellStyle$1@1557e9d]) and a value of type [java.lang.Short] (value [49]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.273 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [java.lang.ThreadLocal] (value [java.lang.ThreadLocal@e848b6]) and a value of type [java.util.ArrayList] (value [[[FORMAT]
+    .indexcode       = 0x0005
+    .isUnicode       = true
+    .formatstring    = "￥"#,##0;"￥"\-#,##0
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0006
+    .isUnicode       = true
+    .formatstring    = "￥"#,##0;[Red]"￥"\-#,##0
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0007
+    .isUnicode       = true
+    .formatstring    = "￥"#,##0.00;"￥"\-#,##0.00
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0008
+    .isUnicode       = true
+    .formatstring    = "￥"#,##0.00;[Red]"￥"\-#,##0.00
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x002A
+    .isUnicode       = true
+    .formatstring    = _ "￥"* #,##0_ ;_ "￥"* \-#,##0_ ;_ "￥"* "-"_ ;_ @_ 
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0029
+    .isUnicode       = true
+    .formatstring    = _ * #,##0_ ;_ * \-#,##0_ ;_ * "-"_ ;_ @_ 
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x002C
+    .isUnicode       = true
+    .formatstring    = _ "￥"* #,##0.00_ ;_ "￥"* \-#,##0.00_ ;_ "￥"* "-"??_ ;_ @_ 
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x002B
+    .isUnicode       = true
+    .formatstring    = _ * #,##0.00_ ;_ * \-#,##0.00_ ;_ * "-"??_ ;_ @_ 
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0017
+    .isUnicode       = true
+    .formatstring    = \$#,##0_);\(\$#,##0\)
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0018
+    .isUnicode       = true
+    .formatstring    = \$#,##0_);[Red]\(\$#,##0\)
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x0019
+    .isUnicode       = true
+    .formatstring    = \$#,##0.00_);\(\$#,##0.00\)
+[/FORMAT]
+, [FORMAT]
+    .indexcode       = 0x001A
+    .isUnicode       = true
+    .formatstring    = \$#,##0.00_);[Red]\(\$#,##0.00\)
+[/FORMAT]
+]]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.273 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [com.predisw.util.DateFormatUtil$1] (value [com.predisw.util.DateFormatUtil$1@1eb857d]) and a value of type [java.text.SimpleDateFormat] (value [java.text.SimpleDateFormat@ac880840]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:18.273 SEVERE [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.loader.WebappClassLoaderBase.checkThreadLocalMapForLeaks The web application [SkylineRate] created a ThreadLocal with key of type [com.predisw.util.DateFormatUtil$1] (value [com.predisw.util.DateFormatUtil$1@18f2b86]) and a value of type [java.text.SimpleDateFormat] (value [java.text.SimpleDateFormat@88c7dd60]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+21-Nov-2015 11:42:20.541 INFO [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+21-Nov-2015 11:42:25.508 INFO [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.core.StandardContext.reload Reloading Context with name [/SkylineRate] is completed
+21-Nov-2015 13:32:43.172 INFO [Thread-5] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]

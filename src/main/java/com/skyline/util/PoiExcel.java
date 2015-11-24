@@ -67,7 +67,7 @@ public class PoiExcel {
 
             String fileType=fileName.substring(fileName.lastIndexOf(".")+1,fileName.length());  
                 if (fileType.equals("xls")) {    
-                    workbook = new HSSFWorkbook(new FileInputStream(fileName));  
+                    workbook = new HSSFWorkbook();  
                 }    
                 else if(fileType.equals("xlsx"))    
                 {    
@@ -410,5 +410,106 @@ public class PoiExcel {
 		fOut.close();
 	}
 	
+	/**
+	 *到处list 中的内容到文件名fileName 的文件内 
+	 * @param list 
+	 * @param fileName 
+	 * @param db_header 
+	 * @param excel_header
+	 * @param str_date
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
+	
+	public void  export(List list ,String fileName,String[] db_header,String[] excel_header,SimpleDateFormat str_date) throws IOException {
+		//判断文件名
+		Workbook workbook =null;
+        String fileType=fileName.substring(fileName.lastIndexOf(".")+1,fileName.length());  
+        if (fileType.equals("xls")) {
+                workbook = new HSSFWorkbook();  
+            }    
+        else if(fileType.equals("xlsx"))
+            {    
+                workbook = new XSSFWorkbook();    
+            }    
+        else    
+            {    
+                throw new IllegalArgumentException(fileType+" is not corrected");
+            }    
+     
+        //创建标题行
+        Sheet sheet = workbook.createSheet();
+
+		int firstRow = sheet.getLastRowNum()+1;
+	
+	    CellStyle style = workbook.createCellStyle(); //标题行的单元格格式 
+		Font font = workbook.createFont();
+		font.setBoldweight(XSSFFont.BOLDWEIGHT_BOLD);
+	    style.setFont(font);
+		Row row = sheet.createRow((short)firstRow); //创建第一行作为标题
+
+		for(int i=0;i<excel_header.length;i++){  //给excel 的第一行设置表头的标题
+			Cell cell = row.createCell(i);
+			cell.setCellStyle(style);
+			cell.setCellType(XSSFCell.CELL_TYPE_STRING);
+			cell.setCellValue(excel_header[i]);
+		}
+		
+		
+		//---------------------------写入list 的内容到excel----------------
+		CellStyle cellStyle = workbook.createCellStyle(); //excel 内容的单元格格式 
+		cellStyle.setAlignment(XSSFCellStyle.ALIGN_LEFT);  //主要是为了解决double 类型的单元格数值没有左对齐,都右对齐了
+		//对应于headers 的方法数组集合
+		Class cls=list.get(0).getClass();
+		String[] methods = new String[db_header.length];
+		for(int i=0;i<db_header.length;i++){
+			methods[i]="get"+ db_header[i].substring(0, 1).toUpperCase()+ db_header[i].substring(1);
+		}
+		//将list 的元素对象的域值一一按照db_headers的顺序写入excel 表中
+		 for(int i=0;i<list.size();i++){
+			 row = sheet.createRow(i+firstRow+1); // 跳过第标题行
+			 for(int j=0;j<db_header.length;j++){
+				Cell cell = row.createCell(j);
+				 cell.setCellStyle(cellStyle);
+				 Method method=null;
+				try {
+					method = cls.getMethod(methods[j]);
+				} catch (NoSuchMethodException | SecurityException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				 try {
+					if(method.invoke(list.get(i)) instanceof Double){
+						 Double d_value=(Double)(method.invoke(list.get(i)));
+						 cell.setCellValue(d_value);
+						 cell.setCellType(Cell.CELL_TYPE_NUMERIC); //java double 类型的数值输出形式(toString)默认为科学计数法 的表示形式,所以保存为小数形式到excel中
+						 
+					 }else if(method.invoke(list.get(i)) instanceof Date){ //如果是时间类型,则格式化
+						 Date d_value=(Date)(method.invoke(list.get(i)));
+						 cell.setCellValue(str_date.format(d_value));
+						 
+					 }else if(method.invoke(list.get(i))==null){ //假如是null 对象,则写入空字符串到excel 中
+						 cell.setCellValue(""); 
+					 }else{
+
+						String value=String.valueOf(method.invoke(list.get(i))); 
+						cell.setCellValue(value); //list 元素对象的方法
+					 
+					 }
+				} catch (IllegalAccessException | IllegalArgumentException
+						| InvocationTargetException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			 }
+		 }
+
+
+    	//写出内容到文件	
+    	FileOutputStream fOut = new FileOutputStream(fileName);
+    	workbook.write(fOut);
+    	fOut.flush();
+    	fOut.close();
+	}
 	
 }
