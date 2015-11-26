@@ -13,6 +13,8 @@
 	<div>
 <h2>SkylineRate System <span style="font-size: small;">version ${version}</span></h2>
 
+2015-11-26<br />
+客户历史报价处添加disable 报价功能<br />
 2015-11-24<br />
 添加 报价下载和地区详情下载<br />
 2015-11-21 <br />

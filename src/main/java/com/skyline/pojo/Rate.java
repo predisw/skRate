@@ -44,9 +44,7 @@ public class Rate extends BaseRate  implements Cloneable, java.io.Serializable {
 
 
 	
-	public String forLog(){
-		return "vosId:"+this.getVosId()+"-code: "+this.getCode();
-	}
+
 	
 	
 

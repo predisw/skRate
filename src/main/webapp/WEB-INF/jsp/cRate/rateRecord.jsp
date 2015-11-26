@@ -7,6 +7,7 @@
 <head>
 <link href="${pageContext.request.contextPath}/css/rateRecord.css"  rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/my.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.min.js" ></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>报价记录</title>
 </head>
@@ -43,7 +44,14 @@
 			
 			<input type="submit" value="查询"/>
 
+			
 		</form>
+		<input type="button" style="position: absolute;right: 10%;" value="Disable"  onclick="if(check())if(confirm('确定修改?'))disalbeRate()"/>
+
+
+		
+
+		
 		
 	</div>
 
@@ -83,8 +91,9 @@
 	<div class="content">
 		<c:forEach items="${cList }" var="c" > <!--根据国家获取对应rate的记录  -->
 			<div class="c_head">${c }</div>
-			<table>
+			<table >
 				<tr>
+					<th style="width:5px;"><input type="checkbox" id="${c}id"     onChange="select_checkbox('${c}id','${c }id')"  /></th>
 					<th  style="width:12%;">vosId</th>
 					<th >operator</th>
 					<th style="width:11%;">code</th>
@@ -98,7 +107,8 @@
 		
 					<c:forEach items="${page.data }" var="r">
 						<c:if test="${c==r.country }">
-							<tr>
+							<tr id="${r.RId }">
+								<td name="rate_id"><input type="checkbox"  name="${r.country}id"   value="${r.RId}"/></td>
 								<td>${r.bakVosId }</td>
 								<td>${r.operator } </td>
 								<td>${r.code } </td>
@@ -171,6 +181,64 @@ onload=function isScrolled(){
 			page_div.style.display="";
 		}
 }
+
+
+function select_checkbox(id,name){
+	var check=document.getElementById(id);
+	var checks = document.getElementsByName(name);
+	for(var j=0;j<checks.length;j++){
+			checks[j].checked=check.checked;
+		}
+}
+
+function check(){
+
+	var checktd=document.getElementsByName('rate_id');
+	for(var i=0;i<checktd.length;i++){
+		if(checktd[i].firstChild.checked){
+			return true;
+		}
+	}
+	alert("请先选择行!!");
+	return false;
+}
+
+function disalbeRate(){
+	var checktd=document.getElementsByName('rate_id');
+	
+	var rIds="";
+	for(var i=0;i<checktd.length;i++){
+		if(checktd[i].firstChild.checked){
+			if(rIds.length>1)rIds+=",";
+			var id = checktd[i].firstChild.value;
+			rIds+=id;
+			}
+	}
+
+	var url="${pageContext.request.contextPath}/cRate/disableRate.do";	
+	$(function(){
+		$.post(url,{"rIds":rIds},function(data){
+			alert(data);
+			if(data=="success"){
+				(function(){
+					var ids=JSON.parse("["+rIds+"]");
+					for(var i=0;i<ids.length;i++){
+						var tr=document.getElementById(ids[i]);
+						tr.parentNode.removeChild(tr);  //神奇的用法。
+					}
+				})
+				();
+			}
+
+		});
+	});
+
+	
+	
+}
+
+
+
 
 </script>
 

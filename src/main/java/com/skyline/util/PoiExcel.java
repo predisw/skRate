@@ -67,7 +67,7 @@ public class PoiExcel {
 
             String fileType=fileName.substring(fileName.lastIndexOf(".")+1,fileName.length());  
                 if (fileType.equals("xls")) {    
-                    workbook = new HSSFWorkbook();  
+                    workbook = new HSSFWorkbook(new FileInputStream(fileName));
                 }    
                 else if(fileType.equals("xlsx"))    
                 {    

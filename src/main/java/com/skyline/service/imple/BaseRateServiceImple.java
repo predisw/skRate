@@ -8,10 +8,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.predisw.util.DateFormatUtil;
 import com.predisw.util.NumberUtils;
@@ -19,8 +23,11 @@ import com.skyline.dao.BaseDao;
 import com.skyline.dao.BaseRateDao;
 import com.skyline.dao.imple.BaseRateDaoImple;
 import com.skyline.pojo.BaseRate;
+import com.skyline.pojo.Log;
 import com.skyline.pojo.Rate;
+import com.skyline.pojo.User;
 import com.skyline.service.BaseRateService;
+import com.skyline.service.LogService;
 import com.skyline.util.PageInfo;
 import com.skyline.util.PoiExcel;
 
@@ -32,6 +39,8 @@ public class BaseRateServiceImple  implements BaseRateService{
 	private BaseDao baseDao;
 	@Autowired
 	private BaseRateDao baseRateDao;
+	@Autowired
+	private LogService logService;
 
 	
 	@Override
@@ -147,8 +156,8 @@ public class BaseRateServiceImple  implements BaseRateService{
 
 	@Override
 	public boolean checkExcel(String fileName, String[] excelHeaders,String vosId) throws FileNotFoundException, IOException {
-		// TODO Auto-generated method stub
-		List<String[]> rateList =poiExcel.readByPoi(fileName, 0, excelHeaders);
+		System.out.println(fileName);
+		List<String[]> rateList =poiExcel.readByPoi(fileName,0, excelHeaders);
 		return vosId.equals(rateList.get(0)[0]);
 	}
 
@@ -212,6 +221,26 @@ public class BaseRateServiceImple  implements BaseRateService{
 		return baseRateDao.getAllLastRate(vosId, clazz);
 	}
 
+	@Override
+	public void setRatesCorrected(String[] ids,Class<? extends BaseRate> clazz,boolean is_corrected){
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+		for(String id:ids){
+			BaseRate rate=(BaseRate) baseDao.getById(clazz, Integer.valueOf(id));
+			User user =(User)request.getSession().getAttribute("user");
+			rate.setIsCorrect(is_corrected);
+			baseDao.update(rate);
+			
+			Log log = new Log();
+			log.setContent(rate.forLog());
+			log.setWho(user.getUName());
+			log.setHow("disable");
+			log.setWhat("报价");
+			log.setTime(new Date());
+			logService.saveLog(log);
+			
+		}
+		
+	}
 	
 
 	

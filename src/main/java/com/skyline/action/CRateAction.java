@@ -352,14 +352,26 @@ public class CRateAction {
 		req.getRequestDispatcher("getRateRecord.do").forward(req, res);
 	}
 	
-
-	public void exportRate(HttpServletRequest req,HttpServletResponse res){
-		
-		String vosId = req.getParameter("vosId");
-
-		
-		
+@RequestMapping("disableRate.do")
+public void disableRate(HttpServletRequest req,HttpServletResponse res) throws IOException{
+	
+	String rIds=req.getParameter("rIds");
+	String[] ids=rIds.split(",");
+	if("".equals(rIds)){
+		ids=new String[0];
 	}
+	String Message="success";
+	try{
+		baseRateService.setRatesCorrected(ids, Rate.class,false);
+	}catch(Exception e){
+		logger.error("",e);
+		Message=e.getClass().getName()+":"+e.getMessage();
+	}
+	
+	res.getWriter().write(Message);
+}
+	
+	
 	
 	
 	

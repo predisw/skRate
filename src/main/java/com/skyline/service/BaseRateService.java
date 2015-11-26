@@ -27,4 +27,7 @@ public interface BaseRateService extends BaseRateDao{
 	
 
 	public void setChangeStatus(BaseRate oldRate, BaseRate newRate);
+
+
+	void setRatesCorrected(String[] ids, Class<? extends BaseRate> clazz,boolean is_corrected);
 }
