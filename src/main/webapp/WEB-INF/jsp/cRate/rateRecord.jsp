@@ -46,8 +46,10 @@
 
 			
 		</form>
+		<!-- 权限控制 -->
+		<c:if test="${pStatus['crate-disable']==true }">
 		<input type="button" style="position: absolute;right: 10%;" value="Disable"  onclick="if(check())if(confirm('确定修改?'))disalbeRate()"/>
-
+		</c:if>
 
 		
 
