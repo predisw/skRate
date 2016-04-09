@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@include file="/index.jsp" %>        
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -106,9 +107,8 @@
 					<th style="width:10%;">expire_date</th>
 					<th  style="width:10%;">备注</th>
 				</tr>
-		
 					<c:forEach items="${page.data }" var="r">
-						<c:if test="${c==r.country }">
+						<c:if test="${fn:trim(c)==fn:trim(r.country)}">
 							<tr id="${r.RId }">
 								<td name="rate_id"><input type="checkbox"  name="${r.country}id"   value="${r.RId}"/></td>
 								<td>${r.bakVosId }</td>
@@ -122,7 +122,7 @@
 
 								<td>${r.remark }</td>
 							</tr> 
- 						</c:if>
+						</c:if> 
 				</c:forEach>
 				</table>
 		</c:forEach> 

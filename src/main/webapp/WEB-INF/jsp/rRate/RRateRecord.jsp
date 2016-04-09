@@ -3,7 +3,7 @@
     pageEncoding="UTF-8"%>
 <%@include file="/index.jsp" %>        
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html>
 <head>
 <link href="${pageContext.request.contextPath}/css/rateRecord.css"  rel="stylesheet" type="text/css" />
@@ -129,7 +129,7 @@
 		
 				
 					<c:forEach items="${page.data }" var="r" varStatus="index">
-						<c:if test="${c==r.country }">
+						<c:if test="${fn:trim(c)==fn:trim(r.country)}">
 						
 							<tr >
 								<td  name="id" ><input type="checkbox"  name="${r.country}id"  value="${r.id}"/></td>
