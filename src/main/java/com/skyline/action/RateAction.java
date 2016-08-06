@@ -432,20 +432,29 @@ public class RateAction {
 			for(int j=0;j<ccList.size();j++){
 				tmpList=rateService.getRateByCid(cusList.get(0).getCId(), ccList.get(j).getCode(),true,true,true); //会返回多个,但是已经根据发送时间排序,desc
 				//如果这个客户没有这个code ,就把这个code 的资料放到rateList 中去,方便前台jsp 显示和提交到保存action
+				
+			
 				if(tmpList==null || tmpList.size()==0){ 
-					Rate rate=new Rate();  //可否放到循环外面??
 					//保存国家code 信息
+					Rate rate=new Rate();  //可否放到循环外面??
 					rate.setCountry(ccList.get(j).getCountry());
 					rate.setCode(ccList.get(j).getCode());
 					rate.setOperator(ccList.get(j).getOperator());
 					rateList.add(rate);
 
 				}else{
-					rateList.add(tmpList.get(0));  //如果为空会如何?i mean tmpList
+					Rate rate_n= tmpList.get(0);
+					rate_n.setCountry(ccList.get(j).getCountry());
+					rate_n.setCode(ccList.get(j).getCode());
+					rate_n.setOperator(ccList.get(j).getOperator());
+					rateList.add(rate_n);  //如果为空会如何?i mean tmpList
 				}
 
 				tmpList.clear();
 			}
+			
+			//修改这些code 的country，c_code, operator 以便和country_code 表同步，避免修改了country_code 信息而这里的rate 不改变。
+			
 			
 			
 			Rate rate=null;

@@ -13,6 +13,8 @@
 	<div>
 <h2>SkylineRate System <span style="font-size: small;">version ${version}</span></h2>
 
+2016-08-06<br />
+修复 ”更改地区信息，发报价时新的地区信息不生效“ 的bug<br />
 2015-11-26<br />
 客户历史报价处添加disable 报价功能<br />
 2015-11-24<br />
