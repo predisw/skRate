@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -58,6 +59,12 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
+
+
+
+
+
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.StaleObjectStateException;
 import org.json.JSONArray;
@@ -400,9 +407,13 @@ public class RateAction {
 				}
 				if(sr.getCmtContent()!=null && sr.getCmtContent()){
 					String mail_content=email.getContent();
-					mail_content=mail_content.replace("</p>", "</p>\\");
-					mail_content=mail_content.replace("<br />", "</br />\\");
-					mail_content=mail_content.replace("\n\r", "\\"); //注意在linux 服务器中不是"\n" 而是"\n\r"
+					
+					mail_content=new String(Base64.encodeBase64(mail_content.getBytes(Charset.forName("UTF-8"))),"utf-8");
+					//mail_content=java.net.URLEncoder.encode(mail_content,"utf-8");
+					
+					//mail_content=mail_content.replace("</p>", "</p>\\");
+					//mail_content=mail_content.replace("<br />", "</br />\\");
+					//mail_content=mail_content.replace("\n\r", "\\"); //注意在linux 服务器中不是"\n" 而是"\n\r"
 					req.setAttribute("mail_content", mail_content);
 				}
 				if(sr.getCmtSubject()!=null && sr.getCmtSubject()){

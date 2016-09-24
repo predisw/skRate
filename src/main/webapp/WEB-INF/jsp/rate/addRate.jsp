@@ -7,6 +7,7 @@
 <head>
 <script src="${pageContext.request.contextPath}/js/jquery.min.js" ></script>
 <script src="${pageContext.request.contextPath}/js/my.js" ></script>
+<script src="${pageContext.request.contextPath}/js/Base64.js" ></script>
 <link href="${pageContext.request.contextPath}/css/progress.css" rel="stylesheet" type="text/css"/>
 <link href="${pageContext.request.contextPath}/css/addRate.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/ckeditor/ckeditor.js"></script>
@@ -232,7 +233,14 @@ ${cus.vosId}/${cus.CId}
 
 CKEDITOR.replace('mail_content_org');
 var ckeditor=document.getElementById("mail_content_org");
-ckeditor.innerHTML='${mail_content}';
+
+var contentArr=BASE64.decoder('${mail_content}');
+var contentStr='';
+for(var i = 0 , len =  contentArr.length ; i < len ;++i){  
+	contentStr += String.fromCharCode(contentArr[i]);  
+}  
+
+ckeditor.innerHTML=contentStr;
 //清空 session 中关于进度条的 变量
 <% request.getSession().removeAttribute("sendMailProgress");%>;
 
@@ -522,7 +530,7 @@ function getRateArray(){
  		if (xmlhttp!=null)
  		  {
 
- 	 	 	var url="/SkylineRate/checkBeforeMail.do";
+ 	 	 	var url= "${pageContext.request.contextPath}/checkBeforeMail.do";
  		  	xmlhttp.open("POST",url,false);
  		  	xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");  
  		 	xmlhttp.send("params="+str);
